@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# MCP server entry point referenced by .mcp.json.
+#
+# Installing here rather than relying only on the SessionStart hook removes a
+# race: Claude Code connects to MCP servers at startup, and there is no ordering
+# guarantee against hooks. This blocks until the binary exists, so the very
+# first session on a fresh container gets a working server.
+set -uo pipefail
+
+HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+"$HERE/../hooks/cbm-ensure.sh" || exit 1
+
+exec "${CBM_BIN:-$HOME/.local/bin/codebase-memory-mcp}" "$@"
