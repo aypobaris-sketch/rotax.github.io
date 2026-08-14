@@ -1,0 +1,14 @@
+# Barse Kurye
+
+> İstanbul'un 39 ilçesinde ve Türkiye genelinde moto kurye, express kurye, VIP kurye, şehirlerarası, uçak ve gümrük kurye hizmeti sunan bir kurye firması.
+
+## Temel Bilgiler
+- Hizmet bölgesi: İstanbul (39 ilçe) + Türkiye geneli
+- Telefon: 0534 761 83 88
+- E-posta: info@barsekurye.com
+- Adres: Talatpaşa Mah. Aydoğan Cad. No:28 D:3, Kağıthane / İstanbul
+
+## Sayfalar
+- Anasayfa: https://barsekurye.com/
+- Hakkımızda: https://barsekurye.com/hakkimizda.html
+- Tüm İlçeler: https://barsekurye.com/istanbul-ici-kurye.html

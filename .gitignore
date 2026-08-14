@@ -1,0 +1,32 @@
+# Barse Kurye sitesi: sunucu tarafı ve veri dosyaları asla depoya girmemeli.
+# Site cPanel'de PHP ile çalışıyor; burada yalnızca statik ön yüz tutuluyor.
+# Depo public olduğu için bu satırlar kazara ifşayı önlüyor.
+
+# Yönetici paneli ve iş mantığı (şifre içeriyor)
+barsekurye/**/*.php
+
+# Ziyaretçi logları (IP adresleri) ve iş kayıtları (adres, ücret, kurye)
+barsekurye/data/
+*.csv.yedek-*
+ziyaret-log.csv
+tiklama-kayit.csv
+engelli-ip.json
+isler.json
+
+# Sunucu yapılandırması (hesap yolu ve dizin kuralları)
+.htaccess
+.user.ini
+.well-known/
+
+# Fiyat hesaplayıcının ön yüzü — 73 sayfanın hiçbiri çağırmıyor,
+# panele bağlı çalışıyor, iş mantığı içeriyor.
+barsekurye/hesap.js
+barsekurye/hesap-js-eklentisi
+
+# Sunucudan gelen arşivler ve siteye ait olmayan görseller
+*.zip
+IMG-*.jpg
+
+# Python önbelleği
+__pycache__/
+*.pyc

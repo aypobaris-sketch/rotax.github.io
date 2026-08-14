@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://barsekurye.com/sitemap.xml
+
+# AI / LLM discoverability
+# llms.txt: https://barsekurye.com/llms.txt
