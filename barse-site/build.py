@@ -991,6 +991,56 @@ def hata_sayfa(ilceler):
 
 # ─────────────────────────────────────────────────────────────── DERLEME
 
+OKU_BENI = """BARSE KURYE — YENİ SİTE
+=======================
+
+CPANEL'E NASIL YÜKLENİR
+-----------------------
+1. cPanel > Dosya Yoneticisi (File Manager) > public_html klasorunu acin.
+2. ONCE YEDEK ALIN: public_html icindeki her seyi secip "Compress" ile
+   yedek.zip yapin ve indirin. Bir sey ters giderse geri donebilirsiniz.
+3. barse-site.zip dosyasini public_html icine yukleyin (Upload).
+4. Yuklenen zip'e sag tiklayip "Extract" (Cikart) deyin.
+5. Zip dosyasini ve bu OKU-BENI.txt dosyasini silin.
+6. Siteyi acip kontrol edin.
+
+ONEMLI: Eski sitedeki PHP dosyalari (panel.php, hesapla.php, hit.php,
+sayac.php, takip.php, log-kaydet.php, ziyaret-kaydet.php, bot-koruma.php,
+rapor.php, sifirla.php, ziyaretci.php) ve data/ klasoru bu pakette YOK.
+Ziyaretci sayacinizi ve panelinizi kullanmaya devam edecekseniz o
+dosyalari SILMEYIN - yeni dosyalari uzerine yazin, PHP'ler yerinde kalsin.
+
+
+NE DEGISTI
+----------
+- 73 sayfanin tamami yeni tasarimla yeniden yazildi.
+- URL'LERIN HICBIRI DEGISMEDI - Google'daki siralamaniz korunur.
+- Fiyat hesaplayici aynen korundu (hesap.js'e dokunulmadi).
+  Taban 380 TL, eczane sabit 400 TL, gece/hafta sonu +100 TL.
+- Her ilce sayfasi artik gercek veriye dayali: merkeze uzaklik,
+  ortalama teslim suresi, taban tarife, mahalle listesi, komsu ilceler.
+- Mobilde ekranin altinda sabit "Hemen Ara / WhatsApp" cubugu eklendi.
+- sitemap.xml, robots.txt ve .htaccess yenilendi.
+- Facebook sayfasi ve Google isletme kimligi yapisal veriye eklendi.
+
+
+TELEFON VEYA ADRES DEGISIRSE
+----------------------------
+Numaraniz 0534 761 83 88 olarak 73 sayfaya islendi. Degisirse tek tek
+duzeltmek yerine haber verin, tum siteyi yeniden uretip gonderelim.
+
+
+KONTROL LISTESI (yukledikten sonra)
+-----------------------------------
+[ ] Ana sayfa aciliyor mu?
+[ ] Telefon numarasina dokununca arama basliyor mu?
+[ ] WhatsApp butonu dogru numaraya gidiyor mu?
+[ ] Fiyat hesaplama calisiyor mu? (Levent -> Kadikoy deneyin)
+[ ] Bir ilce sayfasi aciliyor mu? (or. kadikoy-kurye.html)
+[ ] Olmayan bir adres yazinca 404 sayfasi cikiyor mu?
+[ ] Google Search Console'da sitemap.xml'i yeniden gonderin.
+"""
+
 HTACCESS = """# Barse Kurye — Apache ayarları
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
@@ -1107,6 +1157,7 @@ def main():
     if os.path.isdir(os.path.join(KAYNAK, 'images')):
         shutil.copytree(os.path.join(KAYNAK,'images'), os.path.join(CIKTI,'images'))
 
+    open(os.path.join(CIKTI,'OKU-BENI.txt'),'w',encoding='utf-8').write(OKU_BENI)
     open(os.path.join(CIKTI,'.htaccess'),'w',encoding='utf-8').write(HTACCESS)
     open(os.path.join(CIKTI,'robots.txt'),'w',encoding='utf-8').write(ROBOTS)
     open(os.path.join(CIKTI,'sitemap.xml'),'w',encoding='utf-8').write(sitemap(sorted(sayfalar)))
