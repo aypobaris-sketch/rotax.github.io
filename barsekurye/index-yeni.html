@@ -32,8 +32,9 @@
   --ink:#0A1E3D;          /* ana lacivert */
   --ink-2:#0F2A52;        /* yüzey lacivert */
   --ink-3:#1B3C6E;        /* kenarlık lacivert */
-  --blue:#2563EB;         /* takip mavisi */
-  --blue-soft:#EFF4FF;
+  --blue:#0E7490;         /* marka camgöbeği — filo ve ekipmanla aynı aile */
+  --blue-bright:#22D3EE;  /* koyu zeminde marka vurgusu */
+  --blue-soft:#ECFBFE;
   --accent:#EA580C;       /* teslimat turuncusu */
   --accent-dark:#C2410C;
   --bg:#F7F9FC;
@@ -113,12 +114,23 @@ img{max-width:100%; height:auto; display:block}
 @media(max-width:900px){.nav{display:none}}
 
 /* --- hero --- */
+/* Gerçek saha fotoğrafı zemin olarak: gece Boğaz Köprüsü'nde Barse kuryesi.
+   Üstteki lacivert katman metnin okunmasını garanti eder — fotoğraf
+   atmosferi verir, kontrastı taşıyan katman ise gradyandır. */
 .hero{
   background:
-    radial-gradient(1000px 520px at 82% -12%, rgba(37,99,235,.42), transparent 62%),
-    radial-gradient(760px 420px at 6% 108%, rgba(234,88,12,.20), transparent 60%),
+    linear-gradient(100deg, rgba(10,30,61,.97) 0%, rgba(10,30,61,.90) 42%, rgba(10,30,61,.62) 100%),
+    radial-gradient(760px 420px at 6% 108%, rgba(34,211,238,.16), transparent 60%),
+    url('images/02-motor/gece-bogazici-koprusu-kurye.webp') center right / cover no-repeat,
     var(--ink);
   color:#fff; padding:clamp(60px,8vw,104px) 0 0; position:relative; overflow:hidden;
+}
+@media(max-width:940px){
+  /* Dar ekranda fotoğraf metnin arkasında kalabalık yapıyor: karartmayı artır. */
+  .hero{background:
+    linear-gradient(180deg, rgba(10,30,61,.95) 0%, rgba(10,30,61,.93) 60%, rgba(10,30,61,.97) 100%),
+    url('images/02-motor/gece-bogazici-koprusu-kurye.webp') center / cover no-repeat,
+    var(--ink);}
 }
 .hero h1{color:#fff; max-width:16ch}
 .hero .lead{color:#C5D4EA; font-size:1.16rem; max-width:56ch}
@@ -160,6 +172,17 @@ img{max-width:100%; height:auto; display:block}
   transition:transform .18s, box-shadow .18s, border-color .18s; display:flex; flex-direction:column}
 .card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:#CBD8EC}
 .card.featured{border-color:var(--accent); border-width:2px; position:relative}
+.card-img{
+  margin:-28px -28px 20px; border-radius:var(--radius) var(--radius) 0 0; overflow:hidden;
+  aspect-ratio:16/9; background:var(--blue-soft);
+}
+.card-img img{width:100%; height:100%; object-fit:cover; transition:transform .4s}
+.card:hover .card-img img{transform:scale(1.04)}
+.card.featured .card-img{margin-top:-29px}
+/* Hakkımızda: metin ve saha fotoğrafı yan yana */
+.about{display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center; margin-top:2.4rem}
+@media(max-width:880px){.about{grid-template-columns:1fr; gap:28px}}
+.about img{border-radius:var(--radius); box-shadow:var(--shadow-lg); width:100%}
 .tag{
   display:inline-block; font-family:'Lexend',sans-serif; font-size:.68rem; font-weight:700;
   letter-spacing:.12em; text-transform:uppercase; padding:.42em .85em; border-radius:6px;
@@ -314,6 +337,7 @@ details p{padding:0 0 19px; color:var(--muted); margin:0}
 
     <div class="cards">
       <article class="card">
+        <div class="card-img"><img src="images/03-teslimat/kurumsal-ofis-teslimat.webp" alt="Kurumsal ofiste evrak teslimatı yapan Barse kuryesi" loading="lazy" width="1408" height="768"></div>
         <span class="tag">Ekonomik</span>
         <h3>Normal Teslimat</h3>
         <p>Gün içinde ulaşması gereken evrak ve paketler için planlı, ekonomik çözüm.</p>
@@ -321,6 +345,7 @@ details p{padding:0 0 19px; color:var(--muted); margin:0}
       </article>
 
       <article class="card featured">
+        <div class="card-img"><img src="images/06-hizmet/express-kurye-sure.webp" alt="Express kurye hizmetiyle acil gönderi taşıyan moto kurye" loading="lazy" width="1408" height="768"></div>
         <span class="tag">Öncelikli</span>
         <h3>Express Teslimat</h3>
         <p>Acil gönderileriniz için en yakın ekip hızlıca yönlendirilir, taşıma önceliklidir.</p>
@@ -328,6 +353,7 @@ details p{padding:0 0 19px; color:var(--muted); margin:0}
       </article>
 
       <article class="card">
+        <div class="card-img"><img src="images/06-hizmet/vip-kurye-ozel-teslimat.webp" alt="VIP kurye ile özel ve doğrudan teslimat" loading="lazy" width="1408" height="768"></div>
         <span class="tag">En Hızlı</span>
         <h3>VIP Teslimat</h3>
         <p>Gönderiniz tek seferde, doğrudan ve bekletmeden teslim edilir. En kısa sürede kapıda.</p>
@@ -385,8 +411,13 @@ details p{padding:0 0 19px; color:var(--muted); margin:0}
   <div class="wrap">
     <p class="eyebrow">Hakkımızda</p>
     <h2>İstanbul'da güvenilir kurye ortağınız</h2>
-    <p class="lead" style="max-width:72ch">Barse olarak İstanbul'un 39 ilçesinde motorlu ve araçlı taşıma hizmeti veriyor, evrak, koli ve değerli gönderilerinizi güvenle ulaştırıyoruz. Şehir içi teslimatların yanında havayolu ve gümrük seçenekleriyle Türkiye geneline de hizmet sunuyoruz.</p>
-    <p class="lead" style="max-width:72ch">Operasyon ekibimiz, her talebi en yakın sürücüye anında yönlendirerek teslim süresini kısaltmayı ve gönderinizin her aşamasını izlenebilir tutmayı hedefler.</p>
+    <div class="about">
+      <div>
+        <p class="lead" style="max-width:60ch">Barse olarak İstanbul'un 39 ilçesinde motorlu ve araçlı taşıma hizmeti veriyor, evrak, koli ve değerli gönderilerinizi güvenle ulaştırıyoruz. Şehir içi teslimatların yanında havayolu ve gümrük seçenekleriyle Türkiye geneline de hizmet sunuyoruz.</p>
+        <p class="lead" style="max-width:60ch">Operasyon ekibimiz, her talebi en yakın sürücüye anında yönlendirerek teslim süresini kısaltmayı ve gönderinizin her aşamasını izlenebilir tutmayı hedefler.</p>
+      </div>
+      <img src="images/01-ofis/operasyon-merkezi-genel.webp" alt="Barse Kurye operasyon merkezi ve yönlendirme ekibi" loading="lazy" width="1408" height="768">
+    </div>
   </div>
 </section>
 
