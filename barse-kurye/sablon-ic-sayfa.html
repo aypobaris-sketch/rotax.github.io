@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     İÇ SAYFA ŞABLONU — hizmet ve ilçe sayfalarının tamamı bunu kullanır.
+     72 sayfanın ~60'ı bu şablondur.
+
+     DEĞİŞTİRİLECEK ALANLAR (her sayfada BENZERSİZ olmalı):
+       [BOLGE]      → Kadıköy
+       [HIZMET]     → moto kurye
+       [SLUG]       → kadikoy-kurye
+     KOPYALA-YAPIŞTIR METİN YASAK: aşağıdaki "Bölgeye özel" bloklarını
+     her sayfada gerçekten farklı yazın — aynı metni ilçe adı değiştirerek
+     çoğaltmak Google'da "thin/duplicate content" cezası getirir.
+     ══════════════════════════════════════════════════════════════════════ -->
+
+<title>Kadıköy Moto Kurye | 30 Dakikada Teslimat – Barse Kurye</title>
+<meta name="description" content="Kadıköy ve çevresinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderiler ortalama 30 dakikada teslim. Hemen arayın: {{TELEFON}}">
+<link rel="canonical" href="https://www.barsekurye.com/kadikoy-kurye/">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Kadıköy Moto Kurye | 30 Dakikada Teslimat">
+<meta property="og:description" content="Kadıköy'de 7/24 moto kurye hizmeti. Evrak, ilaç ve kurumsal gönderiler.">
+<meta property="og:url" content="https://www.barsekurye.com/kadikoy-kurye/">
+<meta property="og:image" content="https://www.barsekurye.com/assets/og-kapak.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#1D4ED8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/barse.css">
+</head>
+<body>
+
+<a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+<!-- İkon seti: ana sayfadaki <svg><symbol> bloğunun aynısı buraya gelir.
+     (Aynı blok, 72 sayfada birebir tekrar eder.) -->
+<!-- #include "parcalar/ikonlar.html" -->
+
+<!-- Header: ana sayfadaki header'ın aynısı.
+     TEK FARK: bu sayfaya karşılık gelen menü linkine aria-current="page" -->
+<!-- #include "parcalar/header.html" -->
+
+<main id="icerik">
+
+  <!-- ════════════════ BREADCRUMB ════════════════
+       3+ seviye derinlikte yön bulmayı ve Google'da breadcrumb görünümünü sağlar -->
+  <nav class="breadcrumb wrap" aria-label="Site haritası yolu">
+    <ol>
+      <li><a href="/">Ana Sayfa</a></li>
+      <li><a href="/bolgeler/">Hizmet Bölgeleri</a></li>
+      <li><span aria-current="page">Kadıköy</span></li>
+    </ol>
+  </nav>
+
+  <!-- ════════════════ SAYFA BAŞLIĞI ════════════════ -->
+  <section class="section" style="padding-top:var(--sp-4)">
+    <div class="wrap">
+      <div style="max-width:62ch">
+        <p class="badge"><span class="badge__dot"></span> Kadıköy'de kurye alımı açık · 7/24</p>
+        <h1>Kadıköy Moto Kurye Hizmeti</h1>
+        <p class="hero__lead" style="margin-top:var(--sp-4)">
+          Kadıköy, Moda, Fikirtepe ve Bostancı hattında evrak, ilaç ve kurumsal
+          gönderilerinizi ortalama 30 dakikada teslim ediyoruz.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary btn--lg" href="tel:{{TELEFON_LINK}}">
+            <svg aria-hidden="true"><use href="#i-phone"></use></svg> Kurye Çağır
+          </a>
+          <a class="btn btn--outline btn--lg" href="https://wa.me/{{WHATSAPP}}" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-whatsapp"></use></svg> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ BÖLGEYE ÖZEL BİLGİ TABLOSU ════════════════
+       Bu tablo her ilçede FARKLI değerler içerir → sayfa benzersizleşir. -->
+  <section class="section section--tint" style="padding-block:var(--sp-6)">
+    <div class="wrap">
+      <div class="table-scroll">
+        <table>
+          <caption>Kadıköy bölgesi teslimat bilgileri</caption>
+          <tbody>
+            <tr><th scope="row">Ortalama teslim süresi</th><td>25–35 dakika (ilçe içi)</td></tr>
+            <tr><th scope="row">Çalışma saatleri</th><td>7 gün 24 saat</td></tr>
+            <tr><th scope="row">Sık gidilen noktalar</th><td>Kadıköy Adliyesi, Söğütlüçeşme, Bağdat Caddesi, Acıbadem hastaneleri</td></tr>
+            <tr><th scope="row">Anadolu yakası geçişi</th><td>Ümraniye, Ataşehir, Üsküdar — 35–50 dakika</td></tr>
+            <tr><th scope="row">Avrupa yakası geçişi</th><td>Köprü trafiğine göre 60–90 dakika</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ ANA METİN ════════════════
+       Hedef: 400–700 kelime, GERÇEK ve bölgeye özel bilgi.
+       Anahtar kelimeyi doldurmayın; okunabilir yazın. -->
+  <section class="section">
+    <div class="wrap" style="display:grid;gap:var(--sp-7)">
+      <div class="prose">
+        <h2>Kadıköy'de hangi gönderileri taşıyoruz?</h2>
+        <p>
+          Kadıköy, İstanbul'un en yoğun ofis ve serbest meslek bölgelerinden biri.
+          Bu yüzden bölgede en çok taşıdığımız gönderiler adliye evrakları,
+          muhasebe dosyaları ve eczane teslimatları oluyor.
+        </p>
+        <ul>
+          <li><strong>Evrak ve dosya:</strong> Kadıköy Adliyesi çevresindeki hukuk bürolarına süreli dosya teslimi.</li>
+          <li><strong>İlaç ve reçete:</strong> Bölge eczanelerinden hasta adresine acil ilaç ulaştırma.</li>
+          <li><strong>Kurumsal düzenli tur:</strong> Bağdat Caddesi ve Kozyatağı hattındaki ofisler için sabit saatli günlük kurye.</li>
+          <li><strong>E-ticaret:</strong> Bölgedeki satıcılar için aynı gün müşteri teslimi ve iade toplama.</li>
+        </ul>
+
+        <h2>Kadıköy'de teslimat ne kadar sürüyor?</h2>
+        <p>
+          İlçe içi gönderilerde kurye ortalama 25–35 dakikada teslimatı tamamlıyor.
+          Söğütlüçeşme ve Rıhtım çevresindeki akşam trafiği bu süreyi kısa süreliğine
+          uzatabiliyor; bu saatlerde alternatif güzergâh kullanıyoruz. Avrupa yakasına
+          geçen gönderilerde köprü yoğunluğu belirleyici oluyor ve süre 60–90 dakikaya çıkabiliyor.
+        </p>
+
+        <div class="callout">
+          <p><strong>Acil bir gönderiniz mi var?</strong> Kadıköy içinde bekleyen kuryemiz varsa
+          süre 15 dakikaya kadar düşebiliyor. Aramanız yeterli:
+          <a href="tel:{{TELEFON_LINK}}">{{TELEFON}}</a></p>
+        </div>
+
+        <h2>Kadıköy'de hizmet verdiğimiz mahalleler</h2>
+        <p>
+          Caferağa, Osmanağa, Rasimpaşa, Fenerbahçe, Kozyatağı, Erenköy, Suadiye,
+          Bostancı, Göztepe, Sahrayıcedit, Fikirtepe, Acıbadem ve Hasanpaşa dahil
+          Kadıköy'ün tüm mahallelerine kurye yönlendiriyoruz.
+        </p>
+      </div>
+
+      <!-- Komşu bölgelere iç link: hem kullanıcı hem SEO için -->
+      <div>
+        <h2 style="font-size:var(--fs-2xl);margin-bottom:var(--sp-4)">Yakındaki diğer bölgeler</h2>
+        <ul class="chips">
+          <li><a href="/uskudar-kurye/">Üsküdar</a></li>
+          <li><a href="/atasehir-kurye/">Ataşehir</a></li>
+          <li><a href="/maltepe-kurye/">Maltepe</a></li>
+          <li><a href="/umraniye-kurye/">Ümraniye</a></li>
+          <li><a href="/bolgeler/">Tüm ilçeler →</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ SAYFAYA ÖZEL SSS ════════════════
+       Her ilçede en az 2 soru bölgeye özel olsun. -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Kadıköy kurye hakkında sık sorulanlar</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Kadıköy Adliyesi'ne evrak teslimi yapıyor musunuz?</summary>
+          <div class="faq__body"><p>Evet. Adliye çevresindeki hukuk bürolarıyla düzenli çalışıyoruz. Süreli dosyalarda teslim saatini önceden bildirin, kuryeyi ona göre planlayalım.</p></div>
+        </details>
+        <details>
+          <summary>Kadıköy'den Avrupa yakasına gönderi taşıyor musunuz?</summary>
+          <div class="faq__body"><p>Evet. Yakalar arası gönderilerde teslim süresi köprü trafiğine göre 60–90 dakika arasında değişiyor ve yakalar arası tarife uygulanıyor.</p></div>
+        </details>
+        <details>
+          <summary>Gece de Kadıköy'e kurye geliyor mu?</summary>
+          <div class="faq__body"><p>Geliyor. 7/24 çalışıyoruz. 22:00–07:00 arasında gece tarifesi geçerlidir; nöbetçi eczane teslimatları bu saatlerde de yapılır.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ SON ÇAĞRI ════════════════ -->
+  <section class="section section--navy cta-band">
+    <div class="wrap">
+      <h2>Kadıköy'de kurye mi lazım?</h2>
+      <p>Arayın, en yakın moto kuryeyi hemen yönlendirelim.</p>
+      <div class="btn-row">
+        <a class="btn btn--accent btn--lg" href="tel:{{TELEFON_LINK}}">
+          <svg aria-hidden="true"><use href="#i-phone"></use></svg> {{TELEFON}}
+        </a>
+        <a class="btn btn--ghost-light btn--lg" href="https://wa.me/{{WHATSAPP}}" rel="noopener">
+          <svg aria-hidden="true"><use href="#i-whatsapp"></use></svg> WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer: ana sayfadakinin aynısı -->
+<!-- #include "parcalar/footer.html" -->
+<!-- Mobil çağrı çubuğu: ana sayfadakinin aynısı -->
+<!-- #include "parcalar/callbar.html" -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     YAPISAL VERİ — iç sayfalarda breadcrumb + FAQ.
+     LocalBusiness'ı iç sayfalarda TEKRARLAMAYIN (sadece ana sayfa).
+     ══════════════════════════════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": "https://www.barsekurye.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Hizmet Bölgeleri", "item": "https://www.barsekurye.com/bolgeler/" },
+    { "@type": "ListItem", "position": 3, "name": "Kadıköy" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Kadıköy Adliyesi'ne evrak teslimi yapıyor musunuz?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Evet. Adliye çevresindeki hukuk bürolarıyla düzenli çalışıyoruz." } },
+    { "@type": "Question", "name": "Kadıköy'den Avrupa yakasına gönderi taşıyor musunuz?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Evet. Teslim süresi köprü trafiğine göre 60–90 dakika arasında değişir." } }
+  ]
+}
+</script>
+
+<!-- Mobil menü scripti: ana sayfadakinin aynısı -->
+<!-- #include "parcalar/script.html" -->
+
+</body>
+</html>
