@@ -507,6 +507,7 @@ def anasayfa(ilceler):
                  "addressRegion":"İstanbul","addressCountry":"TR"},
       "geo":{"@type":"GeoCoordinates","latitude":41.081,"longitude":28.973},
       "areaServed":{"@type":"City","name":"İstanbul"},
+      "sameAs":["https://www.facebook.com/p/Barse-Kurye-61592544492045/"],
       "currenciesAccepted":"TRY","paymentAccepted":"Nakit, Havale/EFT",
       "openingHoursSpecification":{"@type":"OpeningHoursSpecification",
         "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
