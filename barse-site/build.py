@@ -24,6 +24,14 @@ ADRES = "Talatpaşa Mahallesi, Aydoğan Caddesi No:28 D:3"
 ILCE_MERKEZ = "Kağıthane"
 YIL = 2026
 
+# ── FİYAT GÖRÜNÜRLÜĞÜ ────────────────────────────────────────────────────────
+#  "acik"   : hesaplayıcı + tarife tablosu (formül herkese açık)
+#  "sade"   : hesaplayıcı var, tarife tablosu YOK  ← önerilen
+#  "kapali" : hesaplayıcı yok, "arayın fiyat verelim" bloğu
+import os as _os
+FIYAT_MODU = _os.environ.get("FIYAT_MODU", "sade")
+FIYAT_BTN = "Fiyat Al" if FIYAT_MODU == "kapali" else "Fiyatı Hesapla"
+
 # ─────────────────────────────────────────────────────────────── veri
 
 def nokta_yukle():
@@ -108,7 +116,7 @@ IKONLAR = """<svg width="0" height="0" style="position:absolute" aria-hidden="tr
 
 MENU = [("index.html","Ana Sayfa"),("moto-kurye.html","Moto Kurye"),("acil-kurye.html","Acil Kurye"),
         ("eczane-kurye.html","Eczane Kurye"),("kurumsal-kurye.html","Kurumsal"),
-        ("fiyat-hesaplama.html","Fiyat Hesapla"),("istanbul-ici-kurye.html","Bölgeler"),
+        ("fiyat-hesaplama.html","Fiyat Hesapla" if FIYAT_MODU!="kapali" else "Fiyat"),("istanbul-ici-kurye.html","Bölgeler"),
         ("hakkimizda.html","Hakkımızda")]
 
 def header(aktif):
@@ -252,7 +260,7 @@ def hiz_bloklari():
         p.append(f"""<article class="tier{' hot' if hot else ''}"{' data-tag="En çok tercih edilen"' if hot else ''}>
 <div class="lbl">{lbl}</div><h3>{ad}</h3>
 <div class="time">{sure}</div><p>{met}</p>
-<a class="btn {'btn-1' if hot else 'btn-o'}" href="fiyat-hesaplama.html">Fiyat hesapla</a>
+<a class="btn {'btn-1' if hot else 'btn-o'}" href="fiyat-hesaplama.html">{FIYAT_BTN}</a>
 </article>""")
     return '<div class="tiers rv">' + "".join(p) + '</div>'
 
@@ -305,6 +313,15 @@ TARIFE_SATIR = [
     ("Gece tarifesi (20:00 – 06:00)", "+100 ₺"),
     ("Cumartesi ve Pazar", "+100 ₺"),
 ]
+
+FIYAT_UNSUR = """<ul class="rv" style="color:var(--muted);display:grid;gap:12px;padding-left:1.2em;font-size:.96rem">
+<li>İki nokta arasındaki <strong>yol mesafesi</strong> — yakalar arasında köprü payı eklenir</li>
+<li><strong>Teslimat hızı</strong> — Normal, Express veya VIP</li>
+<li><strong>Paket boyutu</strong> — zarf ve dosyada ek ücret yok</li>
+<li><strong>Al-ver</strong> (kurye bekler) ve <strong>ek durak</strong> talepleri</li>
+<li><strong>Saat ve gün</strong> — gece ve hafta sonu tarife farkı</li>
+<li><strong>Eczane teslimatı</strong> sabit tarifelidir, mesafe farkı uygulanmaz</li>
+</ul>"""
 
 def tarife_tablo():
     r = '<div class="r h"><span>Kalem</span><b>Tutar</b></div>'
@@ -361,6 +378,48 @@ HESAPLAYICI = """<div class="calc rv">
 
 # ─────────────────────────────────────────────────────────── ANA SAYFA
 
+def fiyat_bolumu():
+    """Ana sayfadaki fiyat bölümü — FIYAT_MODU'na göre değişir."""
+    if FIYAT_MODU == "kapali":
+        return f"""<section class="sec" id="fiyat">
+<div class="wrap">
+<div class="head"><span class="kicker">Fiyat</span><h2>Gönderiniz için net fiyat alın</h2>
+<p>Alım ve teslim adresini iletin, dakikalar içinde kesin fiyatı söyleyelim. Tutar mesafeye, aciliyete ve gönderi türüne göre belirlenir.</p></div>
+<div class="btns">
+<a class="btn btn-1 btn-lg" href="tel:{TEL}"><svg aria-hidden="true"><use href="#i-tel"/></svg>Hemen Ara — {TEL_GOSTER}</a>
+<a class="btn btn-o btn-lg" href="https://wa.me/{WA}" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp ile Sor</a>
+</div>
+</div>
+</section>"""
+    yan = (f'''<div>
+<h3 style="margin-bottom:16px">Tarife kalemleri</h3>
+{tarife_tablo()}
+<p class="sonuc-not" style="margin-top:14px">Tarife İstanbul içi motosiklet teslimatı içindir. Şehirlerarası ve havayolu gönderilerde fiyat telefonla verilir.</p>
+</div>''' if FIYAT_MODU == "acik" else f'''<div>
+<h3 style="margin-bottom:16px">Fiyat neye göre belirleniyor?</h3>
+<ul style="color:var(--muted);display:grid;gap:10px;padding-left:1.2em">
+<li>İki nokta arasındaki <strong>yol mesafesi</strong></li>
+<li>Seçtiğiniz <strong>teslimat hızı</strong> — Normal, Express, VIP</li>
+<li><strong>Paket boyutu</strong> — zarf ve dosyada ek ücret yok</li>
+<li><strong>Al-ver</strong> ve <strong>ek durak</strong> talepleri</li>
+<li>Gece ve hafta sonu <strong>tarife farkı</strong></li>
+</ul>
+<div class="note" style="margin-top:22px">
+<p>Yakalar arası geçişlerde güzergâha köprü payı eklenir. <strong>Eczane teslimatları sabit tarifelidir</strong>; mesafe ve saat farkı uygulanmaz.</p>
+</div>
+<p class="sonuc-not" style="margin-top:14px">Şehirlerarası ve havayolu gönderilerde fiyat telefonla verilir.</p>
+</div>''')
+    return f"""<section class="sec" id="fiyat">
+<div class="wrap">
+<div class="head"><span class="kicker">Fiyat</span><h2>Gönderiniz için tahmini tutarı hemen görün</h2>
+<p>Alım ve teslim noktasını seçin, tarife anında hesaplansın. Kesin fiyat telefonda teyit edilir.</p></div>
+<div class="grid g2" style="align-items:start">
+{HESAPLAYICI}
+{yan}
+</div>
+</div>
+</section>"""
+
 def anasayfa(ilceler):
     av = [i for i in ilceler.values() if i['yaka'] == 'Avrupa']
     an = [i for i in ilceler.values() if i['yaka'] == 'Anadolu']
@@ -394,18 +453,18 @@ def anasayfa(ilceler):
 <p class="hero-lead">Evrak, ilaç ve kurumsal gönderilerinizi motosikletle şehir içinde taşıyoruz. Fiyatı önceden görün, kuryeyi tek aramayla yönlendirin.</p>
 <div class="btns">
 <a class="btn btn-1 btn-lg" href="tel:{TEL}"><svg aria-hidden="true"><use href="#i-tel"/></svg>Hemen Kurye Çağır</a>
-<a class="btn btn-g btn-lg" href="fiyat-hesaplama.html"><svg aria-hidden="true"><use href="#i-ileri"/></svg>Fiyatı Hesapla</a>
+<a class="btn btn-g btn-lg" href="fiyat-hesaplama.html"><svg aria-hidden="true"><use href="#i-ileri"/></svg>{FIYAT_BTN}</a>
 </div>
 <ul class="hero-pts">
 <li><svg aria-hidden="true"><use href="#i-ok"/></svg> Fiyat kurye yola çıkmadan netleşir, sürpriz ücret yok</li>
-<li><svg aria-hidden="true"><use href="#i-ok"/></svg> Eczane teslimatlarında sabit 400 ₺ öncelikli tarife</li>
+<li><svg aria-hidden="true"><use href="#i-ok"/></svg> {"Eczane teslimatlarında sabit 400 ₺ öncelikli tarife" if FIYAT_MODU!="kapali" else "Eczane teslimatlarında öncelikli sabit tarife"}</li>
 <li><svg aria-hidden="true"><use href="#i-ok"/></svg> Kurumsal müşterilere aylık faturalı çalışma</li>
 </ul>
 </div>
 <div class="glass">
 <div class="glass-top">
-<span><b>Taban tarife</b><small>İlk 5 kilometre · Kağıthane merkez</small></span>
-<span class="glass-eta">380 ₺</span>
+<span><b>{"Taban tarife" if FIYAT_MODU!="kapali" else "Ortalama teslim"}</b><small>{"İlk 5 kilometre · Kağıthane merkez" if FIYAT_MODU!="kapali" else "İstanbul içi · aynı yaka"}</small></span>
+<span class="glass-eta">{"380 ₺" if FIYAT_MODU!="kapali" else "30–60 dk"}</span>
 </div>
 <ul class="flow">
 <li><span class="ic"><svg aria-hidden="true"><use href="#i-tel"/></svg></span><span><b>Arayın veya yazın</b><span>Alım ve teslim adresini alalım</span></span></li>
@@ -421,7 +480,7 @@ def anasayfa(ilceler):
 <div class="strip rv">
 <div><b>39</b><span>İlçede hizmet</span></div>
 <div><b>7/24</b><span>Gece dahil çalışma</span></div>
-<div><b>380 ₺</b><span>Taban tarife</span></div>
+<div><b>{"380 ₺" if FIYAT_MODU!="kapali" else "Aynı gün"}</b><span>{"Taban tarife" if FIYAT_MODU!="kapali" else "Teslimat"}</span></div>
 <div><b>3</b><span>Teslimat hızı</span></div>
 </div>
 </div>
@@ -456,20 +515,7 @@ def anasayfa(ilceler):
 </div>
 </section>
 
-<section class="sec" id="fiyat">
-<div class="wrap">
-<div class="head"><span class="kicker">Fiyat</span><h2>Gönderiniz için tahmini tutarı hemen görün</h2>
-<p>Alım ve teslim noktasını seçin, tarife anında hesaplansın. Kesin fiyat telefonda teyit edilir.</p></div>
-<div class="grid g2" style="align-items:start">
-{HESAPLAYICI}
-<div>
-<h3 style="margin-bottom:16px">Tarife kalemleri</h3>
-{tarife_tablo()}
-<p class="sonuc-not" style="margin-top:14px">Tarife İstanbul içi motosiklet teslimatı içindir. Şehirlerarası ve havayolu gönderilerde fiyat telefonla verilir.</p>
-</div>
-</div>
-</div>
-</section>
+{fiyat_bolumu()}
 
 <section class="sec sec--tint">
 <div class="wrap">
@@ -522,7 +568,7 @@ def anasayfa(ilceler):
         "Barse Kurye | İstanbul Moto Kurye — 39 İlçede 7/24 Teslimat",
         "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderi; taban tarife 380 ₺. Fiyatı sitede hesaplayın, kuryeyi hemen çağırın.",
         govde, "index.html", ilceler, js,
-        '<script src="hesap.js" defer></script>')
+        '' if FIYAT_MODU == "kapali" else '<script src="hesap.js" defer></script>')
 
 # ─────────────────────────────────────────────────────── BÖLGE SAYFALARI
 
@@ -569,7 +615,7 @@ def bolge_sayfa(dosya, ad, veri, ilceler, ust=None, noktalar=None, aciklama_ek="
 <p class="head" style="font-size:1.12rem;color:var(--body);margin-top:16px;margin-bottom:24px">{baglam} bulunuyor. Kağıthane'deki merkezimize yaklaşık {km} km mesafede; normal teslimatta ortalama süre {sure}. Evrak, ilaç ve kurumsal gönderileriniz için kurye yönlendiriyoruz.</p>
 <div class="btns">
 <a class="btn btn-1 btn-lg" href="tel:{TEL}"><svg aria-hidden="true"><use href="#i-tel"/></svg>Kurye Çağır</a>
-<a class="btn btn-o btn-lg" href="fiyat-hesaplama.html">Fiyatı Hesapla</a>
+<a class="btn btn-o btn-lg" href="fiyat-hesaplama.html">{FIYAT_BTN}</a>
 </div>
 </div>
 </div>
@@ -661,7 +707,7 @@ def hizmet_sayfa(dosya, h1, baslik, aciklama, kicker, giris, bolumler, sss, ilce
 {foto_blok}
 <section class="sec sec--tight"><div class="wrap"><div class="strip rv">
 <div><b>39</b><span>İlçede hizmet</span></div><div><b>7/24</b><span>Kesintisiz</span></div>
-<div><b>380 ₺</b><span>Taban tarife</span></div><div><b>3</b><span>Teslimat hızı</span></div>
+<div><b>{"380 ₺" if FIYAT_MODU!="kapali" else "Aynı gün"}</b><span>{"Taban tarife" if FIYAT_MODU!="kapali" else "Teslimat"}</span></div><div><b>3</b><span>Teslimat hızı</span></div>
 </div></div></section>
 <section class="sec"><div class="wrap"><div class="prose">{ic}</div></div></section>
 <section class="sec sec--tint"><div class="wrap">
@@ -728,7 +774,7 @@ def bolgeler_hub(ilceler):
 <h1>İstanbul İçi Kurye — 39 İlçe</h1>
 <p style="font-size:1.12rem;color:var(--body);margin:16px 0 24px">Aşağıdaki tablo, Kağıthane'deki merkezimizden her ilçeye yaklaşık mesafeyi, normal teslimatta ortalama süreyi ve taban tarifeyi gösterir. İlçe adına dokunarak o bölgenin sayfasına gidebilirsiniz.</p>
 <div class="btns"><a class="btn btn-1 btn-lg" href="tel:{TEL}"><svg aria-hidden="true"><use href="#i-tel"/></svg>{TEL_GOSTER}</a>
-<a class="btn btn-o btn-lg" href="fiyat-hesaplama.html">Fiyatı Hesapla</a></div>
+<a class="btn btn-o btn-lg" href="fiyat-hesaplama.html">{FIYAT_BTN}</a></div>
 </div></div></section>
 
 <section class="sec"><div class="wrap">
@@ -757,7 +803,59 @@ def bolgeler_hub(ilceler):
       "İstanbul'un 39 ilçesine moto kurye. Her ilçe için mesafe, ortalama teslim süresi ve taban tarife tablosu. 7/24 hizmet.",
       govde, "istanbul-ici-kurye.html", ilceler)
 
+def fiyat_sayfa_kapali(ilceler):
+    """Hesaplayıcı kapalıyken de /fiyat-hesaplama.html yaşamaya devam eder:
+       URL'yi öldürmek mevcut arama sıralamasını kaybettirir."""
+    sss = [
+      ("Kurye ücreti neye göre belirleniyor?",
+       "Tutar; alım ve teslim noktası arasındaki yol mesafesine, seçtiğiniz teslimat hızına, paket boyutuna ve varsa al-ver / ek durak taleplerine göre belirlenir. Gece ve hafta sonu teslimatlarda tarife farkı uygulanır."),
+      ("Fiyatı önceden öğrenebilir miyim?",
+       "Evet. Alım ve teslim adresini telefonla ya da WhatsApp'tan iletin, dakikalar içinde kesin tutarı söyleyelim. Kurye yola çıkmadan önce fiyat netleşir, sonradan ek ücret çıkmaz."),
+      ("Eczane teslimatı nasıl fiyatlanıyor?",
+       "Eczane teslimatları öncelikli sipariş olarak sabit tarifeyle taşınır; mesafe, saat ve hafta sonu farkı uygulanmaz."),
+      ("Al-ver (gidiş-dönüş) ne demek?",
+       "Kurye gönderiyi teslim ettikten sonra adreste bekler ve karşılığında alacağı evrak veya paketle size döner. Tek yön teslimata göre farklı fiyatlanır."),
+      ("Kurumsal müşteriler için farklı tarife var mı?",
+       "Var. Aylık gönderi adedinize göre sözleşmeli tarife belirliyoruz; düzenli hacimde birim fiyat tek gönderiye göre daha uygun oluyor."),
+    ]
+    sssblok, sssld = sss_blok(sss)
+    govde = f"""<nav class="crumb wrap" aria-label="Site yolu">
+<ol><li><a href="index.html">Ana Sayfa</a></li><li><span aria-current="page">Fiyat</span></li></ol>
+</nav>
+<section class="sec sec--tight"><div class="wrap"><div style="max-width:62ch">
+<span class="kicker">Fiyat</span><h1>Kurye Fiyatları</h1>
+<p style="font-size:1.12rem;color:var(--body);margin:16px 0 24px">Her gönderi farklı olduğu için tek bir liste fiyatı vermiyoruz. Alım ve teslim adresini iletin, dakikalar içinde kesin tutarı söyleyelim — kurye yola çıkmadan önce.</p>
+<div class="btns">
+<a class="btn btn-1 btn-lg" href="tel:{TEL}"><svg aria-hidden="true"><use href="#i-tel"/></svg>Hemen Ara — {TEL_GOSTER}</a>
+<a class="btn btn-o btn-lg" href="https://wa.me/{WA}" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp ile Sor</a>
+</div>
+</div></div></section>
+<section class="sec" style="padding-top:0"><div class="wrap"><div class="prose">
+<h2>Fiyatı belirleyen beş şey</h2>
+<ul>
+<li><strong>Mesafe:</strong> alım ve teslim noktası arasındaki yol uzunluğu. Yakalar arası geçişlerde güzergâha köprü payı eklenir.</li>
+<li><strong>Teslimat hızı:</strong> Normal, Express veya VIP. Express ve VIP'te kurye başka adrese uğramaz.</li>
+<li><strong>Paket boyutu:</strong> zarf ve dosyada ek ücret yok; hacimli gönderilerde kademeli fark uygulanır.</li>
+<li><strong>Al-ver ve ek durak:</strong> kuryenin beklemesi veya yolda başka adrese uğraması.</li>
+<li><strong>Saat ve gün:</strong> gece ve hafta sonu teslimatlarda tarife farkı eklenir.</li>
+</ul>
+<div class="note amber">
+<p><strong>Eczane teslimatları sabit tarifelidir.</strong> Mesafe, saat ve hafta sonu farkı uygulanmaz; talep öncelikli sipariş olarak işleme alınır.</p>
+</div>
+<h2>Neden liste fiyatı yayınlamıyoruz?</h2>
+<p>İstanbul içi kurye fiyatı iki adres arasındaki gerçek güzergâha bağlı. Aynı iki ilçe arasında bile trafik, tam adres ve gönderi türü tutarı değiştiriyor. Baştan yanlış bir rakam vermektense, adresi alıp doğru fiyatı söylemeyi tercih ediyoruz.</p>
+<p>Kurumsal müşterilerimiz için aylık gönderi hacmine göre sözleşmeli tarife belirliyoruz. <a href="kurumsal-kurye.html">Kurumsal kurye sayfasına</a> bakabilirsiniz.</p>
+</div></div></section>
+{sssblok}
+{cta_band()}"""
+    return sayfa("fiyat-hesaplama.html",
+      "Kurye Fiyatları | İstanbul Moto Kurye Ücreti — " + AD,
+      "İstanbul içi kurye ücreti mesafeye, teslimat hızına ve gönderi türüne göre belirlenir. Adresi iletin, dakikalar içinde net fiyat alın.",
+      govde, "fiyat-hesaplama.html", ilceler, sssld)
+
 def fiyat_sayfa(ilceler):
+    if FIYAT_MODU == "kapali":
+        return fiyat_sayfa_kapali(ilceler)
     sss = [
       ("Sitedeki fiyat kesin mi?",
        "Hesaplayıcı, seçtiğiniz iki nokta arasındaki mesafeden tahmini bir tutar üretir. Tam adres, trafik ve gönderi içeriğine göre kesin fiyat telefonda teyit edilir. Kurye yola çıkmadan önce tutarı netleştiriyoruz."),
@@ -782,8 +880,8 @@ def fiyat_sayfa(ilceler):
 <div class="grid g2" style="align-items:start">
 {HESAPLAYICI}
 <div>
-<h2 style="font-size:var(--t-2xl);margin-bottom:16px">Tarife kalemleri</h2>
-{tarife_tablo()}
+<h2 style="font-size:var(--t-2xl);margin-bottom:16px">{"Tarife kalemleri" if FIYAT_MODU=="acik" else "Fiyatı belirleyen unsurlar"}</h2>
+{tarife_tablo() if FIYAT_MODU=="acik" else FIYAT_UNSUR}
 <div class="note" style="margin-top:24px">
 <p><strong>Neye göre hesaplanıyor?</strong> Tutar, iki nokta arasındaki yol mesafesinden üretilir. Yakalar arası geçişlerde güzergâha köprü payı eklenir. Gece ve hafta sonu farkı, hesaplama anındaki saate göre otomatik uygulanır.</p>
 </div>
