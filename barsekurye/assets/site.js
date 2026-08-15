@@ -49,6 +49,8 @@
   }
 
   /* ── Çerez bildirimi ────────────────────────────────────────── */
+  /* Not: #cerez kaldirildi; cerez onayi index icindeki #cerezKutu
+     blogunda, Consent Mode guncellemesiyle birlikte yonetiliyor. */
   var cz = document.getElementById('cerez');
   if (cz) {
     var anahtar = 'barse-cerez';
