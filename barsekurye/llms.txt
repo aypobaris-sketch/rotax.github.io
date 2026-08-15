@@ -1,14 +1,102 @@
 # Barse Kurye
 
-> İstanbul'un 39 ilçesinde ve Türkiye genelinde moto kurye, express kurye, VIP kurye, şehirlerarası, uçak ve gümrük kurye hizmeti sunan bir kurye firması.
+> İstanbul'un 39 ilçesinde 7/24 moto kurye, aynı gün ve acil teslimat hizmeti veren kurye firması. Türkiye geneline uçak ve şehirler arası kurye gönderisi yapılır.
 
-## Temel Bilgiler
+## Temel bilgiler
 - Hizmet bölgesi: İstanbul (39 ilçe) + Türkiye geneli
+- Çalışma saatleri: 7/24 (gece ve hafta sonu dahil)
 - Telefon: 0534 761 83 88
+- WhatsApp: https://wa.me/905347618388
 - E-posta: info@barsekurye.com
 - Adres: Talatpaşa Mah. Aydoğan Cad. No:28 D:3, Kağıthane / İstanbul
 
-## Sayfalar
+## Fiyatlandırma
+- Taban ücret: 380 ₺ (ilk 5 km dahil)
+- 5–25 km arası: kilometre başına 14 ₺
+- 25 km üzeri: kilometre başına 11 ₺
+- Express kurye ×1,25 · VIP kurye ×1,6 · Al-ver ×1,7
+- Gece (20:00–06:00) +100 ₺ · Hafta sonu +100 ₺ · Ek durak +150 ₺
+- Eczane kurye: sabit 400 ₺
+- Ayrıntılı tarife: https://barsekurye.com/kurye-fiyatlari.html
+
+## Ana sayfalar
 - Anasayfa: https://barsekurye.com/
+- Kurye fiyatları: https://barsekurye.com/kurye-fiyatlari.html
+- Fiyat hesaplama: https://barsekurye.com/fiyat-hesaplama.html
+- İstanbul içi kurye (tüm bölgeler): https://barsekurye.com/istanbul-ici-kurye.html
 - Hakkımızda: https://barsekurye.com/hakkimizda.html
-- Tüm İlçeler: https://barsekurye.com/istanbul-ici-kurye.html
+
+## Hizmetler
+- Acil kurye: https://barsekurye.com/acil-kurye.html
+- 7/24 kurye: https://barsekurye.com/7-24-kurye.html
+- Moto kurye: https://barsekurye.com/moto-kurye.html
+- Eczane kurye: https://barsekurye.com/eczane-kurye.html
+- Kurumsal kurye: https://barsekurye.com/kurumsal-kurye.html
+
+## İlçe sayfaları (39)
+- Adalar Kurye: https://barsekurye.com/adalar-kurye.html
+- Arnavutköy Kurye: https://barsekurye.com/arnavutkoy-kurye.html
+- Ataşehir Kurye: https://barsekurye.com/atasehir-kurye.html
+- Avcılar Kurye: https://barsekurye.com/avcilar-kurye.html
+- Bahçelievler Kurye: https://barsekurye.com/bahcelievler-kurye.html
+- Bakırköy Kurye: https://barsekurye.com/bakirkoy-kurye.html
+- Bayrampaşa Kurye: https://barsekurye.com/bayrampasa-kurye.html
+- Bağcılar Kurye: https://barsekurye.com/bagcilar-kurye.html
+- Başakşehir Kurye: https://barsekurye.com/basaksehir-kurye.html
+- Beykoz Kurye: https://barsekurye.com/beykoz-kurye.html
+- Beylikdüzü Kurye: https://barsekurye.com/beylikduzu-kurye.html
+- Beyoğlu Kurye: https://barsekurye.com/beyoglu-kurye.html
+- Beşiktaş Kurye: https://barsekurye.com/besiktas-kurye.html
+- Büyükçekmece Kurye: https://barsekurye.com/buyukcekmece-kurye.html
+- Esenler Kurye: https://barsekurye.com/esenler-kurye.html
+- Esenyurt Kurye: https://barsekurye.com/esenyurt-kurye.html
+- Eyüpsultan Kurye: https://barsekurye.com/eyupsultan-kurye.html
+- Fatih Kurye: https://barsekurye.com/fatih-kurye.html
+- Gaziosmanpaşa Kurye: https://barsekurye.com/gaziosmanpasa-kurye.html
+- Güngören Kurye: https://barsekurye.com/gungoren-kurye.html
+- Kadıköy Kurye: https://barsekurye.com/kadikoy-kurye.html
+- Kartal Kurye: https://barsekurye.com/kartal-kurye.html
+- Kağıthane Kurye: https://barsekurye.com/kagithane-kurye.html
+- Küçükçekmece Kurye: https://barsekurye.com/kucukcekmece-kurye.html
+- Maltepe Kurye: https://barsekurye.com/maltepe-kurye.html
+- Pendik Kurye: https://barsekurye.com/pendik-kurye.html
+- Sancaktepe Kurye: https://barsekurye.com/sancaktepe-kurye.html
+- Sarıyer Kurye: https://barsekurye.com/sariyer-kurye.html
+- Silivri Kurye: https://barsekurye.com/silivri-kurye.html
+- Sultanbeyli Kurye: https://barsekurye.com/sultanbeyli-kurye.html
+- Sultangazi Kurye: https://barsekurye.com/sultangazi-kurye.html
+- Tuzla Kurye: https://barsekurye.com/tuzla-kurye.html
+- Zeytinburnu Kurye: https://barsekurye.com/zeytinburnu-kurye.html
+- Çatalca Kurye: https://barsekurye.com/catalca-kurye.html
+- Çekmeköy Kurye: https://barsekurye.com/cekmekoy-kurye.html
+- Ümraniye Kurye: https://barsekurye.com/umraniye-kurye.html
+- Üsküdar Kurye: https://barsekurye.com/uskudar-kurye.html
+- Şile Kurye: https://barsekurye.com/sile-kurye.html
+- Şişli Kurye: https://barsekurye.com/sisli-kurye.html
+
+## Bölge sayfaları (22)
+- Ataşehir Finans Merkezi Kurye: https://barsekurye.com/atasehir-finans-kurye.html
+- Bakırköy Merkez Kurye: https://barsekurye.com/bakirkoy-merkez-kurye.html
+- Bağdat Caddesi Kurye: https://barsekurye.com/bagdat-caddesi-kurye.html
+- Beşiktaş Çarşı Kurye: https://barsekurye.com/besiktas-carsi-kurye.html
+- Esenyurt Merkez Kurye: https://barsekurye.com/esenyurt-merkez-kurye.html
+- Kartal Merkez Kurye: https://barsekurye.com/kartal-merkez-kurye.html
+- Kozyatağı Kurye: https://barsekurye.com/kozyatagi-kurye.html
+- Levent Kurye: https://barsekurye.com/levent-kurye.html
+- Maslak Kurye: https://barsekurye.com/maslak-kurye.html
+- Mecidiyeköy Kurye: https://barsekurye.com/mecidiyekoy-kurye.html
+- Moda Kurye: https://barsekurye.com/kadikoy-moda-kurye.html
+- Nişantaşı Kurye: https://barsekurye.com/nisantasi-kurye.html
+- Otogar Kurye: https://barsekurye.com/otogar-kurye.html
+- Perpa Kurye: https://barsekurye.com/perpa-kurye.html
+- Seyrantepe Kurye: https://barsekurye.com/seyrantepe-kurye.html
+- Taksim ve Beyoğlu Kurye: https://barsekurye.com/taksim-beyoglu-kurye.html
+- Topkapı Kurye: https://barsekurye.com/topkapi-kurye.html
+- Zincirlikuyu Kurye: https://barsekurye.com/zincirlikuyu-kurye.html
+- Çağlayan Kurye: https://barsekurye.com/caglayan-kurye.html
+- Ümraniye Merkez Kurye: https://barsekurye.com/umraniye-merkez-kurye.html
+- İkitelli Kurye: https://barsekurye.com/ikitelli-kurye.html
+- Şişli Merkez Kurye: https://barsekurye.com/sisli-merkez-kurye.html
+
+## Not
+Süre ve ücret bilgileri hafta içi gündüz saatleri ve standart paket içindir; kesin fiyat adres bilgisiyle teyit edilir.

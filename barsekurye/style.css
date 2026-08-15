@@ -41,7 +41,7 @@
   /* ===== HEADER ===== */
   header{
     position:sticky;top:0;z-index:50;
-    background:rgba(21,16,13,0.92);
+    background:rgba(21,20,42,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
@@ -58,7 +58,7 @@
     cursor:pointer;transition:all .15s ease;
   }
   .btn-primary{background:var(--red);color:#fff;}
-  .btn-primary:hover{background:#D8452F;}
+  .btn-primary:hover{background:#FF33AB;}
   .btn-ghost{border-color:var(--line);color:var(--text);}
   .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
   .phone-chip{font-family:'IBM Plex Mono';font-size:0.85rem;color:var(--amber);white-space:nowrap;}
@@ -122,7 +122,7 @@
   /* ===== SERVICES ===== */
   .services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px;}
   .svc{background:var(--card);padding:32px 26px;position:relative;transition:background .15s ease;}
-  .svc:hover{background:#2A1F19;}
+  .svc:hover{background:#31314A;}
   .svc .tag{font-family:'IBM Plex Mono';font-size:0.7rem;color:var(--amber);letter-spacing:0.06em;}
   .svc h3{font-size:1.6rem;margin:12px 0 10px;}
   .svc p{color:var(--muted);font-size:0.93rem;line-height:1.6;margin-bottom:18px;}
@@ -567,3 +567,115 @@ body{background:var(--bg);}
 .hesap-satir.pasif input[type=text]{
   background:rgba(255,255,255,0.04);cursor:not-allowed;font-style:italic;
 }
+
+/* =====================================================================
+   BÖLGE SAYFALARI  (_uretim/uret.py tarafından üretilen sayfalar)
+   ===================================================================== */
+
+/* --- bölge görseli --- */
+.bolge-gorsel{margin-top:44px;border:1px solid var(--line);background:var(--card);}
+.bolge-gorsel img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;}
+.bolge-gorsel figcaption{
+  font-family:'IBM Plex Mono';font-size:0.76rem;color:var(--muted);
+  padding:12px 16px;border-top:1px solid var(--line);
+}
+
+/* --- "ne taşıyoruz" kartlarında numaralı etiket --- */
+#icerik .services .svc h3:last-child{margin-bottom:0;}
+
+/* --- mahalle listesi --- */
+.mahalle-grid{
+  list-style:none;display:grid;gap:1px;margin-top:36px;
+  grid-template-columns:repeat(4,1fr);
+  background:var(--line);border:1px solid var(--line);
+}
+.mahalle-grid li{
+  background:var(--card);padding:14px 16px;font-size:0.92rem;color:var(--text);
+  display:flex;align-items:baseline;gap:6px;transition:background .15s ease;
+}
+.mahalle-grid li:hover{background:#31314A;}
+.mahalle-grid li span{
+  font-family:'IBM Plex Mono';font-size:0.7rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+@media (max-width:900px){.mahalle-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.mahalle-grid{grid-template-columns:1fr;}}
+
+/* --- sık gidilen adresler --- */
+.ikili{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+@media (max-width:900px){.ikili{grid-template-columns:1fr;gap:32px;}}
+.nokta-liste{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.nokta-liste li{
+  background:var(--card);border-left:2px solid var(--red);
+  padding:15px 18px;font-size:0.95rem;color:var(--text);
+}
+.nokta-liste li:nth-child(even){border-left-color:var(--amber);}
+
+/* --- rota / süre / ücret tablosu --- */
+.rota-tablo{margin-top:36px;border:1px solid var(--line);background:var(--line);display:grid;gap:1px;}
+.rota-satir{
+  display:grid;grid-template-columns:1fr auto auto auto;gap:20px;align-items:center;
+  background:var(--card);padding:16px 20px;font-size:0.94rem;
+}
+.rota-satir.rota-bas{
+  background:var(--bg-2);font-family:'IBM Plex Mono';font-size:0.72rem;
+  color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;
+}
+.rota-yol b{color:var(--text);}
+.rota-km,.rota-dk{font-family:'IBM Plex Mono';color:var(--muted);white-space:nowrap;}
+.rota-dk{color:var(--amber);}
+.rota-tl{font-family:'IBM Plex Mono';color:var(--text);font-weight:600;white-space:nowrap;}
+.rota-not{margin-top:16px;font-size:0.86rem;color:var(--muted);max-width:64ch;line-height:1.7;}
+.rota-not a{color:var(--amber);text-decoration:underline;text-underline-offset:3px;}
+@media (max-width:700px){
+  .rota-satir{grid-template-columns:1fr auto;gap:6px 14px;}
+  .rota-satir.rota-bas{display:none;}
+  .rota-yol{grid-column:1 / -1;font-weight:600;}
+  .rota-km::before{content:"mesafe ";color:var(--muted);opacity:.7;}
+  .rota-dk::before{content:"süre ";color:var(--muted);opacity:.7;}
+  .rota-tl{grid-column:1 / -1;}
+  .rota-tl::before{content:"tahmini ücret ";font-weight:400;color:var(--muted);opacity:.7;}
+}
+
+/* --- sık sorulan sorular --- */
+.sss-liste{margin-top:36px;border:1px solid var(--line);background:var(--line);display:grid;gap:1px;}
+.sss-madde{background:var(--card);}
+.sss-madde summary{
+  cursor:pointer;padding:18px 22px;font-weight:600;font-size:1rem;color:var(--text);
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.sss-madde summary::-webkit-details-marker{display:none;}
+.sss-madde summary::after{
+  content:"+";font-family:'IBM Plex Mono';color:var(--amber);font-size:1.3rem;line-height:1;flex:none;
+}
+.sss-madde[open] summary::after{content:"–";}
+.sss-madde summary:hover{background:#31314A;}
+.sss-cevap{padding:0 22px 20px;}
+.sss-cevap p{color:var(--muted);font-size:0.95rem;line-height:1.75;max-width:70ch;}
+
+/* --- komşu bölge ve hizmet bağlantıları --- */
+.komsu-liste{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;}
+.komsu-liste a{
+  border:1px solid var(--line);padding:10px 16px;font-size:0.88rem;color:var(--muted);
+  transition:all .15s ease;
+}
+.komsu-liste a:hover{border-color:var(--red);color:var(--text);background:rgba(255,0,150,0.08);}
+.komsu-hizmet a{border-style:dashed;}
+.komsu-hizmet a:hover{border-color:var(--amber);color:var(--amber);background:rgba(0,229,255,0.06);}
+
+/* bölge sayfalarında uzun başlıkların satır sayısını düşür */
+#icerik .section h2{max-width:24ch;}
+#icerik .district-hero h1{max-width:18ch;}
+.grup-baslik{
+  font-family:'IBM Plex Mono';font-size:0.78rem;color:var(--amber);
+  text-transform:uppercase;letter-spacing:0.08em;margin-top:40px;
+}
+
+/* --- anasayfa foto şeridi --- */
+.foto-serit{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:40px;}
+.foto-serit figure{background:var(--card);}
+.foto-serit img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;}
+.foto-serit figcaption{font-family:'IBM Plex Mono';font-size:0.74rem;color:var(--muted);
+  padding:12px 14px;border-top:1px solid var(--line);}
+@media (max-width:820px){.foto-serit{grid-template-columns:1fr;}}

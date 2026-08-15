@@ -1,7 +1,10 @@
 User-agent: *
 Allow: /
 
+# Arama motorlarına gerek olmayan sayfalar
+Disallow: /404.html
+
 Sitemap: https://barsekurye.com/sitemap.xml
 
-# AI / LLM discoverability
+# AI / LLM keşfi
 # llms.txt: https://barsekurye.com/llms.txt
