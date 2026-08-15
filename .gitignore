@@ -30,3 +30,6 @@ IMG-*.jpg
 # Python önbelleği
 __pycache__/
 *.pyc
+
+# npm bağımlılıkları (package-lock.json'dan yeniden kurulur)
+node_modules/
