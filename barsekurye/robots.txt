@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /data/
+Disallow: /panel.php
+Disallow: /rapor.php
 
 Sitemap: https://barsekurye.com/sitemap.xml
-
-# AI / LLM discoverability
-# llms.txt: https://barsekurye.com/llms.txt
