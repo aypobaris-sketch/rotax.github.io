@@ -571,7 +571,7 @@ TEMPLATE = """<!DOCTYPE html>
 
 <div class="stats">
   <div class="wrap stats-grid">
-    <div class="stat"><b>{mahalle_sayi}</b><span>{ad} NOKTASI</span></div>
+    <div class="stat"><b>{mahalle_sayi}</b><span>MAHALLE VE SEMT</span></div>
     <div class="stat"><b>30dk</b><span>EN HIZLI TESLİMAT</span></div>
     <div class="stat"><b>7/24</b><span>KESİNTİSİZ HİZMET</span></div>
     <div class="stat"><b>{taban} ₺</b><span>TABAN ÜCRET</span></div>

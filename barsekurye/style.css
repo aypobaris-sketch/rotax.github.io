@@ -684,3 +684,14 @@ body{background:var(--bg);}
 .services-4 .svc h3{font-size:1.3rem;}
 @media (max-width:1000px){.services-4{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:600px){.services-4{grid-template-columns:1fr;}}
+
+/* --- üst menü taşma düzeltmesi ---
+   Anasayfada bağlantı sayısı fazla; marka, menü ve buton birbirine binmesin.
+   Yazı tipi henüz yüklenmemişken (fallback font daha geniş) de bozulmamalı. */
+.nav{gap:24px;}
+.brand{flex:none;white-space:nowrap;}
+nav.links{flex:1 1 auto;min-width:0;justify-content:flex-end;flex-wrap:nowrap;overflow:hidden;gap:22px;}
+nav.links a{white-space:nowrap;}
+.nav-cta{flex:none;}
+.nav-cta .btn{white-space:nowrap;}
+@media (max-width:1120px){ .phone-chip{display:none;} }
