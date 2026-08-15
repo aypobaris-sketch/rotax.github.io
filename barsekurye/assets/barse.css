@@ -199,15 +199,46 @@ strong,b{color:var(--fg);font-weight:600}
 .hero-pts svg{width:19px;height:19px;color:#34D399;flex:none;margin-top:3px}
 
 /* Cam kart — hero yanı */
+.glass-sar{perspective:1400px}
 .glass{
   background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);
   border-radius:var(--r-lg);padding:var(--s5);backdrop-filter:blur(16px);
   box-shadow:0 24px 60px rgba(0,0,0,.35);
+  position:relative;overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);
+}
+/* Üst kenarda ışık — cam yüzeye kalınlık hissi verir */
+.glass::before{
+  content:'';position:absolute;left:12%;right:12%;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+}
+/* Yalnızca hassas işaretçide (fare) hafif eğim — dokunmatikte devre dışı */
+@media(hover:hover) and (pointer:fine) and (min-width:1000px){
+  .glass{transform:rotateX(3deg) rotateY(-5deg) translateZ(0)}
+  .glass:hover{
+    transform:rotateX(0) rotateY(0) translateY(-4px);
+    box-shadow:0 34px 80px rgba(0,0,0,.45);
+    border-color:rgba(255,255,255,.24);
+  }
+}
+/* Hero girişi: alttan yükselerek netleşir */
+@media(min-width:1000px){
+  .js .glass-sar{animation:camGiris .85s var(--ease) .15s both}
+}
+@keyframes camGiris{
+  from{opacity:0;transform:translateY(26px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .js .glass-sar{animation:none}
+  .glass,.glass:hover{transform:none;transition:none}
 }
 .glass-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s4);padding-bottom:var(--s4);border-bottom:1px solid rgba(255,255,255,.13)}
 .glass-top b{display:block;font-family:var(--f-head);color:#fff;font-weight:700}
 .glass-top small{color:#93A6C0;font-size:var(--t-sm)}
-.glass-eta{font-family:var(--f-head);font-size:2rem;font-weight:800;color:#FFB877;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.glass-eta{font-family:var(--f-head);font-size:2rem;font-weight:800;color:#FFB877;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;text-align:center;flex:none}
+.glass-eta span{display:block;font-size:.68rem;font-weight:700;color:#93A6C0;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
 .flow{list-style:none;padding:0;margin-top:var(--s4);display:grid;gap:var(--s4);position:relative}
 .flow li{display:flex;gap:var(--s3);align-items:flex-start;position:relative}
 .flow .ic{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;background:rgba(77,139,255,.16);color:var(--blue-bright);border:1px solid rgba(77,139,255,.3)}
