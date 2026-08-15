@@ -441,10 +441,7 @@ def sayfa(slug, veri, noktalar):
         '        <li>%s</li>' % kacis(n) for n in veri["nokta"]
     )
     odak_html = "\n".join(
-        """      <div class="svc">
-        <div class="tag">%02d</div>
-        <h3>%s</h3>
-      </div>""" % (i + 1, kacis(o)) for i, o in enumerate(veri["odak"])
+        "      <li>%s</li>" % kacis(o) for o in veri["odak"]
     )
     rota_html = "\n".join(
         """      <div class="rota-satir">
@@ -512,7 +509,7 @@ TEMPLATE = """<!DOCTYPE html>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="llms" href="https://barsekurye.com/llms.txt">
 <!-- Google tag (gtag.js) -->
@@ -583,9 +580,9 @@ TEMPLATE = """<!DOCTYPE html>
     <div class="kicker">{ad_da} ne taşıyoruz</div>
     <h2>{ad} bölgesinde en çok taşıdığımız gönderiler</h2>
     <p class="sub">Her bölgenin kendine göre bir ritmi var. {ad} tarafında gün içinde en sık karşımıza çıkan işler bunlar.</p>
-    <div class="services">
+    <ul class="odak-liste">
 {odak_html}
-    </div>
+    </ul>
 
     <figure class="bolge-gorsel">
       <img src="{gorsel}" alt="{gorsel_alt}" loading="lazy" decoding="async" width="1408" height="768">
