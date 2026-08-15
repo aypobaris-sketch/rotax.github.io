@@ -741,3 +741,78 @@ footer{background:var(--kagit-2);border-top:1px solid var(--cizgi);padding:64px 
 
 /* --- müşteri yorumu yıldızları --- */
 .yildiz{color:var(--yesil);letter-spacing:0.14em;font-size:0.95rem;}
+
+/* =====================================================================
+   HAREKET
+   Yalnızca .hareket sınıfı varken (JS açık + azaltılmış hareket kapalı)
+   gizlenir. Güvenlik ağı: hareket.js çalışmazsa .hareket-hazir her şeyi açar.
+   ===================================================================== */
+.hareket .h-gir{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .55s cubic-bezier(.22,.61,.36,1),
+             transform .55s cubic-bezier(.22,.61,.36,1);
+  transition-delay:var(--gecikme,0ms);
+  will-change:opacity,transform;
+}
+.hareket .h-gir.h-gorunur,
+.hareket-hazir .h-gir{opacity:1;transform:none;}
+.hareket .bolge-gorsel.h-gir{transform:translateY(22px) scale(0.985);}
+.hareket .bolge-gorsel.h-gir.h-gorunur{transform:none;}
+
+/* okuma ilerlemesi — üstte ince güzergâh */
+.okuma-ilerleme{
+  position:fixed;top:0;left:0;right:0;height:2px;z-index:calc(var(--z-ust) + 1);
+  background:var(--yesil);transform:scaleX(0);transform-origin:0 50%;
+  will-change:transform;pointer-events:none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hareket .h-gir{opacity:1 !important;transform:none !important;}
+  .okuma-ilerleme{display:none;}
+}
+
+/* =====================================================================
+   GÜZERGÂH — kaydırdıkça çizilen yol
+   ===================================================================== */
+.guzergah{border-top:1px solid var(--cizgi);}
+.guzergah-sahne{margin-top:48px;}
+.guzergah-svg{display:block;width:100%;height:auto;overflow:visible;}
+.guzergah-zemin{fill:none;stroke:var(--cizgi);stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round;}
+.guzergah-cizgi{fill:none;stroke:var(--yesil);stroke-width:2.5;stroke-linecap:round;}
+.guzergah-durak{
+  fill:var(--kagit);stroke:var(--cizgi-kuvvetli);stroke-width:2;r:7;
+  transition:fill .3s ease,stroke .3s ease;
+}
+.guzergah-durak.gecildi{fill:var(--yesil);stroke:var(--yesil);}
+.guzergah-kurye circle{fill:var(--yesil);}
+.guzergah-kurye path{fill:#FFFFFF;}
+.guzergah-kurye .halka{
+  fill:none;stroke:var(--sinyal);stroke-width:2;opacity:0.5;
+  animation:kurye-halka 2s ease-out infinite;
+}
+@keyframes kurye-halka{
+  0%{r:14;opacity:0.55;}
+  100%{r:26;opacity:0;}
+}
+.guzergah-adim{
+  list-style:none;display:grid;grid-template-columns:repeat(4,1fr);
+  margin-top:8px;border-top:1px solid var(--cizgi);
+}
+.guzergah-adim li{
+  padding:18px 20px 0 0;border-right:1px solid var(--cizgi);
+  opacity:0.45;transition:opacity .35s ease;
+}
+.guzergah-adim li:last-child{border-right:none;}
+.guzergah-adim li.gecildi{opacity:1;}
+.guzergah-adim .an{
+  display:block;font-family:var(--veri);font-size:0.7rem;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;color:var(--yesil-orta);
+}
+.guzergah-adim .yer{display:block;margin-top:7px;font-size:1rem;font-weight:600;color:var(--murekkep);}
+.guzergah-adim .not{display:block;margin-top:3px;font-size:0.88rem;color:var(--murekkep-2);}
+@media (max-width:760px){
+  .guzergah-adim{grid-template-columns:repeat(2,1fr);}
+  .guzergah-adim li{border-bottom:1px solid var(--cizgi);padding-bottom:16px;}
+  .guzergah-adim li:nth-child(2){border-right:none;}
+}

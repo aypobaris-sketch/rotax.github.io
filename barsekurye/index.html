@@ -97,6 +97,18 @@
   gtag('config', 'G-KWNMNWRF9J');
 </script>
 <link rel="llms" href="https://barsekurye.com/llms.txt">
+<script>
+(function(){
+  var az = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (az) return;
+  document.documentElement.className += ' hareket';
+  // güvenlik ağı: hareket.js herhangi bir sebeple çalışmazsa içerik yine görünür
+  setTimeout(function(){
+    if (!window.__hareketCalisti) document.documentElement.className += ' hareket-hazir';
+  }, 2500);
+})();
+</script>
+<script src="hareket.js" defer></script>
 </head>
 <body>
 
@@ -140,7 +152,7 @@
     </div>
     </div>
 
-    <aside class="sevk-fisi" aria-label="Operasyon özeti">
+    <aside class="sevk-fisi" data-derinlik="0.03" aria-label="Operasyon özeti">
       <div class="fis-ust">
         <span class="fis-durum">Operasyon açık</span>
         <span class="fis-saat">7/24</span>
@@ -200,6 +212,58 @@
         <img src="images/03-teslimat/kurumsal-ofis-teslimat.webp" alt="Kurumsal bir ofiste evrak teslimi yapan Barse kuryesi" loading="lazy" decoding="async" width="1408" height="768">
         <figcaption>3 — Gönderi elden teslim edilir</figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+
+<section class="section guzergah" id="guzergah">
+  <div class="wrap">
+    <div class="kicker">Bir gönderinin yolu</div>
+    <h2>Kağıthane'den Kadıköy'e, adım adım</h2>
+    <p class="sub">Yaka geçişli bir teslimatın gerçek akışı. Süreler hafta içi gündüz saatleri için ortalamadır;
+      trafiğe göre değişir ve her adımda size bilgi geçilir.</p>
+
+    <div class="guzergah-sahne" data-derinlik="0.02">
+      <svg class="guzergah-svg" viewBox="0 0 1200 240" role="img"
+           aria-label="Kağıthane'den Kadıköy'e giden kurye güzergâhının dört adımı">
+        <path class="guzergah-zemin"
+              d="M 30 190 C 210 190, 250 60, 430 60 S 690 200, 870 175 S 1080 70, 1170 55"/>
+        <path class="guzergah-cizgi"
+              d="M 30 190 C 210 190, 250 60, 430 60 S 690 200, 870 175 S 1080 70, 1170 55"/>
+        <circle class="guzergah-durak"/>
+        <circle class="guzergah-durak"/>
+        <circle class="guzergah-durak"/>
+        <circle class="guzergah-durak"/>
+        <g class="guzergah-kurye">
+          <circle class="halka" r="14"/>
+          <circle r="13"/>
+          <path transform="translate(-8,-8) scale(0.67)" d="M5 18h2l1.5-3h7L17 18h2l-2-5h2v-2h-3l-1-2h-4l-1 2H6v2h2l-3 5zm2.5-1.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm9 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/>
+        </g>
+      </svg>
+
+      <ol class="guzergah-adim">
+        <li>
+          <span class="an">0. dakika</span>
+          <span class="yer">Talep alındı</span>
+          <span class="not">Adresleri iletiyorsunuz, net fiyatı aynı konuşmada söylüyoruz.</span>
+        </li>
+        <li>
+          <span class="an">~15. dakika</span>
+          <span class="yer">Kağıthane'de alım</span>
+          <span class="not">Bölgedeki en yakın kurye yönlendirilir, gönderi teslim alınır.</span>
+        </li>
+        <li>
+          <span class="an">~30. dakika</span>
+          <span class="yer">Köprü geçişi</span>
+          <span class="not">Yaka geçişinde güzergâha ortalama 6 km ekleniyor.</span>
+        </li>
+        <li>
+          <span class="an">45–80. dakika</span>
+          <span class="yer">Kadıköy'de teslim</span>
+          <span class="not">Teslim tamamlanınca bilgi geçilir, istenirse fotoğraf paylaşılır.</span>
+        </li>
+      </ol>
     </div>
   </div>
 </section>

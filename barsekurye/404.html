@@ -42,6 +42,18 @@
 <meta name="twitter:description" content="İstanbul 39 ilçede 7/24 moto kurye hizmeti.">
 <meta name="twitter:image" content="https://barsekurye.com/og-image.jpg">
 <link rel="llms" href="https://barsekurye.com/llms.txt">
+<script>
+(function(){
+  var az = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (az) return;
+  document.documentElement.className += ' hareket';
+  // güvenlik ağı: hareket.js herhangi bir sebeple çalışmazsa içerik yine görünür
+  setTimeout(function(){
+    if (!window.__hareketCalisti) document.documentElement.className += ' hareket-hazir';
+  }, 2500);
+})();
+</script>
+<script src="hareket.js" defer></script>
 </head>
 <body>
 

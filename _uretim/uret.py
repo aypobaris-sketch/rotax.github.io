@@ -525,6 +525,18 @@ TEMPLATE = """<!DOCTYPE html>
   gtag('config', 'G-KWNMNWRF9J');
 </script>
 {sema}
+<script>
+(function(){{
+  var az = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (az) return;
+  document.documentElement.className += ' hareket';
+  // güvenlik ağı: hareket.js herhangi bir sebeple çalışmazsa içerik yine görünür
+  setTimeout(function(){{
+    if (!window.__hareketCalisti) document.documentElement.className += ' hareket-hazir';
+  }}, 2500);
+}})();
+</script>
+<script src="hareket.js" defer></script>
 </head>
 <body>
 
