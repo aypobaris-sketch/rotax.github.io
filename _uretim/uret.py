@@ -26,6 +26,7 @@ from datetime import date
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bolgeler import BOLGELER          # noqa: E402
+from hizmetler import HIZMETLER        # noqa: E402
 from noktalar_ek import EK_NOKTALAR    # noqa: E402
 
 KOK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "barsekurye")
@@ -1132,6 +1133,205 @@ FIYAT_GOVDE = """<section class="district-hero">
 """
 
 
+# ============================================================== hizmet sayfalari
+def blok_html(blok):
+    tip = blok[0]
+    if tip == "metin":
+        _, kicker, h2, paragraflar = blok
+        return """    <div class="kicker">%s</div>
+    <h2>%s</h2>
+    <div class="info-block">
+%s
+    </div>""" % (kacis(kicker), kacis(h2),
+                 "\n".join("      <p>%s</p>" % kacis(p) for p in paragraflar))
+
+    if tip == "kartlar":
+        _, kicker, h2, alt, kartlar = blok
+        sinif = "services services-4" if len(kartlar) == 4 else "services"
+        return """    <div class="kicker">%s</div>
+    <h2>%s</h2>
+    <p class="sub">%s</p>
+    <div class="%s">
+%s
+    </div>""" % (kacis(kicker), kacis(h2), kacis(alt), sinif, "\n".join(
+            """      <div class="svc">
+        <div class="tag">%s</div>
+        <h3>%s</h3>
+        <p>%s</p>
+      </div>""" % (kacis(e), kacis(b), kacis(m)) for e, b, m in kartlar))
+
+    if tip == "liste":
+        _, kicker, h2, alt, maddeler = blok
+        return """    <div class="ikili">
+      <div>
+        <div class="kicker">%s</div>
+        <h2>%s</h2>
+        <p class="sub">%s</p>
+      </div>
+      <ul class="nokta-liste">
+%s
+      </ul>
+    </div>""" % (kacis(kicker), kacis(h2), kacis(alt),
+                 "\n".join("        <li>%s</li>" % kacis(m) for m in maddeler))
+
+    if tip == "tablo":
+        _, kicker, h2, alt, basliklar, satirlar = blok
+        sinif = ["rota-yol", "rota-km", "rota-dk", "rota-tl"]
+
+        def satir(hucreler, bas=False):
+            ic = "\n".join('        <span class="%s">%s</span>' % (sinif[i] if i < 4 else "rota-tl", h)
+                           for i, h in enumerate(hucreler))
+            return '      <div class="rota-satir%s">\n%s\n      </div>' % (" rota-bas" if bas else "", ic)
+
+        govde = [satir([kacis(b) for b in basliklar], True)]
+        for s in satirlar:
+            hucre = ["<b>%s</b>" % kacis(s[0])] + [kacis(x) for x in s[1:]]
+            govde.append(satir(hucre))
+        return """    <div class="kicker">%s</div>
+    <h2>%s</h2>
+    <p class="sub">%s</p>
+    <div class="rota-tablo">
+%s
+    </div>""" % (kacis(kicker), kacis(h2), kacis(alt), "\n".join(govde))
+
+    raise ValueError("bilinmeyen blok tipi: %s" % tip)
+
+
+def hizmet_sayfasi(slug, veri):
+    url = "%s/%s.html" % (SITE, slug)
+    ad = veri["ad"]
+
+    bolumler = []
+    for i, blok in enumerate(veri["bloklar"]):
+        stil = ' style="background:var(--bg-2);border-block:1px solid var(--line);"' if i % 2 else ""
+        bolumler.append('<section class="section"%s>\n  <div class="wrap">\n%s\n  </div>\n</section>\n'
+                        % (stil, blok_html(blok)))
+
+    sss_html = "\n".join(
+        """      <details class="sss-madde"%s>
+        <summary>%s</summary>
+        <div class="sss-cevap"><p>%s</p></div>
+      </details>""" % (" open" if i == 0 else "", kacis(q), kacis(a))
+        for i, (q, a) in enumerate(veri["sss"])
+    )
+    ilgili = "\n".join('        <a href="%s.html">%s</a>' % (s, kacis(HIZMETLER[s]["ad"]))
+                       for s in veri["ilgili"] if s in HIZMETLER)
+    bolge = "\n".join('        <a href="%s-kurye.html">%s Kurye</a>' % (s, kacis(BOLGELER[s]["ad"]))
+                      for s in veri["bolge"] if s in BOLGELER)
+
+    semalar = [
+        {
+            "@context": "https://schema.org", "@type": "Service",
+            "serviceType": ad, "name": "%s – Barse Kurye" % ad, "url": url,
+            "description": veri["aciklama"],
+            "provider": {"@type": "LocalBusiness", "@id": SITE + "/#organization", "name": "Barse Kurye",
+                         "telephone": "+905347618388", "url": SITE + "/"},
+            "areaServed": {"@type": "City", "name": "İstanbul"},
+            "availableChannel": {
+                "@type": "ServiceChannel", "servicePhone": {"@type": "ContactPoint", "telephone": "+905347618388"},
+                "serviceUrl": url,
+            },
+        },
+        {
+            "@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Anasayfa", "item": SITE + "/"},
+                {"@type": "ListItem", "position": 2, "name": ad, "item": url},
+            ],
+        },
+        {
+            "@context": "https://schema.org", "@type": "FAQPage",
+            "mainEntity": [{"@type": "Question", "name": q,
+                            "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in veri["sss"]],
+        },
+    ]
+    sema_html = "\n".join('<script type="application/ld+json">\n%s\n</script>' %
+                          json.dumps(x, ensure_ascii=False, indent=2) for x in semalar)
+
+    gorsel, gorsel_alt = veri["gorsel"]
+    govde = HIZMET_GOVDE.format(
+        h1=kacis(veri["h1"]), eyebrow=kacis(veri["eyebrow"]), giris=kacis(veri["giris"]),
+        ad=kacis(ad), gorsel=gorsel, gorsel_alt=kacis(gorsel_alt),
+        bolumler="\n".join(bolumler), sss_html=sss_html, ilgili=ilgili, bolge=bolge,
+        tel=TEL, tel_uri=TEL_URI, wa=WA, taban=TABAN,
+    )
+    html = cerceve(veri["baslik"], veri["aciklama"], url, sema_html, govde, "İstanbul", "")
+    open(os.path.join(KOK, slug + ".html"), "w", encoding="utf-8").write(html)
+
+
+HIZMET_GOVDE = """<section class="district-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Sayfa yolu"><a href="index.html">Anasayfa</a> / <span>{ad}</span></nav>
+    <div class="eyebrow">{eyebrow}</div>
+    <h1>{h1}</h1>
+    <p class="lead">{giris}</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="tel:{tel_uri}">Hemen Ara — {tel}</a>
+      <a class="btn btn-ghost" href="{wa}" target="_blank" rel="noopener">WhatsApp'tan Yaz</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b>39</b><span>İLÇEDE HİZMET</span></div>
+    <div class="stat"><b>30dk</b><span>EN HIZLI TESLİMAT</span></div>
+    <div class="stat"><b>7/24</b><span>KESİNTİSİZ HİZMET</span></div>
+    <div class="stat"><b>{taban} ₺</b><span>TABAN ÜCRET</span></div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <figure class="bolge-gorsel" style="margin-top:0;">
+      <img src="{gorsel}" alt="{gorsel_alt}" loading="lazy" decoding="async" width="1408" height="768">
+      <figcaption>{ad} taleplerini 7/24 açık operasyon merkezimizden yönlendiriyoruz.</figcaption>
+    </figure>
+  </div>
+</section>
+
+{bolumler}
+<section class="section" id="sss">
+  <div class="wrap">
+    <div class="kicker">Sık sorulanlar</div>
+    <h2>{ad} hakkında sorular</h2>
+    <div class="sss-liste">
+{sss_html}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ilgili" style="background:var(--bg-2);border-block:1px solid var(--line);">
+  <div class="wrap">
+    <div class="kicker">Diğer hizmetler</div>
+    <h2>Birlikte en çok kullanılan hizmetler</h2>
+    <div class="komsu-liste komsu-hizmet">
+{ilgili}
+      <a href="kurye-fiyatlari.html">Kurye Fiyatları</a>
+      <a href="fiyat-hesaplama.html">Fiyat Hesaplama</a>
+    </div>
+
+    <h3 class="grup-baslik">Yoğun çalıştığımız bölgeler</h3>
+    <div class="komsu-liste">
+{bolge}
+      <a href="istanbul-ici-kurye.html">Tüm bölgeler →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip" id="talep">
+  <div class="wrap">
+    <h2>Gönderiniz hazır mı?</h2>
+    <p>Alım ve teslim adresini iletin; net fiyatı söyleyip kuryeyi hemen yönlendirelim.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-primary" href="tel:{tel_uri}">📞 {tel}</a>
+      <a class="btn btn-ghost" href="{wa}" target="_blank" rel="noopener">WhatsApp ile Talep Et</a>
+    </div>
+  </div>
+</section>
+"""
+
+
 # ============================================================== ilce hub sayfasi
 HUB_SSS = [
     ("İstanbul'un hangi ilçelerine kurye gönderiyorsunuz?",
@@ -1425,6 +1625,10 @@ def main():
 
     hub_sayfasi()
     print("ilçe hub       : istanbul-ici-kurye.html")
+
+    for slug, veri in HIZMETLER.items():
+        hizmet_sayfasi(slug, veri)
+    print("hizmet sayfası : %d dosya" % len(HIZMETLER))
 
     print("sitemap        : %d URL" % sitemap())
     print("llms.txt       : %d bölge listelendi" % llms())
