@@ -1,7 +1,26 @@
 User-agent: *
 Allow: /
+
+# Yönetim ve iş dosyaları — arama motorlarına kapalı
 Disallow: /data/
 Disallow: /panel.php
+Disallow: /panel-sifre.php
+Disallow: /panel-hesaplayici.php
+Disallow: /panel-hesaplayici-sekmesi.php
+Disallow: /rota.php
+Disallow: /rota-test.php
+Disallow: /hesapla.php
+Disallow: /takip.php
 Disallow: /rapor.php
+Disallow: /ziyaretci.php
+Disallow: /sifirla.php
+Disallow: /sayac.php
+Disallow: /hit.php
+Disallow: /log-kaydet.php
+Disallow: /ziyaret-kaydet.php
+Disallow: /bot-koruma.php
+
+# Önceki tasarımın yedeği — ana sayfayla yarışmasın
+Disallow: /index-eski.html
 
 Sitemap: https://barsekurye.com/sitemap.xml
