@@ -146,8 +146,17 @@ strong,b{color:var(--fg);font-weight:600}
 .logo{display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--f-head);font-size:1.28rem;font-weight:800;letter-spacing:-.03em;color:var(--fg);text-decoration:none;margin-right:auto}
 .logo svg{width:34px;height:34px;color:var(--blue)}
 .logo i{font-style:normal;color:var(--amber-text)}
+/* Marka logosu — başlıkta görsel olarak durur */
+.logo img{height:34px;width:auto;display:block;flex:none}
+/* Menü kalabalıklaşınca logo ezilmesin */
+.logo:has(img){gap:0;font-size:0;flex:none}
+/* Geniş ekranda menü yazıları büyüdüğü için logo da büyür */
+/* Menünün açıldığı 1060px'te yer dar; logo ancak 1280px'ten sonra büyür */
+@media(min-width:1400px){.logo img{height:44px}}
+@media(max-width:400px){.logo img{height:30px}}
+
 .nav{display:none}
-@media(min-width:1060px){
+@media(min-width:1280px){
   .nav{display:flex;align-items:center;gap:2px}
   .nav a{padding:9px 13px;border-radius:8px;font-family:var(--f-head);font-size:.9rem;font-weight:600;color:var(--body);text-decoration:none;white-space:nowrap;transition:background-color var(--d2) var(--ease),color var(--d2) var(--ease)}
   .nav a:hover{background:var(--surface);color:var(--fg)}
@@ -160,13 +169,13 @@ strong,b{color:var(--fg);font-weight:600}
 .burger .x{display:none}
 .burger[aria-expanded="true"] .m{display:none}
 .burger[aria-expanded="true"] .x{display:block}
-@media(min-width:1060px){.burger{display:none}}
+@media(min-width:1280px){.burger{display:none}}
 .mnav{display:none;position:fixed;inset:var(--head-h) 0 0;z-index:110;background:var(--white);overflow-y:auto;padding:var(--s5) var(--s4) var(--s9)}
 .mnav.open{display:block}
 .mnav a{display:flex;align-items:center;justify-content:space-between;padding:var(--s4) var(--s2);font-family:var(--f-head);font-size:var(--t-lg);font-weight:700;color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line)}
 .mnav a[aria-current="page"]{color:var(--blue)}
 .mnav .btns{margin-top:var(--s5)}
-@media(min-width:1060px){.mnav,.mnav.open{display:none}}
+@media(min-width:1280px){.mnav,.mnav.open{display:none}}
 
 /* ── 6. HERO — koyu, derinlikli ──────────────────────────────────────────── */
 .hero{position:relative;background:var(--ink);color:var(--on-ink-dim);overflow:hidden;isolation:isolate}
