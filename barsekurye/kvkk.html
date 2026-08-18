@@ -178,6 +178,12 @@
     var p = new URLSearchParams(location.search);
     var g = p.get('gclid');
     if(!g) return;
+    /* Reklamdan geldi. gclid'i oturum boyunca sakla ki asagidaki
+       ara/whatsapp takibi "bu reklam is getirdi mi" sorusunu cevaplayabilsin. */
+    try{
+      sessionStorage.setItem('bk_gclid', g);
+      sessionStorage.setItem('bk_kelime', p.get('keyword') || p.get('utm_term') || '');
+    }catch(e){}
     if(sessionStorage.getItem('bk_hit')) return;
     sessionStorage.setItem('bk_hit','1');
     var q = 'gclid=' + encodeURIComponent(g)
@@ -185,6 +191,32 @@
           + '&sayfa=' + encodeURIComponent(location.pathname);
     fetch('hit.php?' + q, {keepalive:true}).catch(function(){});
   }catch(e){}
+})();
+/* Telefon ve WhatsApp tiklamasi = asil donusum. Panelde reklamla eslesiyor. */
+(function(){
+  var son = 0;
+  function gonder(tip){
+    var simdi = Date.now();
+    if(simdi - son < 1500) return;   /* cift tiklama sayilmasin */
+    son = simdi;
+    var gc = '', kl = '';
+    try{ gc = sessionStorage.getItem('bk_gclid') || ''; kl = sessionStorage.getItem('bk_kelime') || ''; }catch(e){}
+    try{
+      fetch('eylem.php?tip=' + tip
+          + '&sayfa='  + encodeURIComponent(location.pathname)
+          + '&gclid='  + encodeURIComponent(gc)
+          + '&kelime=' + encodeURIComponent(kl), {keepalive:true}).catch(function(){});
+    }catch(e){}
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if(!t || typeof t.closest !== 'function') return;
+    var a = t.closest('a[href]');
+    if(!a) return;
+    var h = a.getAttribute('href') || '';
+    if(h.slice(0,4) === 'tel:') gonder('ara');
+    else if(h.indexOf('wa.me/') !== -1 || h.indexOf('api.whatsapp.com') !== -1) gonder('whatsapp');
+  }, true);
 })();
 </script>
 <div class="cerez-kutu" id="cerezKutu" hidden>

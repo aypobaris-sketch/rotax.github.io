@@ -16,6 +16,7 @@ Disallow: /ziyaretci.php
 Disallow: /sifirla.php
 Disallow: /sayac.php
 Disallow: /hit.php
+Disallow: /eylem.php
 Disallow: /log-kaydet.php
 Disallow: /ziyaret-kaydet.php
 Disallow: /bot-koruma.php
