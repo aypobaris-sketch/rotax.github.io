@@ -205,6 +205,16 @@
           + '&gclid='  + encodeURIComponent(gc)
           + '&kelime=' + encodeURIComponent(kl), {keepalive:true}).catch(function(){});
     }catch(e){}
+    /* Google'a da bildir: Ads bunu donusum olarak sayabilsin.
+       Cerez izni verilmediyse gtag kendisi susar, biz zorlamiyoruz. */
+    try{
+      if (typeof gtag === 'function') {
+        gtag('event', tip === 'ara' ? 'telefon_tikla' : 'whatsapp_tikla', {
+          sayfa: location.pathname,
+          reklamdan: gc ? 'evet' : 'hayir'
+        });
+      }
+    }catch(e){}
   }
   document.addEventListener('click', function(e){
     var t = e.target;
