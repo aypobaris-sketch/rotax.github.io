@@ -161,6 +161,12 @@
     var p = new URLSearchParams(location.search);
     var g = p.get('gclid');
     if(!g) return;
+    /* Google Ads ekranindan kendi reklamina bakarken de gclid tasiyoruz.
+       Bunu gercek musteri sanip panele yazmayalim. */
+    try{
+      var nereden = document.referrer || '';
+      if(nereden.indexOf('ads.google.com') !== -1) return;
+    }catch(e){}
     /* Reklamdan geldi. gclid'i oturum boyunca sakla ki asagidaki
        ara/whatsapp takibi "bu reklam is getirdi mi" sorusunu cevaplayabilsin. */
     try{
