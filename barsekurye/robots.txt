@@ -21,6 +21,9 @@ Disallow: /log-kaydet.php
 Disallow: /ziyaret-kaydet.php
 Disallow: /bot-koruma.php
 
+# Telefon uygulaması — sadece sana ait, aramada çıkmasın
+Disallow: /uygulama/
+
 # Önceki tasarımın yedeği — ana sayfayla yarışmasın
 Disallow: /index-eski.html
 
