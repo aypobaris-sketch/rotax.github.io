@@ -20,6 +20,7 @@ Disallow: /eylem.php
 Disallow: /log-kaydet.php
 Disallow: /ziyaret-kaydet.php
 Disallow: /bot-koruma.php
+Disallow: /sohbet.php
 
 # Telefon uygulaması — sadece sana ait, aramada çıkmasın
 Disallow: /uygulama/
