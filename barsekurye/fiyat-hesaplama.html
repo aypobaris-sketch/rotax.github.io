@@ -332,7 +332,7 @@
 (function(){
   /* Mesafe gostergesi. Fiyat HESAPLAMAZ - tarife bilgisi burada yok,
      sadece iki ilce arasi yaklasik yol mesafesi ve hiz sureleri. */
-  var IL = [["Adalar", 40.858, 29.123, "N"], ["Arnavutköy", 41.1318, 28.7334, "A"], ["Ataşehir", 40.9891, 29.1216, "N"], ["Avcılar", 40.982, 28.7107, "A"], ["Bahçelievler", 40.9989, 28.8476, "A"], ["Bakırköy", 40.9799, 28.8509, "A"], ["Bayrampaşa", 41.044, 28.9037, "A"], ["Bağcılar", 41.0369, 28.8355, "A"], ["Başakşehir", 41.0794, 28.7774, "A"], ["Beykoz", 41.1024, 29.0791, "N"], ["Beylikdüzü", 40.9917, 28.6407, "A"], ["Beyoğlu", 41.0359, 28.9711, "A"], ["Beşiktaş", 41.0631, 29.0161, "A"], ["Büyükçekmece", 41.0173, 28.5623, "A"], ["Esenler", 41.0415, 28.88, "A"], ["Esenyurt", 41.0215, 28.6896, "A"], ["Eyüpsultan", 41.0945, 28.916, "A"], ["Fatih", 41.0144, 28.948, "A"], ["Gaziosmanpaşa", 41.0673, 28.9063, "A"], ["Güngören", 41.021, 28.872, "A"], ["Kadıköy", 40.9795, 29.0564, "N"], ["Kartal", 40.8969, 29.1885, "N"], ["Kağıthane", 41.0841, 28.9763, "A"], ["Kocaeli", 40.8085, 29.485, "N"], ["Küçükçekmece", 41.0134, 28.786, "A"], ["Maltepe", 40.9334, 29.1439, "N"], ["Pendik", 40.8934, 29.2632, "N"], ["Sancaktepe", 41.0016, 29.2172, "N"], ["Sarıyer", 41.1222, 29.0354, "A"], ["Silivri", 41.0423, 28.352, "A"], ["Sultanbeyli", 40.967, 29.267, "N"], ["Sultangazi", 41.11, 28.884, "A"], ["Tuzla", 40.8439, 29.3007, "N"], ["Zeytinburnu", 41.0021, 28.9069, "A"], ["Çatalca", 41.144, 28.461, "A"], ["Çekmeköy", 41.047, 29.2065, "N"], ["Ümraniye", 41.0213, 29.1383, "N"], ["Üsküdar", 41.0266, 29.0444, "N"], ["Şile", 41.175, 29.613, "N"], ["Şişli", 41.0582, 28.9846, "A"]];
+  var IL = [["Adalar", 40.858, 29.123, "N"], ["Arnavutköy", 41.184, 28.74, "A"], ["Ataşehir", 40.9891, 29.1216, "N"], ["Avcılar", 40.982, 28.7107, "A"], ["Bahçelievler", 40.9989, 28.8476, "A"], ["Bakırköy", 40.9799, 28.8509, "A"], ["Bayrampaşa", 41.044, 28.9037, "A"], ["Bağcılar", 41.0369, 28.8355, "A"], ["Başakşehir", 41.0794, 28.7774, "A"], ["Beykoz", 41.1024, 29.0791, "N"], ["Beylikdüzü", 40.9917, 28.6407, "A"], ["Beyoğlu", 41.0359, 28.9711, "A"], ["Beşiktaş", 41.0631, 29.0161, "A"], ["Büyükçekmece", 41.0173, 28.5623, "A"], ["Esenler", 41.0415, 28.88, "A"], ["Esenyurt", 41.0215, 28.6896, "A"], ["Eyüpsultan", 41.0945, 28.916, "A"], ["Fatih", 41.0144, 28.948, "A"], ["Gaziosmanpaşa", 41.0673, 28.9063, "A"], ["Güngören", 41.021, 28.872, "A"], ["Kadıköy", 40.9795, 29.0564, "N"], ["Kartal", 40.8969, 29.1885, "N"], ["Kağıthane", 41.0841, 28.9763, "A"], ["Kocaeli", 40.8085, 29.485, "N"], ["Küçükçekmece", 41.0134, 28.786, "A"], ["Maltepe", 40.9334, 29.1439, "N"], ["Pendik", 40.8934, 29.2632, "N"], ["Sancaktepe", 41.0016, 29.2172, "N"], ["Sarıyer", 41.1222, 29.0354, "A"], ["Silivri", 41.0736, 28.247, "A"], ["Sultanbeyli", 40.967, 29.267, "N"], ["Sultangazi", 41.11, 28.884, "A"], ["Tuzla", 40.8439, 29.3007, "N"], ["Zeytinburnu", 41.0021, 28.9069, "A"], ["Çatalca", 41.144, 28.461, "A"], ["Çekmeköy", 41.047, 29.2065, "N"], ["Ümraniye", 41.0213, 29.1383, "N"], ["Üsküdar", 41.0266, 29.0444, "N"], ["Şile", 41.175, 29.613, "N"], ["Şişli", 41.0582, 28.9846, "A"]];
   var a = document.getElementById('mhA'), b = document.getElementById('mhB');
   if (!a || !b) return;
 
@@ -344,7 +344,32 @@
     b.insertAdjacentHTML('beforeend','<option value="'+i+'">'+k[0]+'</option>');
   });
 
+  /* Yuzolcumu buyuk ilceler: tek bir merkez noktasi gercegi temsil etmiyor.
+     Silivri bir uctan digerine ~30 km; hangi mahalleye gittigin mesafeyi
+     30 km'ye kadar degistirebiliyor. Kullaniciya bunu soyluyoruz. */
+  var GENIS = ['Silivri','Çatalca','Şile','Arnavutköy','Beykoz','Kocaeli','Büyükçekmece'];
+
+  /* Gercek surus mesafeleri assets/mesafeler.json icinde durur; tek sefer
+     uretilir, sonra hicbir servise istek gitmez. Dosya yoksa asagidaki
+     tahmine dusuyoruz - sehir icinde iyi, uzun yolda sapiyor. */
+  var TABLO = null;
+  if (window.fetch) {
+    fetch('assets/mesafeler.json')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){ if (j && j.km) { TABLO = j.km; ciz(); } })
+      .catch(function(){});
+  }
+
+  function tabloKm(x,y){
+    if (!TABLO) return null;
+    var k = x <= y ? x+'|'+y : y+'|'+x;
+    return typeof TABLO[k] === 'number' ? TABLO[k] : null;
+  }
+
   function km(p,q){
+    var kesin = tabloKm(p[0], q[0]);
+    if (kesin !== null) return kesin;   /* gercek yol mesafesi */
+
     var R = 6371, t = Math.PI/180;
     var dLat = (q[1]-p[1])*t, dLon = (q[2]-p[2])*t;
     var s = Math.sin(dLat/2)*Math.sin(dLat/2) +
@@ -370,8 +395,15 @@
       kutu.hidden = false;
       document.getElementById('mhKm').textContent = d + ' km';
       document.getElementById('mhNot').textContent = p[3] !== q[3]
-        ? p[0] + ' → ' + q[0] + ' yakalar arası. Güzergâha köprü geçişi eklendiği için mesafeye 6 km ilave ediliyor, trafiğe göre süre uzayabiliyor.'
+        ? p[0] + ' → ' + q[0] + ' yakalar arası. Güzergâh köprüden geçiyor, trafiğe göre süre uzayabiliyor.'
         : p[0] + ' → ' + q[0] + ' aynı yakada.';
+
+      var genis = [p[0], q[0]].filter(function(n){ return GENIS.indexOf(n) > -1; });
+      if (genis.length) {
+        document.getElementById('mhNot').textContent +=
+          ' ' + genis.join(' ve ') + ' geniş bir ilçe; buradaki rakam ilçe merkezine göre. ' +
+          'Gideceğiniz mahalleye göre mesafe 20–30 km değişebiliyor, kesin bilgi için yazın.';
+      }
     }
     document.getElementById('mhH1').textContent = '90 dk – 2 saat';
     document.getElementById('mhH2').textContent = '45–60 dk';
