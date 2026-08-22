@@ -375,7 +375,14 @@
     var s = Math.sin(dLat/2)*Math.sin(dLat/2) +
             Math.cos(p[1]*t)*Math.cos(q[1]*t)*Math.sin(dLon/2)*Math.sin(dLon/2);
     var d = R*2*Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
-    d = d*1.4;                       /* kus ucusu degil, yol payi */
+
+    /* Yol payi. Onceki 1.4 sahada dogrulanmadi ve dusuk kaldi; iki
+       gercek is olcusuyle kalibre edildi:
+         Bagcilar -> Sisli    kus ucusu 12.7 km, gercek 23 km  -> 1.81
+         Bagcilar -> Silivri  kus ucusu 49.5 km, gercek 81 km  -> 1.64
+       Sehir icinde sapma daha buyuk (tek yon, ana arter yok);
+       uzun yolda otoyol duzlestirdigi icin oran dusuyor. */
+    d = d * (d < 25 ? 1.80 : 1.65);
     if (p[3] !== q[3]) d += 6;       /* yakalar arasi kopru */
     return Math.max(2, Math.round(d));
   }
