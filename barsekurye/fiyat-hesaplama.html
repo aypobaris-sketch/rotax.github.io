@@ -376,13 +376,13 @@
             Math.cos(p[1]*t)*Math.cos(q[1]*t)*Math.sin(dLon/2)*Math.sin(dLon/2);
     var d = R*2*Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
 
-    /* Yol payi. Onceki 1.4 sahada dogrulanmadi ve dusuk kaldi; iki
-       gercek is olcusuyle kalibre edildi:
-         Bagcilar -> Sisli    kus ucusu 12.7 km, gercek 23 km  -> 1.81
-         Bagcilar -> Silivri  kus ucusu 49.5 km, gercek 81 km  -> 1.64
-       Sehir icinde sapma daha buyuk (tek yon, ana arter yok);
-       uzun yolda otoyol duzlestirdigi icin oran dusuyor. */
-    d = d * (d < 25 ? 1.80 : 1.65);
+    /* Yol payi. mesafeler.json'daki ORS rakamlarina gore kalibre:
+         Bagcilar -> Sisli    kus ucusu 12.7 km, ORS 20 km  -> 1.57
+         Bagcilar -> Silivri  kus ucusu 49.5 km, ORS 61 km  -> 1.23
+       Sehir icinde sapma buyuk (tek yon, duz arter yok), otoyolda
+       kuculuyor. Tabloyla ayni olcekte kalmasi icin ORS'e gore
+       ayarlandi; yoksa eksik bir cift komsularindan kopuk gorunur. */
+    d = d * (d < 25 ? 1.55 : 1.25);
     if (p[3] !== q[3]) d += 6;       /* yakalar arasi kopru */
     return Math.max(2, Math.round(d));
   }
@@ -392,6 +392,24 @@
     var kutu = document.getElementById('mhSonuc');
     if (i === '' || j === '') { kutu.hidden = true; return; }
     var p = IL[+i], q = IL[+j];
+
+    /* Adalar'a karayolu yok - ORS bu 39 cifti bos donduruyor. Kus
+       ucusu hesabi burada denizin ustunden gecer, yani anlamsiz.
+       Kilometre yerine gercegi soyluyoruz. */
+    if (p[0] !== q[0] && (p[0] === 'Adalar' || q[0] === 'Adalar')) {
+      kutu.hidden = false;
+      document.getElementById('mhKm').textContent = 'Vapurla';
+      document.getElementById('mhNot').textContent =
+        'Adalar\u0027a karayolu yok, teslimat vapurla yapılıyor. Mesafe değil ' +
+        'vapur saatleri belirleyici oluyor; süre ve ücret için yazın.';
+      document.getElementById('mhH1').textContent = 'Vapur saatine göre';
+      document.getElementById('mhH2').textContent = 'Vapur saatine göre';
+      document.getElementById('mhH3').textContent = 'Vapur saatine göre';
+      document.getElementById('mhWa').href = 'https://wa.me/905347618388?text=' +
+        encodeURIComponent('Merhaba, ' + p[0] + ' \u2192 ' + q[0] + ' için kurye fiyatı öğrenmek istiyorum.');
+      return;
+    }
+
     if (p[0] === q[0]) {
       kutu.hidden = false;
       document.getElementById('mhKm').textContent = 'İlçe içi';
