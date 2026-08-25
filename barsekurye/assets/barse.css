@@ -501,11 +501,31 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 .cerez-red:hover{border-color:var(--blue);color:var(--blue);}
 .cerez-kabul{background:var(--blue);color:#fff;border-color:var(--blue);}
 .cerez-kabul:hover{background:var(--blue-dark);}
+/* Mobilde cerez kutusu kart degil INCE SERIT.
+   Once buyuk bir kart olarak "Hemen Kurye Cagir" butonunun tam ustune
+   oturuyordu; ziyaretci siteye girer girmez ana butonu goremiyordu.
+   Simdi alt cagri cubugunun hemen ustunde tek satirlik serit. */
 @media (max-width:860px){
-  .cerez-kutu{bottom:86px;}
-  .cerez-butonlar{width:100%;}
-  .cerez-btn{flex:1;}
+  .cerez-kutu{
+    left:0;right:0;bottom:78px;border-radius:0;
+    border-left:none;border-right:none;border-bottom:none;
+    padding:10px 14px;gap:8px;box-shadow:0 -4px 16px rgba(10,20,34,.10);
+    flex-wrap:nowrap;align-items:center;
+  }
+  .cerez-metin{
+    font-size:.74rem;line-height:1.35;min-width:0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .cerez-butonlar{width:auto;flex-shrink:0;gap:6px;}
+  .cerez-btn{flex:none;padding:8px 13px;font-size:.78rem;white-space:nowrap;}
 }
+
+/* Cerez seridi ekrandayken WhatsApp balonu ve yuvarlagi cakismasin.
+   :has() desteklemeyen eski tarayicida eski davranis sürer, bozulmaz. */
+body:has(.cerez-kutu:not([hidden])) .bw-balon{display:none !important;}
+body:has(.cerez-kutu:not([hidden])) .wafloat,
+body:has(.cerez-kutu:not([hidden])) .bw-btn{bottom:150px;}
+
 
 /* ===== SOSYAL MEDYA ===== */
 .sosyal-linkler{display:flex;gap:10px;margin-top:18px;}
@@ -519,3 +539,42 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
   border-color:var(--amber);color:var(--amber);background:rgba(255,138,31,.10);
 }
 .sosyal-linkler svg{width:19px;height:19px;stroke-linecap:round;stroke-linejoin:round;}
+
+
+/* ── GÜVEN ŞERİDİ ────────────────────────────────────────────────────────
+   Reklamdan gelen ziyaretçi firmayı tanımıyor; ilk ekranda görmesi
+   gereken şey puan ve "şu an açık" bilgisi. Önce ikisi de sayfanın çok
+   altındaydı ya da hiç yoktu. */
+.guven{
+  display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;
+  padding:10px 16px;background:var(--surface,#F5F7FB);
+  border-bottom:1px solid var(--line);font-size:.82rem;
+}
+.guven-puan{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--ink,#0E1524)}
+.guven-puan .yildiz{color:#F5A623;letter-spacing:.5px}
+.guven-puan a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
+.guven-ayrac{width:1px;height:16px;background:var(--line)}
+.guven-canli{display:flex;align-items:center;gap:6px;font-weight:650;color:#0B7A3E}
+.guven-canli i{width:7px;height:7px;border-radius:50%;background:#12A150;
+  box-shadow:0 0 0 3px rgba(18,161,80,.18);animation:guvenNabiz 2.4s ease-in-out infinite}
+.guven-not{color:var(--muted);font-weight:500}
+@keyframes guvenNabiz{0%,100%{opacity:1}50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){.guven-canli i{animation:none}}
+@media (max-width:400px){.guven-not{display:none}}
+
+
+/* ── YÜZEN WHATSAPP: TEK OLSUN ───────────────────────────────────────────
+   Sayfada iki ayrı yüzen WhatsApp düğmesi vardı ve üst üste biniyorlardı:
+   .wafloat (eski, sabit) ve .bw-btn (sohbet.js'in yanıp sönen düğmesi,
+   "Merhaba nasıl yardımcı olabiliriz" balonu ona bağlı).
+   Balonlu olanı tutuyoruz, eskisini kaldırıyoruz. */
+.wafloat{display:none !important;}
+
+/* Yüzen düğmeyi ve karşılama balonunu taşıyan kap .bw; konum onun
+   üzerinde. Mobilde alt çağrı çubuğunun (65px) üstünde durmalı, yoksa
+   balon çubuğun altına taşıp kesiliyor. Çerez şeridi açıkken bir kat
+   daha yukarı. */
+@media (max-width:767px){
+  .bw{bottom:88px !important;}
+  body:has(.cerez-kutu:not([hidden])) .bw{bottom:148px !important;}
+}
