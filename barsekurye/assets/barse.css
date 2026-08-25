@@ -578,3 +578,43 @@ body:has(.cerez-kutu:not([hidden])) .bw-btn{bottom:150px;}
   .bw{bottom:88px !important;}
   body:has(.cerez-kutu:not([hidden])) .bw{bottom:148px !important;}
 }
+
+/* ── HIZLI ROTA ARACI ────────────────────────────────────────────────────
+   Ana sayfada kahraman bölümünün hemen altında: iki ilçe, bir hız,
+   yaklaşık yol ve süre. Fiyat göstermiyor. */
+.ra{background:var(--white,#fff);border:1px solid var(--line);border-radius:16px;
+  padding:18px;box-shadow:0 8px 28px rgba(10,20,34,.07)}
+.ra-bas{font-size:1.02rem;font-weight:750;margin-bottom:14px;letter-spacing:-.3px}
+.ra-alanlar{display:grid;gap:8px;margin-bottom:12px}
+.ra-alan{display:flex;align-items:center;gap:10px;background:var(--surface,#F5F7FB);
+  border:1px solid var(--line);border-radius:11px;padding:4px 12px}
+.ra-alan>span{font-size:.66rem;font-weight:800;letter-spacing:.7px;color:var(--muted);
+  width:50px;flex:0 0 50px}
+.ra-alan select{flex:1;min-width:0;border:none;background:none;font:inherit;font-size:.95rem;
+  font-weight:650;color:inherit;padding:11px 0;appearance:none;cursor:pointer}
+.ra-alan select:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+.ra-hiz{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.ra-h{background:var(--surface,#F5F7FB);border:1.5px solid var(--line);border-radius:11px;
+  padding:10px 6px;cursor:pointer;font:inherit;text-align:center;color:inherit;
+  transition:border-color .15s ease,background .15s ease}
+.ra-h b{display:block;font-size:.88rem;font-weight:750}
+.ra-h small{display:block;font-size:.64rem;color:var(--muted);line-height:1.25;margin-top:2px}
+.ra-h[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-tint,#EAF0FF)}
+.ra-h:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.ra-sonuc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+  border-radius:12px;overflow:hidden;margin-bottom:10px}
+.ra-kutu{background:var(--ink,#0E1524);color:#fff;padding:13px 15px}
+.ra-kutu small{display:block;font-size:.68rem;color:#9AA5BE;margin-bottom:2px}
+/* Rengi acikca yaziyoruz: sayfadaki genel b/strong kurali koyu renk
+   veriyor, koyu zeminde okunmuyordu. */
+.ra-kutu b{font-size:1.18rem;letter-spacing:-.4px;color:#fff;font-weight:750}
+.ra-sag{text-align:right}
+/* Sure metni "1,5 - 2,5 saat" gibi uzun olabiliyor; dar kutuda
+   iki satira kirilip cirkin duruyordu. */
+.ra-sag b{font-size:1.02rem;line-height:1.25;display:block}
+.ra-not{font-size:.76rem;color:var(--muted);line-height:1.45;margin-bottom:12px;min-height:1px}
+.ra-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;
+  color:#fff;text-decoration:none;padding:15px;border-radius:12px;font-weight:750;font-size:1rem}
+.ra-cta:hover{background:#1FBA59;color:#fff}
+.ra-mini{font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px}
+@media(min-width:640px){.ra-alanlar{grid-template-columns:1fr 1fr}}
