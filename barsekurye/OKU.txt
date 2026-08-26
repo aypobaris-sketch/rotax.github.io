@@ -1,0 +1,55 @@
+BARSE KURYE — MESAFE DÜZELTMESİ
+================================
+
+SORUN
+  Sitedeki mesafe aracı Bağcılar → Silivri için 57 km diyordu.
+  Sen sahada 81 km gittin. İki sebebi vardı:
+
+  1) Silivri'nin haritadaki noktası ilçe merkezinin 9,5 km doğusundaydı.
+     (Arnavutköy'ünki de 5,8 km güneydeydi.) İkisi de düzeltildi.
+  2) Kalanı ilçenin büyüklüğünden: Silivri bir ucundan diğerine ~30 km.
+     Tek nokta ile temsil edilemez. Artık site bunu kullanıcıya söylüyor.
+
+ASIL ÇÖZÜM
+  Araç artık tahmin yerine GERÇEK sürüş mesafesini kullanabiliyor.
+  Bunun için 780 ilçe çiftinin mesafesini bir kez üretmen gerekiyor.
+  Anahtar gerekmiyor, kota yenmiyor, ücretsiz.
+
+
+NE YAPACAKSIN
+-------------
+
+1) fiyat-hesaplama.html
+   public_html/ içine at, üzerine yaz.
+   (Bu kadarı bile 57 km hatasını 69 km'ye çekiyor.)
+
+2) mesafe-tablosu.php
+   public_html/ içine at (panel.php'nin yanına).
+
+3) Panele giriş yap.
+
+4) Tarayıcıda aç:  https://barsekurye.com/mesafe-tablosu.php
+   Sayfa kendi kendine yenilenerek ilerler. Yaklaşık 15 dakika sürer.
+   SEKMEYİ KAPATMA. Telefondan da olur, ekranı açık bırak.
+
+5) "TAMAMLANDI" yazınca:
+   → assets/mesafeler.json kendiliğinden oluşmuş olacak.
+   → mesafe-tablosu.php dosyasını SUNUCUDAN SİL. İşi bitti.
+
+6) Siteye gir, Bağcılar → Silivri seç. Artık gerçek rakamı göreceksin.
+
+
+NOTLAR
+------
+* Yarıda kalırsa sorun değil: kaldığı yerden devam eder, sayfayı
+  tekrar açman yeterli.
+* mesafeler.json oluşmazsa site eskisi gibi çalışmaya devam eder,
+  hiçbir şey bozulmaz.
+* mesafe-tablosu.php panel şifresi istemez ama panel oturumu ister —
+  giriş yapmadan kimse açamaz. Yine de işin bitince sil.
+
+TARİFE HAKKINDA
+---------------
+Bağcılar → Silivri işinde 1300 istemişsin, 1000'e anlaşmışsın.
+81 km'ye göre senin kendi tarifende normal/zarf = 1280 TL.
+Yani 1300 doğru rakamdı; 1000 kendi tarifenin 280 TL altı.

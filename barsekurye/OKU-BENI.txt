@@ -1,0 +1,56 @@
+WHATSAPP BALONU — sohbet botunun yerine
+========================================
+
+YUKLE:  assets/sohbet.js  ->  public_html/assets/   (uzerine yazsin)
+
+Tek dosya. Sayfalara dokunmuyoruz - 75 sayfa zaten bu dosyayi
+cagiriyor, degistirince hepsi otomatik aldi.
+
+--------------------------------------------------
+NE OLUYOR
+--------------------------------------------------
+  Sag altta nabiz atan yesil WhatsApp dugmesi
+  2,6 saniye sonra yaninda balon: "Merhaba! Nasil yardimci olabiliriz?"
+  Tiklayinca WhatsApp aciliyor, mesaj onceden dolu
+  Balonun sag ustunde x - kapatan bir daha gormuyor (o oturum boyunca)
+
+  Bekleme yok. Maliyet yok. Sinir yok.
+
+--------------------------------------------------
+NEDEN BOT KALDIRILDI
+--------------------------------------------------
+Senin olctugun rakamlar:
+
+     "Slm"    -> 2151 ms
+     "Naber"  -> 10506 ms
+     "Selam"  -> 18766 ms
+     sonraki  -> hic cevap yok (dakikalik sinir)
+
+Gemini'nin ucretsiz katmani bu is icin yeterli degil. Ustelik
+18 saniyelik cevap, ziyaretciyi kacirir - yani bot fayda degil
+zarar veriyordu.
+
+Kayitli donusumlerinin hepsi zaten WhatsApp'tan geliyor. Bot da
+insanlari oraya yonlendirmek icin vardi. Aradaki 18 saniyeyi
+cikardik, o kadar.
+
+--------------------------------------------------
+BOTU GERI ACMAK ISTERSEN
+--------------------------------------------------
+Sunucudaki sohbet.php ve tarife.php DURUYOR, silmedim.
+
+Geri acmak icin:
+  1. console.anthropic.com -> Billing -> 5 dolar kredi yukle
+  2. panel-sifre.php'ye:   $BOT_SAGLAYICI = 'claude';
+  3. _bot-yedegi/sohbet.js dosyasini assets/sohbet.js uzerine yaz
+
+Claude'da olculen sure ~2 saniyeydi ve dakikalik sinir yok.
+Aylik maliyet ~4 dolar.
+
+--------------------------------------------------
+TEST EDILDI
+--------------------------------------------------
+  390px ve 1200px, yatay tasma yok, JS hatasi yok
+  balon 2,6sn sonra ciktı, ekran disina tasmiyor
+  kapatma calisiyor, sayfa yenilenince tekrar cikmiyor
+  hareket azaltma ayari aciksa nabiz duruyor (erisilebilirlik)

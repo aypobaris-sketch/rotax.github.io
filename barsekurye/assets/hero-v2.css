@@ -1,0 +1,117 @@
+/* ────────────────────────────────────────────────────────────────
+   HERO v2 — tam ekran fotoğraflı, sinematik
+   Yalnızca index-v2.html tarafından yükleniyor. barse.css'i ezmez,
+   üstüne biner; mevcut sayfaların hiçbiri etkilenmez.
+   ──────────────────────────────────────────────────────────────── */
+
+.hero-v2{
+  min-height:clamp(560px, 88vh, 860px);
+  display:flex;align-items:center;
+  background:#050B14;
+}
+
+/* Fotoğraf katmanı ------------------------------------------------ */
+.hero-v2 .hero-foto{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-v2 .hero-foto img{
+  width:100%;height:100%;object-fit:cover;object-position:60% 50%;
+  /* Fotoğrafı geri plana it: hafif koyulaştır, kontrastı düşür */
+  filter:brightness(.62) saturate(1.05);
+  transform:scale(1.04);
+}
+/* Metnin oturduğu taraf koyulaşsın — okunabilirlik pazarlık konusu değil */
+.hero-v2::after{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(100deg,
+      rgba(5,11,20,.94) 0%,
+      rgba(5,11,20,.86) 34%,
+      rgba(5,11,20,.42) 62%,
+      rgba(5,11,20,.30) 100%),
+    linear-gradient(180deg, rgba(5,11,20,.55) 0%, transparent 26%, rgba(5,11,20,.72) 100%);
+}
+/* Alt kenarda yumuşak geçiş — kesik görünmesin */
+.hero-v2 .hero-in::after{
+  content:'';position:absolute;left:0;right:0;bottom:calc(var(--s9) * -1);
+  height:var(--s9);pointer-events:none;
+}
+
+/* Yerleşim -------------------------------------------------------- */
+.hero-v2 .hero-in{
+  position:relative;z-index:2;
+  padding-block:var(--s9) var(--s9);
+  display:grid;gap:var(--s7);align-items:center;
+}
+@media(min-width:1000px){
+  .hero-v2 .hero-in{grid-template-columns:1.15fr .85fr;gap:var(--s8)}
+}
+
+/* Tipografi — büyük, sıkı, kendine güvenen ------------------------ */
+.hero-v2 h1{
+  font-size:clamp(2.5rem, 1.6rem + 4.4vw, 5rem);
+  line-height:.98;
+  letter-spacing:-.045em;
+  color:#fff;
+  margin-bottom:var(--s4);
+  text-wrap:balance;
+}
+.hero-v2 h1 em{
+  font-style:normal;
+  color:var(--blue-bright);
+}
+.hero-v2 .hero-lead{
+  font-size:clamp(1.02rem, .95rem + .45vw, 1.25rem);
+  color:#CFDCEC;max-width:44ch;margin-bottom:var(--s5);
+}
+.hero-v2 .live{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22)}
+
+.hero-v2 .btns{display:flex;flex-wrap:wrap;gap:var(--s3)}
+.hero-v2 .btn-o{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.30);
+  color:#fff;backdrop-filter:blur(10px);
+}
+.hero-v2 .btn-o:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.5)}
+
+.hero-v2 .hero-pts li{color:#CBD8E9}
+
+/* Giriş hareketi — sırayla, yumuşak ------------------------------- */
+@media(min-width:1000px){
+  .js .hero-v2 .hero-metin>*{animation:v2Gir .8s var(--ease) both}
+  .js .hero-v2 .hero-metin>*:nth-child(1){animation-delay:.05s}
+  .js .hero-v2 .hero-metin>*:nth-child(2){animation-delay:.13s}
+  .js .hero-v2 .hero-metin>*:nth-child(3){animation-delay:.21s}
+  .js .hero-v2 .hero-metin>*:nth-child(4){animation-delay:.29s}
+  .js .hero-v2 .hero-metin>*:nth-child(5){animation-delay:.37s}
+  .js .hero-v2 .hero-foto img{animation:v2Yakin 1.6s var(--ease) both}
+}
+@keyframes v2Gir{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:none}
+}
+@keyframes v2Yakin{
+  from{transform:scale(1.11)}
+  to{transform:scale(1.04)}
+}
+
+/* Hareket hassasiyeti: hepsi kapanır ------------------------------ */
+@media(prefers-reduced-motion:reduce){
+  .js .hero-v2 .hero-metin>*,
+  .js .hero-v2 .hero-foto img{animation:none}
+  .hero-v2 .hero-foto img{transform:none}
+}
+
+/* Telefon --------------------------------------------------------- */
+@media(max-width:999px){
+  .hero-v2{min-height:auto}
+  /* Telefonda fotoğraf daha açık: motor seçilsin, metin yine de okunsun */
+  .hero-v2 .hero-foto img{object-position:62% 46%;filter:brightness(.66) saturate(1.08)}
+  .hero-v2::after{
+    background:
+      linear-gradient(180deg,
+        rgba(5,11,20,.62) 0%,
+        rgba(5,11,20,.34) 34%,
+        rgba(5,11,20,.88) 100%);
+  }
+  .hero-v2 .hero-in{padding-block:var(--s8) var(--s8);gap:var(--s6)}
+  .hero-v2 .btns .btn{flex:1 1 100%}
+}

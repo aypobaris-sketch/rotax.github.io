@@ -1,7 +1,31 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://barsekurye.com/sitemap.xml
+# Yönetim ve iş dosyaları — arama motorlarına kapalı
+Disallow: /data/
+Disallow: /panel.php
+Disallow: /panel-sifre.php
+Disallow: /panel-hesaplayici.php
+Disallow: /panel-hesaplayici-sekmesi.php
+Disallow: /rota.php
+Disallow: /rota-test.php
+Disallow: /hesapla.php
+Disallow: /takip.php
+Disallow: /rapor.php
+Disallow: /ziyaretci.php
+Disallow: /sifirla.php
+Disallow: /sayac.php
+Disallow: /hit.php
+Disallow: /eylem.php
+Disallow: /log-kaydet.php
+Disallow: /ziyaret-kaydet.php
+Disallow: /bot-koruma.php
+Disallow: /sohbet.php
 
-# AI / LLM discoverability
-# llms.txt: https://barsekurye.com/llms.txt
+# Telefon uygulaması — sadece sana ait, aramada çıkmasın
+Disallow: /uygulama/
+
+# Önceki tasarımın yedeği — ana sayfayla yarışmasın
+Disallow: /index-eski.html
+
+Sitemap: https://barsekurye.com/sitemap.xml
