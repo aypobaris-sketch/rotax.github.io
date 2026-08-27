@@ -20,11 +20,13 @@
   /* Sure once hizmet seviyesinden gelir: Normal'de is baska islerle
      birlestigi icin 2 km de olsa beklemesi var. Taban budur, dusmez.
      Mesafe terimi yalnizca uzun yolda tabani yukari iter - yoksa 83 km
-     Sile'ye de "90-120 dk" deyip tutamayacagimiz soz veriyorduk. */
+     Sile'ye de tabani yazip tutamayacagimiz soz veriyorduk.
+     Tabanlar Baris'in bildirdigi gercek sureler: Normal 2-3 saat,
+     Express 45-75 dk, VIP 30-60 dk. */
   var HIZ = [
-    { ad:'Normal',  aciklama:'Aynı gün içinde', sbt:[17.5,29.5], alt:2.2, ust:3.1, taban:[90,120] },
-    { ad:'Express', aciklama:'Öncelikli sırada', sbt:[12.5,22.0], alt:1.6, ust:2.3, taban:[45,60] },
-    { ad:'VIP',     aciklama:'Kurye başka adrese uğramaz', sbt:[10.0,18.0], alt:1.3, ust:1.9, taban:[30,45] }
+    { ad:'Normal',  aciklama:'Aynı gün içinde', sbt:[17.5,29.5], alt:2.2, ust:3.1, taban:[120,180] },
+    { ad:'Express', aciklama:'Öncelikli sırada', sbt:[12.5,22.0], alt:1.6, ust:2.3, taban:[45,75] },
+    { ad:'VIP',     aciklama:'Kurye başka adrese uğramaz', sbt:[10.0,18.0], alt:1.3, ust:1.9, taban:[30,60] }
   ];
   var secilenHiz = 0;
 
