@@ -17,13 +17,14 @@
   /* Adalar'a karayolu yok; vapurla gidiliyor, mesafe hesabı anlamsız. */
   var GENIS = ['Silivri','Çatalca','Şile','Arnavutköy','Beykoz','Kocaeli','Büyükçekmece'];
 
-  /* Katsayilar ilce sayfalarindaki sure tablosundan cikarildi; 64 degerde
-     toplam sapma 25 dk. Sabit taban yerine "sabit sure + km carpani" var,
-     yoksa 2 km'lik Kagithane'ye de 90 dk yazip kendimizi yavas gosteriyorduk. */
+  /* Sure once hizmet seviyesinden gelir: Normal'de is baska islerle
+     birlestigi icin 2 km de olsa beklemesi var. Taban budur, dusmez.
+     Mesafe terimi yalnizca uzun yolda tabani yukari iter - yoksa 83 km
+     Sile'ye de "90-120 dk" deyip tutamayacagimiz soz veriyorduk. */
   var HIZ = [
-    { ad:'Normal',  aciklama:'Aynı gün içinde', sbt:[17.5,29.5], alt:2.2, ust:3.1, taban:[25,45] },
-    { ad:'Express', aciklama:'Öncelikli sırada', sbt:[12.5,22.0], alt:1.6, ust:2.3, taban:[20,35] },
-    { ad:'VIP',     aciklama:'Kurye başka adrese uğramaz', sbt:[10.0,18.0], alt:1.3, ust:1.9, taban:[15,30] }
+    { ad:'Normal',  aciklama:'Aynı gün içinde', sbt:[17.5,29.5], alt:2.2, ust:3.1, taban:[90,120] },
+    { ad:'Express', aciklama:'Öncelikli sırada', sbt:[12.5,22.0], alt:1.6, ust:2.3, taban:[45,60] },
+    { ad:'VIP',     aciklama:'Kurye başka adrese uğramaz', sbt:[10.0,18.0], alt:1.3, ust:1.9, taban:[30,45] }
   ];
   var secilenHiz = 0;
 
