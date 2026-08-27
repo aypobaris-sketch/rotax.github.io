@@ -17,10 +17,13 @@
   /* Adalar'a karayolu yok; vapurla gidiliyor, mesafe hesabı anlamsız. */
   var GENIS = ['Silivri','Çatalca','Şile','Arnavutköy','Beykoz','Kocaeli','Büyükçekmece'];
 
+  /* Katsayilar ilce sayfalarindaki sure tablosundan cikarildi; 64 degerde
+     toplam sapma 25 dk. Sabit taban yerine "sabit sure + km carpani" var,
+     yoksa 2 km'lik Kagithane'ye de 90 dk yazip kendimizi yavas gosteriyorduk. */
   var HIZ = [
-    { ad:'Normal',  aciklama:'Aynı gün içinde', alt:2.2, ust:3.0, taban:[90,120] },
-    { ad:'Express', aciklama:'Öncelikli sırada', alt:1.6, ust:2.3, taban:[45,60] },
-    { ad:'VIP',     aciklama:'Kurye başka adrese uğramaz', alt:1.3, ust:1.9, taban:[30,45] }
+    { ad:'Normal',  aciklama:'Aynı gün içinde', sbt:[17.5,29.5], alt:2.2, ust:3.1, taban:[25,45] },
+    { ad:'Express', aciklama:'Öncelikli sırada', sbt:[12.5,22.0], alt:1.6, ust:2.3, taban:[20,35] },
+    { ad:'VIP',     aciklama:'Kurye başka adrese uğramaz', sbt:[10.0,18.0], alt:1.3, ust:1.9, taban:[15,30] }
   ];
   var secilenHiz = 0;
 
@@ -54,8 +57,8 @@
   /* Süre mesafeyle birlikte uzuyor. Sabit "30-45 dk" yazmak 60 km'lik
      bir işte tutmayacak bir söz vermek olurdu. */
   function sure(k, h){
-    var a = Math.max(h.taban[0], Math.round(k*h.alt/5)*5);
-    var b = Math.max(h.taban[1], Math.round(k*h.ust/5)*5);
+    var a = Math.max(h.taban[0], Math.round((h.sbt[0] + k*h.alt)/5)*5);
+    var b = Math.max(h.taban[1], Math.round((h.sbt[1] + k*h.ust)/5)*5);
     /* Ikisi de saate dusuyorsa birimi bir kez yaz: "1,5 – 2 saat" */
     if (a >= 90) return saat(a) + ' – ' + saat(b) + ' saat';
     if (b >= 90) return a + ' dk – ' + saat(b) + ' saat';
