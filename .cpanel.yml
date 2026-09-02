@@ -1,0 +1,24 @@
+---
+# cPanel Git Version Control dagitim tarifi.
+#
+# GUVENLIK KURALI: bu dosya YALNIZCA statik on yuzu kopyalar.
+#   - data/        ASLA kopyalanmaz  (canli musteri kayitlari)
+#   - *.php        ASLA kopyalanmaz  (panel-sifre.php sifre iceriyor)
+#   - .htaccess    ASLA kopyalanmaz  (sunucu yapilandirmasi)
+# Bunlar zaten depoda yok (.gitignore), burada da kopyalanmiyor.
+# cp -f kullaniliyor: var olan dosyanin uzerine yazar, HICBIR SEY SILMEZ.
+#
+# index-eski.html bilerek disarida: ana sayfanin eski kopyasi, canonical'i
+# yok ve gercek ana sayfayla arama sonuclarinda yarisiyor.
+deployment:
+  tasks:
+    - export DEPLOYPATH=$HOME/public_html
+    - /bin/mkdir -p $DEPLOYPATH/assets $DEPLOYPATH/images $DEPLOYPATH/og $DEPLOYPATH/poster
+    - /bin/find barsekurye -maxdepth 1 -name '*.html' ! -name 'index-eski.html' -exec /bin/cp -f {} $DEPLOYPATH/ \;
+    - /bin/cp -f barsekurye/sitemap.xml barsekurye/robots.txt barsekurye/llms.txt $DEPLOYPATH/
+    - /bin/cp -f barsekurye/favicon.ico barsekurye/favicon-16x16.png barsekurye/favicon-32x32.png barsekurye/favicon-512.png barsekurye/apple-touch-icon.png $DEPLOYPATH/
+    - /bin/cp -f barsekurye/og-image.jpg barsekurye/ads-kare-1200.jpg $DEPLOYPATH/
+    - /bin/cp -rf barsekurye/assets/. $DEPLOYPATH/assets/
+    - /bin/cp -rf barsekurye/images/. $DEPLOYPATH/images/
+    - /bin/cp -rf barsekurye/og/. $DEPLOYPATH/og/
+    - /bin/cp -rf barsekurye/poster/. $DEPLOYPATH/poster/
