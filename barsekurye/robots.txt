@@ -4,7 +4,6 @@ Allow: /
 # Yönetim ve iş dosyaları — arama motorlarına kapalı
 Disallow: /data/
 Disallow: /panel.php
-Disallow: /panel-sifre.php
 Disallow: /panel-hesaplayici.php
 Disallow: /panel-hesaplayici-sekmesi.php
 Disallow: /rota.php
@@ -21,6 +20,9 @@ Disallow: /log-kaydet.php
 Disallow: /ziyaret-kaydet.php
 Disallow: /bot-koruma.php
 Disallow: /sohbet.php
+
+# Bot tuzağı — buraya sadece robots.txt'i yok sayan botlar girer
+Disallow: /tuzak.php
 
 # Telefon uygulaması — sadece sana ait, aramada çıkmasın
 Disallow: /uygulama/

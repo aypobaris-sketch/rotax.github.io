@@ -618,3 +618,12 @@ body:has(.cerez-kutu:not([hidden])) .bw-btn{bottom:150px;}
 .ra-cta:hover{background:#1FBA59;color:#fff}
 .ra-mini{font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px}
 @media(min-width:640px){.ra-alanlar{grid-template-columns:1fr 1fr}}
+
+/* ── İlçe afişleri ────────────────────────────────────────────────────────
+   .sahne img telefonda 4/3'e kırpılıyor (object-fit:cover). Fotoğrafta
+   sorun değil ama afiş tasarlanmış bir görsel: kırpınca ilçe adı ve
+   telefon numarası kesiliyordu. Bu görseller kendi oranında, kırpılmadan
+   gösterilir. Kural dosyanın sonunda çünkü yukarıdaki medya sorgusuyla
+   aynı özgüllükte - kaynak sırası belirliyor. */
+.sahne--afis img{aspect-ratio:1408/768;object-fit:contain;background:#040C1F}
+@media(max-width:640px){.sahne--afis img{aspect-ratio:1408/768}}
