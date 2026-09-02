@@ -617,7 +617,10 @@ body:has(.cerez-kutu:not([hidden])) .bw-btn{bottom:150px;}
   color:#fff;text-decoration:none;padding:15px;border-radius:12px;font-weight:750;font-size:1rem}
 .ra-cta:hover{background:#1FBA59;color:#fff}
 .ra-mini{font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px}
-@media(min-width:640px){.ra-alanlar{grid-template-columns:1fr 1fr}}
+@media(min-width:640px){.ra-alanlar{grid-template-columns:1fr 1fr}
+  /* 2. durak istege bagli; ALIM/TESLIM yan yana kalsin, bu alttan tam
+     genislik alsin - yoksa ucuncu kutu yarim satirda tek basina duruyor. */
+  .ra-alan--ek{grid-column:1/-1}}
 
 /* ── İlçe afişleri ────────────────────────────────────────────────────────
    .sahne img telefonda 4/3'e kırpılıyor (object-fit:cover). Fotoğrafta
