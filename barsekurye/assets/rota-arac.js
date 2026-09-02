@@ -2,9 +2,14 @@
    ================================
    Sayfaya <div id="rotaArac"></div> koyup bu dosyayı çağırmak yeterli.
 
-   Ne yapar: iki ilçe ve bir teslimat hızı seçtirir, yaklaşık yolu ve o
-   hıza göre süreyi gösterir, WhatsApp mesajını rotayla doldurur.
+   Ne yapar: alım ilçesi, teslim ilçesi ve istege bagli ikinci bir teslim
+   ilçesi ile teslimat hızı seçtirir; yaklaşık yolu ve o hıza göre süreyi
+   gösterir, WhatsApp mesajını rotayla doldurur.
    FİYAT GÖSTERMEZ — tarife bu dosyada yok, olmayacak da.
+
+   İki teslim noktası varsa iki sıralamayı da hesaplayıp KISA OLANI seçer.
+   Sıra önemli: Beşiktaş'tan Eyüp'e sonra Kağıthane'ye gitmek ~21 km,
+   önce Kağıthane sonra Eyüp ~13 km. Aynı iş, 8 km fark.
 
    Mesafe önce assets/mesafeler.json'dan (ORS'ten üretilmiş gerçek sürüş
    mesafesi) okunur; dosya yoksa kuş uçuşu tahminine düşer. */
@@ -57,6 +62,22 @@
     return Math.max(2, Math.round(d));
   }
 
+  /* Ayni ilce ici teslimat: matriste 0 cikabilir ama is 0 km degil.
+     Mevcut arayuz de ilce icini 4 km sayiyordu, ayni sayiyi kullaniyoruz. */
+  function kmAdim(p, q){
+    return p[0] === q[0] ? 4 : km(p, q);
+  }
+
+  /* Iki teslim noktasi varsa hangi sirayla gidilecegini burasi secer:
+     A→B→C mi, A→C→B mi? Kisa olani kazanir. Tek teslim varsa dokunmaz. */
+  function rota(p, q, r){
+    if (!r) return { km: kmAdim(p, q), sira: [p, q] };
+    var d1 = kmAdim(p, q) + kmAdim(q, r);
+    var d2 = kmAdim(p, r) + kmAdim(r, q);
+    return d1 <= d2 ? { km: d1, sira: [p, q, r] }
+                    : { km: d2, sira: [p, r, q] };
+  }
+
   /* Süre mesafeyle birlikte uzuyor. Sabit "30-45 dk" yazmak 60 km'lik
      bir işte tutmayacak bir söz vermek olurdu. */
   function sure(k, h){
@@ -77,6 +98,7 @@
       '<div class="ra-alanlar">' +
         '<label class="ra-alan"><span>ALIM</span><select id="raA"></select></label>' +
         '<label class="ra-alan"><span>TESLİM</span><select id="raB"></select></label>' +
+        '<label class="ra-alan ra-alan--ek"><span>2. DURAK</span><select id="raC"></select></label>' +
       '</div>' +
       '<div class="ra-hiz" id="raHiz" role="group" aria-label="Teslimat hızı"></div>' +
       '<div class="ra-sonuc" id="raSonuc" hidden>' +
@@ -88,14 +110,18 @@
       '<p class="ra-mini">Fiyatı kurye yola çıkmadan telefonda netleştiriyoruz.</p>' +
     '</div>';
 
-  var a = document.getElementById('raA'), b = document.getElementById('raB');
+  var a = document.getElementById('raA'), b = document.getElementById('raB'),
+      c = document.getElementById('raC');
   IL.sort(function(x,y){ return x[0].localeCompare(y[0],'tr'); });
   var bos = '<option value="">Seçiniz…</option>';
   a.innerHTML = bos; b.innerHTML = bos;
+  /* 2. durak istege bagli - bos birakilirsa arac eskisi gibi calisir. */
+  c.innerHTML = '<option value="">Yok</option>';
   IL.forEach(function(k,i){
     var o = '<option value="'+i+'">'+k[0]+'</option>';
     a.insertAdjacentHTML('beforeend', o);
     b.insertAdjacentHTML('beforeend', o);
+    c.insertAdjacentHTML('beforeend', o);
   });
 
   var hizKap = document.getElementById('raHiz');
@@ -115,43 +141,69 @@
     hizKap.appendChild(d);
   });
 
+  /* Ikinci durak sadece yol degil ZAMAN da ekliyor: park, binaya girme,
+     imza alma. Mesafeden bagimsiz oldugu icin sure() disinda duruyor. */
+  var EK_DURAK_DK = 20;
+
   function ciz(){
-    var i = a.value, j = b.value;
+    var i = a.value, j = b.value, k = c.value;
     var sonuc = document.getElementById('raSonuc');
     var not = document.getElementById('raNot');
     var wa = document.getElementById('raWa');
     if (i === '' || j === '') { sonuc.hidden = true; not.textContent = ''; return; }
 
     var p = IL[+i], q = IL[+j], h = HIZ[secilenHiz];
+    var r = k === '' ? null : IL[+k];
+    /* Ikinci durak birinciyle ayni ilceyse ek durak sayilmaz. */
+    if (r && r[0] === q[0]) r = null;
+
+    var adlar = r ? [p[0], q[0], r[0]] : [p[0], q[0]];
+    var rt = rota(p, q, r);
+    var sirali = rt.sira.map(function(x){ return x[0]; }).join(' → ');
+    var hepsiAyni = adlar.every(function(n){ return n === adlar[0]; });
+
     sonuc.hidden = false;
     document.getElementById('raHizAd').textContent = h.ad.toLowerCase() + ' teslimat';
 
-    if (p[0] !== q[0] && (p[0] === 'Adalar' || q[0] === 'Adalar')) {
+    if (adlar.indexOf('Adalar') > -1 && !hepsiAyni) {
       document.getElementById('raKm').textContent = 'Vapurla';
       document.getElementById('raSure').textContent = 'Vapur saatine göre';
       not.textContent = 'Adalar\u0027a karayolu yok, teslimat vapurla yapılıyor. Süre ve ücret için yazın.';
-    } else if (p[0] === q[0]) {
+    } else if (hepsiAyni) {
       document.getElementById('raKm').textContent = 'İlçe içi';
       document.getElementById('raSure').textContent = sure(4, h);
       not.textContent = p[0] + ' içindeki teslimatlar en kısa mesafe grubuna giriyor.';
     } else {
-      var d = km(p,q);
-      document.getElementById('raKm').textContent = d + ' km';
-      document.getElementById('raSure').textContent = sure(d, h);
-      not.textContent = p[3] !== q[3]
-        ? p[0] + ' → ' + q[0] + ' yakalar arası; güzergâh köprüden geçiyor.'
-        : p[0] + ' → ' + q[0] + ' aynı yakada.';
-      var genis = [p[0], q[0]].filter(function(n){ return GENIS.indexOf(n) > -1; });
+      document.getElementById('raKm').textContent = rt.km + ' km';
+      document.getElementById('raSure').textContent =
+        sure(rt.km, h) + (r ? ' (+~' + EK_DURAK_DK + ' dk 2. durak)' : '');
+
+      if (r) {
+        not.textContent = 'Önerilen sıra: ' + sirali +
+          '. İki sıralamayı da hesapladık, kısa olan bu.';
+      } else {
+        not.textContent = p[3] !== q[3]
+          ? p[0] + ' → ' + q[0] + ' yakalar arası; güzergâh köprüden geçiyor.'
+          : p[0] + ' → ' + q[0] + ' aynı yakada.';
+      }
+
+      var yakalar = rt.sira.map(function(x){ return x[3]; });
+      if (r && yakalar.indexOf('A') > -1 && yakalar.indexOf('N') > -1) {
+        not.textContent += ' Güzergâh köprüden geçiyor.';
+      }
+      var genis = adlar.filter(function(n){ return GENIS.indexOf(n) > -1; });
       if (genis.length) {
         not.textContent += ' ' + genis.join(' ve ') + ' geniş bir ilçe; rakam ilçe merkezine göre.';
       }
     }
 
-    var mesaj = 'Merhaba, ' + p[0] + ' → ' + q[0] + ' için ' + h.ad.toLowerCase() +
-                ' kurye fiyatı öğrenmek istiyorum.';
+    var mesaj = 'Merhaba, ' + sirali + ' için ' + h.ad.toLowerCase() +
+                ' kurye fiyatı öğrenmek istiyorum.' +
+                (r ? ' (2 teslim noktası var.)' : '');
     wa.href = 'https://wa.me/905347618388?text=' + encodeURIComponent(mesaj);
   }
 
   a.addEventListener('change', ciz);
   b.addEventListener('change', ciz);
+  c.addEventListener('change', ciz);
 })();
