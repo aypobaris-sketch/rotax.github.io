@@ -185,8 +185,17 @@
 <script>
 (function(){
   try{
+    /* Isletme Profili'nden gelenler cogu telefonda referans TASIMIYOR,
+       o yuzden dogrudan trafikle karisiyorlardi. GBP linkine
+       ?utm_source=gbp koydugumuzda burasi onu yakalar ve kaynagi
+       "utm:gbp" olarak yazar. UTM varsa referanstan ustundur - biz
+       koyduk, kesin bilgi; referans tahmin.
+       CSV bicimi degismiyor, ayni "referans" sutununa yaziliyor. */
+    var ug = '';
+    try{ ug = new URLSearchParams(location.search).get('utm_source') || ''; }catch(e){}
+    var kaynak = ug ? ('utm:' + ug) : (document.referrer || '');
     var q = 'sayfa=' + encodeURIComponent(location.pathname)
-          + '&ref=' + encodeURIComponent(document.referrer || '');
+          + '&ref=' + encodeURIComponent(kaynak);
     fetch('/ziyaret-kaydet.php?' + q, {keepalive:true}).catch(function(){});
   }catch(e){}
 })();
