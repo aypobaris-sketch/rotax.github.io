@@ -7,8 +7,49 @@
   window.__barseWa = true;
 
   var TEL  = '905347618388';
-  var METIN = 'Merhaba, siteden yazıyorum. Bir gönderim var.';
-  var SELAM = 'Merhaba! Nasıl yardımcı olabiliriz?';
+
+  /* Hazir mesaj SAYFAYA GORE degisiyor.
+     Onceki hali her sayfada "Bir gönderim var." diyordu; Baris'in ilk
+     sorusu her seferinde "yeriniz neresi?" oluyordu ve o soru-cevap
+     dakikalar goturuyordu. Artik ilce/hizmet ilk mesajda geliyor.
+     Metinler HTML'deki 606 linkle BIREBIR ayni kaliba uyuyor. */
+  var OZEL = {
+    'index'                  : 'Merhaba, kurye lazım. Fiyat öğrenebilir miyim?',
+    'eczane-kurye'           : 'Merhaba, eczaneden ilaç aldırmak istiyorum. Kurye ücretini öğrenebilir miyim?',
+    'nobetci-eczane-kurye'   : 'Merhaba, nöbetçi eczaneden ilaç lazım. Kurye ücretini öğrenebilir miyim?',
+    'acil-kurye'             : 'Merhaba, acil kurye lazım. Fiyat öğrenebilir miyim?',
+    'moto-kurye'             : 'Merhaba, moto kurye lazım. Fiyat öğrenebilir miyim?',
+    'evrak-kurye'            : 'Merhaba, evrak göndermek istiyorum. Fiyat öğrenebilir miyim?',
+    'kurumsal-kurye'         : 'Merhaba, kurumsal kurye anlaşması için bilgi almak istiyorum.',
+    'gumruk-kurye'           : 'Merhaba, gümrük evrakı için kurye lazım. Fiyat öğrenebilir miyim?',
+    '7-24-kurye'             : 'Merhaba, kurye lazım. Şu an müsait misiniz?',
+    'istanbul-ici-kurye'     : 'Merhaba, İstanbul içi kurye lazım. Fiyat öğrenebilir miyim?',
+    'fiyat-hesaplama'        : 'Merhaba, kurye fiyatı öğrenmek istiyorum.',
+    'sikca-sorulan-sorular'  : 'Merhaba, kurye hizmeti hakkında sorum var.'
+  };
+
+  function hazirMesaj() {
+    var yol = '';
+    try {
+      yol = location.pathname.replace(/^.*\//, '').replace(/\.html$/, '');
+      if (yol === '') { yol = 'index'; }
+    } catch (e) {}
+    if (OZEL[yol]) { return OZEL[yol]; }
+    /* Ilce ve semt sayfalari: h1 "Nişantaşı Moto Kurye" -> "Nişantaşı" */
+    try {
+      var b = document.querySelector('h1');
+      if (b) {
+        var ad = b.textContent.replace(/\s*(Moto\s+)?Kurye.*$/, '').trim();
+        if (ad && ad.length < 40) {
+          return 'Merhaba, ' + ad + ' için kurye lazım. Fiyat öğrenebilir miyim?';
+        }
+      }
+    } catch (e) {}
+    return 'Merhaba, kurye lazım. Fiyat öğrenebilir miyim?';
+  }
+
+  var METIN = hazirMesaj();
+  var SELAM = 'Adresleri yazın, fiyatı hemen söyleyelim';
   var GECIKME = 2600;      // balon kaç ms sonra çıksın
   var kapatildi = false;
   try { kapatildi = sessionStorage.getItem('barse-wa-kapali') === '1'; } catch (e) {}
