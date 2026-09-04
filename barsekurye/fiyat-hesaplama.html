@@ -139,6 +139,24 @@
     <label for="mhB">Teslim ilçesi</label>
     <select id="mhB"></select>
   </div>
+  <div class="mh-satir">
+    <label for="mhP">Gönderi türü</label>
+    <select id="mhP">
+      <option value="Zarf / evrak">Zarf / evrak</option>
+      <option value="Küçük paket (2 kg'a kadar)">Küçük paket (2 kg'a kadar)</option>
+      <option value="Orta paket (5 kg'a kadar)">Orta paket (5 kg'a kadar)</option>
+      <option value="Koli (10 kg'a kadar)">Koli (10 kg'a kadar)</option>
+      <option value="İlaç / eczane gönderisi">İlaç / eczane gönderisi</option>
+    </select>
+  </div>
+  <div class="mh-satir">
+    <label for="mhS">Ne zaman lazım?</label>
+    <select id="mhS">
+      <option value="Normal (2-3 saat)">Normal — 2-3 saat</option>
+      <option value="Express (45-75 dk)">Express — 45-75 dk</option>
+      <option value="VIP (30-60 dk)">VIP — 30-60 dk</option>
+    </select>
+  </div>
   <div class="mh-sonuc" id="mhSonuc" hidden>
     <div class="mh-km"><b id="mhKm">—</b><span>yaklaşık yol mesafesi</span></div>
     <p class="mh-not" id="mhNot"></p>
@@ -147,7 +165,7 @@
       <li><span>Express</span><b id="mhH2">—</b></li>
       <li><span>VIP</span><b id="mhH3">—</b></li>
     </ul>
-    <a class="btn btn-g btn-block" id="mhWa" href="https://wa.me/905347618388" target="_blank" rel="noopener">Bu güzergâh için fiyat sor</a>
+    <a class="btn btn-g btn-block" id="mhWa" href="https://wa.me/905347618388" target="_blank" rel="noopener">WhatsApp'tan fiyat al</a>
     <p class="mh-kck">Mesafe kuş uçuşu değil, gerçek güzergâha yakın hesaplanır. Kesin ücreti kurye yola çıkmadan önce söylüyoruz.</p>
   </div>
 </div></div></div></section>
@@ -424,8 +442,7 @@
       document.getElementById('mhH1').textContent = 'Vapur saatine göre';
       document.getElementById('mhH2').textContent = 'Vapur saatine göre';
       document.getElementById('mhH3').textContent = 'Vapur saatine göre';
-      document.getElementById('mhWa').href = 'https://wa.me/905347618388?text=' +
-        encodeURIComponent('Merhaba, ' + p[0] + ' \u2192 ' + q[0] + ' için kurye fiyatı öğrenmek istiyorum.');
+      yazWa(p[0], q[0], 'Vapurla');
       return;
     }
 
@@ -449,15 +466,35 @@
           'Gideceğiniz mahalleye göre mesafe 20–30 km değişebiliyor, kesin bilgi için yazın.';
       }
     }
-    document.getElementById('mhH1').textContent = '90 dk – 2 saat';
-    document.getElementById('mhH2').textContent = '45–60 dk';
-    document.getElementById('mhH3').textContent = '30–45 dk';
-    var msg = 'Merhaba, ' + p[0] + ' → ' + q[0] + ' için kurye fiyatı öğrenmek istiyorum.';
-    document.getElementById('mhWa').href =
-      'https://wa.me/905347618388?text=' + encodeURIComponent(msg);
+    document.getElementById('mhH1').textContent = '2–3 saat';
+    document.getElementById('mhH2').textContent = '45–75 dk';
+    document.getElementById('mhH3').textContent = '30–60 dk';
+    yazWa(p[0], q[0], document.getElementById('mhKm').textContent);
   }
+  /* WhatsApp'a giden hazir talep. Ilceler, mesafe, gonderi turu ve
+     aciliyet tek mesajda gidiyor; musteri tekrar anlatmiyor, biz de
+     fiyati tek bakista verebiliyoruz. */
+  function yazWa(al, ver, mesafe){
+    var pkt = document.getElementById('mhP'), hiz = document.getElementById('mhS');
+    var st = [
+      'Merhaba, kurye fiyatı öğrenmek istiyorum:',
+      '\u2022 Alım: ' + al,
+      '\u2022 Teslim: ' + ver,
+      '\u2022 Yaklaşık mesafe: ' + mesafe,
+      '\u2022 Gönderi: ' + (pkt ? pkt.value : 'Zarf / evrak'),
+      '\u2022 Aciliyet: ' + (hiz ? hiz.value : 'Normal (2-3 saat)'),
+      '',
+      'Adresleri yazayım mı?'
+    ].join('\n');
+    document.getElementById('mhWa').href =
+      'https://wa.me/905347618388?text=' + encodeURIComponent(st);
+  }
+
   a.addEventListener('change', ciz);
   b.addEventListener('change', ciz);
+  var pSel = document.getElementById('mhP'), sSel = document.getElementById('mhS');
+  if (pSel) pSel.addEventListener('change', ciz);
+  if (sSel) sSel.addEventListener('change', ciz);
 })();
 </script>
 <script src="assets/sohbet.js?v=20260826" defer></script>
