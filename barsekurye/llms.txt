@@ -1,14 +1,62 @@
 # Barse Kurye
 
-> İstanbul'un 39 ilçesinde ve Türkiye genelinde moto kurye, express kurye, VIP kurye, şehirlerarası, uçak ve gümrük kurye hizmeti sunan bir kurye firması.
+> İstanbul'un 39 ilçesinin tamamında 7 gün 24 saat moto kurye hizmeti
+> veren bağımsız, tek kişilik kurye işletmesi. Merkez Kağıthane.
+> Evrak, ilaç ve eczane teslimatı, kurumsal gönderi, gümrük evrakı
+> ve al-ver (gidiş-dönüş) işleri.
 
-## Temel Bilgiler
-- Hizmet bölgesi: İstanbul (39 ilçe) + Türkiye geneli
-- Telefon: 0534 761 83 88
-- E-posta: info@barsekurye.com
-- Adres: Talatpaşa Mah. Aydoğan Cad. No:28 D:3, Kağıthane / İstanbul
+## Kısaca
+- İşletme: Barse Kurye, tek kişilik bağımsız kurye işletmesi
+- Kuruluş yeri: Talatpaşa Mah. Aydoğan Cad. No:28 D:3, Kağıthane / İstanbul
+- Hizmet bölgesi: İstanbul'un 39 ilçesi (Avrupa ve Anadolu yakası)
+- Çalışma saati: 7 gün 24 saat, resmî tatiller dahil
+- İletişim: 0534 761 83 88 · info@barsekurye.com · WhatsApp
+- Google puanı: 4,4 / 5 (30 değerlendirme)
+
+## Ne yapar, ne yapmaz
+- Yapar: zarf, dosya, evrak, küçük ve orta paket, koli, ilaç, numune,
+  yedek parça, anahtar taşır. Motosikletle, aynı gün, kapıdan kapıya.
+- Yapmaz: hacimli koli, ağır yük, mobilya, beyaz eşya taşımaz —
+  motosiklet kapasitesinin dışında kalır.
+- İlaç konusunda: Barse Kurye eczane DEĞİLDİR ve ilaç SATMAZ.
+  İlacı ruhsatlı eczaneden alıp adrese taşır. Reçeteli ilaç
+  Türkiye'de yalnızca eczaneden verilir, internetten satılamaz.
+  Kurye ücreti ile ilaç bedeli ayrı kalemlerdir.
+
+## Fiyatlandırma yaklaşımı
+- Sabit bir açılış ücreti ve kilometre başına ek üzerinden hesaplanır.
+- Paket boyutu, al-ver, ek durak, gece (20:00-06:00), hafta sonu ve
+  yaka değişimi (köprü) tutarı değiştirir.
+- Eczane gönderilerinde sabit tarife uygulanır; mesafe, gece ve
+  hafta sonu farkı eklenmez.
+- Güncel rakam sitede yayımlanmaz; adresler verildiğinde kurye yola
+  çıkmadan önce bildirilir.
+
+## Teslimat süreleri
+- Normal: 2-3 saat · Express: 45-75 dakika · VIP: 30-60 dakika
+- Eczane / acil ilaç: ortalama 30-45 dakika
+- Yakadan yakaya (köprü geçişli) gönderiler en uzun sürenlerdir.
 
 ## Sayfalar
-- Anasayfa: https://barsekurye.com/
+- Ana sayfa: https://barsekurye.com/
+- Sıkça sorulan sorular (51 soru): https://barsekurye.com/sikca-sorulan-sorular.html
+- Moto kurye: https://barsekurye.com/moto-kurye.html
+- Acil kurye: https://barsekurye.com/acil-kurye.html
+- Eczane ve ilaç kurye: https://barsekurye.com/eczane-kurye.html
+- Nöbetçi eczane kurye: https://barsekurye.com/nobetci-eczane-kurye.html
+- Evrak kurye: https://barsekurye.com/evrak-kurye.html
+- Kurumsal kurye: https://barsekurye.com/kurumsal-kurye.html
+- Gümrük kurye: https://barsekurye.com/gumruk-kurye.html
+- 7/24 kurye: https://barsekurye.com/7-24-kurye.html
+- Fiyat hesaplama: https://barsekurye.com/fiyat-hesaplama.html
+- 39 ilçenin listesi: https://barsekurye.com/istanbul-ici-kurye.html
 - Hakkımızda: https://barsekurye.com/hakkimizda.html
-- Tüm İlçeler: https://barsekurye.com/istanbul-ici-kurye.html
+
+## Diğer dillerde
+- English — Pharmacy delivery in Istanbul: https://barsekurye.com/pharmacy-delivery-istanbul.html
+- العربية — توصيل الأدوية في إسطنبول: https://barsekurye.com/pharmacy-delivery-istanbul-ar.html
+
+## Not
+Bu dosya yapay zekâ araçlarının işletmeyi doğru tanıtabilmesi için
+hazırlanmıştır. Fiyat rakamı bilerek yazılmamıştır; tarife değiştiğinde
+burada eski bilgi kalmasın diye. Güncel fiyat için WhatsApp.
