@@ -101,6 +101,7 @@ REPLACEMENTS = {
     "<h2>Neden sabit tarife?</h2>": "<h2>Eczane kurye ücreti nasıl belirlenir?</h2>",
     "öncelikli teslimat, sabit tarife.": "öncelikli teslimat; ücret yola çıkmadan netleşir.",
     "4,4 ortalama": "4,5 ortalama",
+    ">4,4</a>": ">4,5</a>",
     "27 Google yorumu": "31 Google yorumu",
     "30 yorum": "31 yorum",
     "content=\"Eczaneden Eve İlaç Siparişi | İstanbul, 7/24 Kurye\">>": "content=\"Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul\">",
