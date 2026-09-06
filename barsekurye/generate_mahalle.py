@@ -34,9 +34,9 @@ def generate_mahalle_pages():
         else:
             filename = f"{ilce_slug}-{mahalle_slug}-kurye.html"
         
-        title = f"{ilce} {mahalle} Kurye | Barse Kurye"
-        baslik = f"{ilce} {mahalle} Hızlı Kurye"
-        icerik = f"{ilce} ilçesi {mahalle} bölgesinde gönderileriniz için rota kıyaslaması yapan sistemimizle maksimum 16 pakete kadar kusursuz teslimat sunuyoruz."
+        title = f"{ilce} {mahalle} Moto Kurye | 7/24 — Barse"
+        baslik = f"{ilce} {mahalle} Moto Kurye"
+        icerik = f"{ilce} {mahalle} bölgesinde evrak, ilaç ve kurumsal gönderiler için 7/24 moto kurye sağlıyoruz. Ücret kurye yola çıkmadan netleşir."
         
         content = template.replace('{{TITLE}}', title).replace('{{BASLIK}}', baslik).replace('{{ICERIK}}', icerik).replace('{{MAHALLE_ADI}}', mahalle).replace('{{ILCE_ADI}}', ilce)
         

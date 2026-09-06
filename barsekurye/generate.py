@@ -28,9 +28,9 @@ def generate_ilce_pages():
         slug = slugify(ilce)
         filename = f"{slug}-kurye.html"
         
-        title = f"{ilce} Kurye | Barse Kurye - Rota Kıyaslamalı Teslimat"
-        baslik = f"{ilce} Kurye Hizmeti"
-        icerik = f"Barse Kurye olarak {ilce} bölgesinde en uygun rotayı belirleyerek gönderilerinizi hızla ulaştırıyoruz. Akıllı rota kıyaslaması sayesinde 16 pakete kadar olan teslimatlarınızı güvenle ve en iyi sürelerde taşıyoruz."
+        title = f"{ilce} Moto Kurye | 7/24 Net Fiyat — Barse"
+        baslik = f"{ilce} Moto Kurye"
+        icerik = f"{ilce} bölgesinde evrak, ilaç ve kurumsal gönderiler için 7/24 moto kurye sağlıyoruz. Ücret mesafe ve saate göre kurye yola çıkmadan netleşir."
         
         # Etiketleri değiştir
         content = template.replace('{{TITLE}}', title).replace('{{BASLIK}}', baslik).replace('{{ICERIK}}', icerik).replace('{{ILCE_ADI}}', ilce)

@@ -23,9 +23,9 @@ def generate_intent_pages():
         slug = intent['slug']
         filename = f"{slug}.html"
         
-        title = f"{isim} Hizmeti | Barse Kurye"
-        baslik = f"Profesyonel {isim} Çözümleri"
-        icerik = f"Barse Kurye olarak İstanbul genelinde {isim} ihtiyaçlarınız için buradayız. Gelişmiş rota kıyaslamasıyla 16 pakete kadar çoklu gönderilerinizi optimize ediyor ve güvenilir teslimat sağlıyoruz."
+        title = f"{isim} İstanbul | 7/24 Net Fiyat — Barse"
+        baslik = f"İstanbul {isim}"
+        icerik = f"İstanbul'un 39 ilçesinde {isim} hizmeti sağlıyoruz. Evrak, ilaç ve kurumsal gönderiler için ücret kurye yola çıkmadan netleşir."
         
         content = template.replace('{{TITLE}}', title).replace('{{BASLIK}}', baslik).replace('{{ICERIK}}', icerik).replace('{{INTENT_ADI}}', isim)
         
