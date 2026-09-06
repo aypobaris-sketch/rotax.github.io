@@ -1,8 +1,17 @@
 from pathlib import Path
 import html
 import re
+import shutil
+import sys
 
 ROOT = Path(__file__).resolve().parent
+if len(sys.argv) != 2:
+    raise SystemExit("Usage: seo_sitewide.py /absolute/stage/path")
+STAGE = Path(sys.argv[1]).resolve()
+if STAGE == ROOT or ROOT in STAGE.parents:
+    raise SystemExit("Stage path must be outside the repository source folder")
+shutil.rmtree(STAGE, ignore_errors=True)
+STAGE.mkdir(parents=True, exist_ok=True)
 
 LOCAL_PAGES = {
     "adalar-kurye.html", "arnavutkoy-kurye.html", "atasehir-kurye.html", "avcilar-kurye.html",
@@ -180,10 +189,8 @@ def update_html(path):
     if ">>" in document.split("</head>", 1)[0]:
         raise ValueError(f"{path.name}: malformed head tag")
 
-    if document != original:
-        path.write_text(document, encoding="utf-8")
-        return True
-    return False
+    (STAGE / path.name).write_text(document, encoding="utf-8")
+    return document != original
 
 
 def update_sitemap():
@@ -195,15 +202,13 @@ def update_sitemap():
         original,
         flags=re.S,
     )
-    if document != original:
-        path.write_text(document, encoding="utf-8")
-        return True
-    return False
+    (STAGE / path.name).write_text(document, encoding="utf-8")
+    return document != original
 
 
 changed = []
 for html_file in sorted(ROOT.glob("*.html")):
-    if html_file.name in {"404.html", "index-eski.html"}:
+    if html_file.name == "index-eski.html":
         continue
     if update_html(html_file):
         changed.append(html_file.name)
