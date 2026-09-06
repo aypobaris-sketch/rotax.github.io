@@ -126,7 +126,7 @@ def local_name(document, fallback):
 def set_meta(document, title, description):
     document = re.sub(r"<title>.*?</title>", f"<title>{title}</title>", document, count=1, flags=re.I | re.S)
     document = re.sub(r'<meta\s+name="description"\s+content="[^"]*"\s*/?>', f'<meta name="description" content="{description}">', document, count=1, flags=re.I)
-    document = re.sub(r'<meta\s+property="og:title"\s+content="[^"]*"\s*/?>', f'<meta property="og:title" content="{title}">', document, count=1, flags=re.I)
+    document = re.sub(r'<meta\s+property="og:title"\s+content="[^"]*"\s*/?>>?', f'<meta property="og:title" content="{title}">', document, count=1, flags=re.I)
     document = re.sub(r'<meta\s+property="og:description"\s+content="[^"]*"\s*/?>', f'<meta property="og:description" content="{description}">', document, count=1, flags=re.I)
     return document
 
@@ -156,10 +156,24 @@ def update_html(path):
     for old, new in REPLACEMENTS.items():
         document = document.replace(old, new)
 
+    document = re.sub(r"(?i)sabit tarife", "önceden netleşen tarife", document)
+    document = re.sub(r"(?i)gece farkı yok", "ücret yola çıkmadan netleşir", document)
+    document = re.sub(r"(?i)gece farkı uygulanmıyor", "ücret yola çıkmadan netleşiyor", document)
+    document = re.sub(r"(?i)hafta sonu farkı uygulanmıyor", "ücret yola çıkmadan netleşiyor", document)
+    document = re.sub(r"(?i)mesafeden bağımsız önceden netleşen tarife", "mesafe ve saate göre yola çıkmadan netleşen tarife", document)
+
     document = document.replace(ADDRESS_OLD, ADDRESS_NEW)
 
     if path.name in {"gizlilik-politikasi.html", "kvkk.html"}:
         document = set_robots(document, "noindex, follow")
+
+    if path.name not in {"gizlilik-politikasi.html", "kvkk.html"}:
+        required = ("<title>", 'name="description"', 'rel="canonical"', "<h1")
+        missing = [token for token in required if token not in document]
+        if missing:
+            raise ValueError(f"{path.name}: missing SEO fields: {', '.join(missing)}")
+    if ">>" in document.split("</head>", 1)[0]:
+        raise ValueError(f"{path.name}: malformed head tag")
 
     if document != original:
         path.write_text(document, encoding="utf-8")
