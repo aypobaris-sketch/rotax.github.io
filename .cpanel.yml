@@ -13,11 +13,12 @@
 deployment:
   tasks:
     - export DEPLOYPATH=$HOME/public_html
-    - /usr/bin/python3 barsekurye/seo_sitewide.py
+    - export SEOSTAGE=$HOME/barsekurye-seo-stage
+    - /usr/bin/python3 barsekurye/seo_sitewide.py $SEOSTAGE
     - /bin/mkdir -p $DEPLOYPATH/assets $DEPLOYPATH/images $DEPLOYPATH/og $DEPLOYPATH/poster
-    - /bin/find barsekurye -maxdepth 1 -name '*.html' ! -name 'index-eski.html' -exec /bin/cp -f {} $DEPLOYPATH/ \;
+    - /bin/find $SEOSTAGE -maxdepth 1 -name '*.html' -exec /bin/cp -f {} $DEPLOYPATH/ \;
     - /bin/cp -f barsekurye/deploy-stubs/index-eski.html $DEPLOYPATH/index-eski.html
-    - /bin/cp -f barsekurye/sitemap.xml barsekurye/robots.txt barsekurye/llms.txt $DEPLOYPATH/
+    - /bin/cp -f $SEOSTAGE/sitemap.xml barsekurye/robots.txt barsekurye/llms.txt $DEPLOYPATH/
     - /bin/cp -f barsekurye/favicon.ico barsekurye/favicon-16x16.png barsekurye/favicon-32x32.png barsekurye/favicon-512.png barsekurye/apple-touch-icon.png $DEPLOYPATH/
     - /bin/cp -f barsekurye/og-image.jpg barsekurye/ads-kare-1200.jpg $DEPLOYPATH/
     - /bin/cp -rf barsekurye/assets/. $DEPLOYPATH/assets/
