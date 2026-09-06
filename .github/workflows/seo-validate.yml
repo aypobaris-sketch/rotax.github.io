@@ -1,0 +1,22 @@
+name: SEO kalite kontrolu
+
+on:
+  push:
+    branches: [main, Main]
+    paths:
+      - 'barsekurye/**'
+      - '.cpanel.yml'
+      - '.github/workflows/seo-validate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Site dosyalarini al
+        uses: actions/checkout@v4
+      - name: Tum SEO kurallarini dogrula
+        run: python3 barsekurye/seo_sitewide.py /tmp/barsekurye-seo-stage
