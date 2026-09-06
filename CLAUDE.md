@@ -85,6 +85,22 @@ otomatik ret. Görselin içinde numara olabilir.
 
 **Google Ads sınırı:** reklam grubu başına en fazla 3 etkin RSA.
 
+## Reklam skill'leri (claude-ads)
+
+`AgriciDaniel/claude-ads` (MIT, v2.0.1) depoya kuruldu: `.claude/skills/ads/`
+ana yönetici + 33 `ads-*` alt skill + 25 `audit-*` / worker agent.
+Detay ve güncelleme komutu: `.claude/skills/ads/UPSTREAM.md`.
+
+- Giriş noktası `/ads` — `/ads setup`, `/ads audit`, `/ads google`, `/ads plan`,
+  `/ads optimize --draft`, `/ads report`.
+- **Varsayılan salt-okunur.** Hesapta değişiklik ancak açık onay, öncesi/sonrası
+  farkı ve geri alma planıyla yapılır. Bu kural CLAUDE.md'deki "geri alınamayan
+  işlerde önce sor" kuralıyla aynı yöne bakıyor.
+- Eski `ads` skill'i (genel reklam danışmanlığı) çakıştığı için
+  **`ads-strategy`** adına taşındı; içeriği aynı.
+- Python yardımcıları kuruldu, bağımlılıkları kurulmadı (`--no-deps`).
+  `scripts/*.py` çalıştırmak gerekirse önce `requirements.lock` kurulmalı.
+
 ## Ortam
 
 - Site `curl/` user-agent'ını `.htaccess` ile engelliyor; tarayıcı UA gerekir.

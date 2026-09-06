@@ -41,3 +41,7 @@ node_modules/
 
 # Ozel hafiza: reklam hesabi kimlikleri, ciro, strateji. Depo public - girmez.
 BARSE-HAFIZA-OZEL.md
+
+# claude-ads Python ortami (yerel, depoya girmez)
+.claude/skills/ads/.venv/
+.claude/skills/ads/managed-runtime-receipt.json
