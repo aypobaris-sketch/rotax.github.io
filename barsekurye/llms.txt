@@ -43,6 +43,7 @@
 - Moto kurye: https://barsekurye.com/moto-kurye.html
 - Acil kurye: https://barsekurye.com/acil-kurye.html
 - Eczane ve ilaç kurye: https://barsekurye.com/eczane-kurye.html
+- Eczaneden eve ilaç teslimatı: https://barsekurye.com/eczaneden-eve-siparis.html
 - Nöbetçi eczane kurye: https://barsekurye.com/nobetci-eczane-kurye.html
 - Evrak kurye: https://barsekurye.com/evrak-kurye.html
 - Kurumsal kurye: https://barsekurye.com/kurumsal-kurye.html
