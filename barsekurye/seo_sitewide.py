@@ -103,7 +103,11 @@ REPLACEMENTS = {
     "4,4 ortalama": "4,5 ortalama",
     "27 Google yorumu": "31 Google yorumu",
     "30 yorum": "31 yorum",
-    "content=\"Eczaneden Eve İlaç Siparişi | İstanbul, 7/24 Kurye\">>": "content=\"Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul\">"
+    "content=\"Eczaneden Eve İlaç Siparişi | İstanbul, 7/24 Kurye\">>": "content=\"Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul\">",
+    "English-speaking, all 39 districts, flat pharmacy rate.": "English-speaking service across all 39 districts; the courier price is confirmed before departure.",
+    "Pharmacy deliveries use a flat rate with no night or weekend surcharge.": "The courier price depends on distance and time and is confirmed before departure.",
+    "لتوصيل الأدوية نطبّق <b>تعرفة ثابتة</b> — دون فرق للمسافة أو الليل أو عطلة نهاية الأسبوع. نُعلمك بالمبلغ قبل انطلاق الكوريير.": "يعتمد سعر الكوريير على المسافة والوقت، ونُعلمك بالمبلغ قبل انطلاقه.",
+    "لتوصيل الأدوية نطبّق تعرفة ثابتة دون فرق ليلي أو فرق لعطلة نهاية الأسبوع.": "يعتمد سعر الكوريير على المسافة والوقت، ونُعلمك بالمبلغ قبل انطلاقه."
 }
 
 ADDRESS_OLD = '"address": {"@type": "PostalAddress", "addressLocality": "Kağıthane", "addressRegion": "İstanbul", "addressCountry": "TR"}'
