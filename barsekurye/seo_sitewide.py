@@ -1,5 +1,8 @@
 from pathlib import Path
+from datetime import date
+from xml.etree import ElementTree
 import html
+import json
 import re
 import shutil
 import sys
@@ -35,23 +38,23 @@ LOCAL_PAGES = {
 
 META = {
     "index.html": (
-        "İstanbul Moto Kurye | 7/24 Kurye Çağır — Barse",
-        "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderi; ücret kurye yola çıkmadan netleşir."
+        "İstanbul Kurye | 7/24 Evrak, İlaç ve Moto Kurye — Barse",
+        "İstanbul'un 39 ilçesinde 7/24 kurye. Evrak, ilaç ve kurumsal gönderi; ücret kurye yola çıkmadan netleşir."
     ),
     "moto-kurye.html": (
-        "Moto Kurye İstanbul | 7/24 Kurye Çağır — Barse",
-        "İstanbul'un 39 ilçesinde 7/24 moto kurye çağırın. Evrak, paket ve kurumsal gönderi; ücret yola çıkmadan netleşir."
+        "Moto Kurye İstanbul | Aynı Gün 39 İlçe — Barse",
+        "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak ve paketler aynı gün teslim edilir; ücret yola çıkmadan netleşir."
     ),
     "acil-kurye.html": (
-        "Acil Kurye İstanbul | Ekspres ve VIP Kurye — Barse",
-        "İstanbul'da 7/24 acil moto kurye. Ekspres ve VIP seçenekleriyle gönderiye özel teslimat; ücret yola çıkmadan netleşir."
+        "Acil ve Ekspres Kurye İstanbul | VIP 7/24 — Barse",
+        "İstanbul'da 7/24 acil, hızlı, ekspres ve VIP moto kurye. Gönderiye özel teslimat; ücret yola çıkmadan netleşir."
     ),
     "7-24-kurye.html": (
         "7/24 Kurye İstanbul | Gece Dahil Net Fiyat — Barse",
         "İstanbul’da gece, hafta sonu ve resmî tatilde 7/24 moto kurye. Evrak ve ilaç teslimatı; ücret kurye yola çıkmadan netleşir."
     ),
     "eczane-kurye.html": (
-        "Eczane Kurye İstanbul | 7/24 İlaç Teslimatı — Barse",
+        "Eczane ve İlaç Kurye İstanbul | 7/24 — Barse",
         "Eczane, ecza deposu ve hastalar için 7/24 ilaç kuryesi. İstanbul'un 39 ilçesi; ücret mesafe ve saate göre yola çıkmadan netleşir."
     ),
     "eczaneden-eve-siparis.html": (
@@ -67,8 +70,8 @@ META = {
         "Sözleşme, noter, mahkeme ve ihale evrakı için 7/24 moto kurye. İstanbul'un 39 ilçesi; ücret yola çıkmadan netleşir."
     ),
     "fiyat-hesaplama.html": (
-        "Moto Kurye Fiyat Hesaplama | Mesafe ve Hız — Barse",
-        "İlçeleri seçip yol mesafesi ve teslimat süresini görün. Kurye ücretini mesafe, hız ve saat belirler; kesin tutar yola çıkmadan netleşir."
+        "Moto Kurye Fiyatları ve Hesaplama | İstanbul — Barse",
+        "İlçeleri seçip mesafe ve süreyi görün. Kurye ücretini mesafe, hız ve saat belirler; kesin tutar yola çıkmadan netleşir."
     ),
     "kurumsal-kurye.html": (
         "Kurumsal Kurye İstanbul | Aylık Faturalı — Barse",
@@ -116,6 +119,10 @@ REPLACEMENTS = {
     "content=\"Eczaneden Eve İlaç Siparişi | İstanbul, 7/24 Kurye\">>": "content=\"Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul\">",
     "English-speaking, all 39 districts, flat pharmacy rate.": "English-speaking service across all 39 districts; the courier price is confirmed before departure.",
     "Pharmacy deliveries use a flat rate with no night or weekend surcharge.": "The courier price depends on distance and time and is confirmed before departure.",
+    "Pharmacy deliveries use a <b>flat rate</b> — no distance, night or weekend surcharge. We tell you the amount before the courier leaves.": "The courier fee depends on distance and time. We confirm the exact amount before departure, so there is no surprise at the door.",
+    "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderiler; Türkiye geneline havayolu ve şehirlerarası taşıma.": "Moto kurye İstanbul'un 39 ilçesinde 7/24; havayolu ve şehirlerarası gönderiler ayrı planlanır.",
+    "Türkiye geneline uçak kargo ile gönderi ve gümrük evrak taşıma.": "İstanbul dışı havayolu ve şehirlerarası gönderiler ayrı planlanır; gümrük evrak taşıması yapılır.",
+    "Evet. Türkiye geneline havayolu kargo ve şehirlerarası taşıma yapıyoruz; ayrıca gümrük evrak taşıma hizmetimiz var. Bu gönderiler için telefonla fiyat veriyoruz.": "Moto kurye hizmetimiz İstanbul içidir. İstanbul dışı havayolu ve şehirlerarası gönderiler ayrı planlanır; gümrük evrak taşıması için ücreti önceden bildiriyoruz.",
     "لتوصيل الأدوية نطبّق <b>تعرفة ثابتة</b> — دون فرق للمسافة أو الليل أو عطلة نهاية الأسبوع. نُعلمك بالمبلغ قبل انطلاق الكوريير.": "يعتمد سعر الكوريير على المسافة والوقت، ونُعلمك بالمبلغ قبل انطلاقه.",
     "لتوصيل الأدوية نطبّق تعرفة ثابتة دون فرق ليلي أو فرق لعطلة نهاية الأسبوع.": "يعتمد سعر الكوريير على المسافة والوقت، ونُعلمك بالمبلغ قبل انطلاقه."
 }
