@@ -6,23 +6,26 @@ intents = [
     {"isim": "7/24 Kurye", "slug": "7-24-kurye"},
     {"isim": "Kurumsal Kurye", "slug": "kurumsal-kurye"},
     {"isim": "Eczane Kurye", "slug": "eczane-kurye"},
-    {"isim": "Gümrük Kurye", "slug": "gumruk-kurye"},
-    {"isim": "Vip Kurye", "slug": "vip-kurye"},
-    {"isim": "Express Kurye", "slug": "express-kurye"}
+    {"isim": "Gümrük Kurye", "slug": "gumruk-kurye"}
 ]
+# VIP, hızlı ve express aramaları acil-kurye.html altında birlikte hedeflenir;
+# ayrı sayfalar açmak aynı niyette sayfa çakışması yaratır.
 
 def generate_intent_pages():
     try:
         with open('sablon.html', 'r', encoding='utf-8') as f:
             template = f.read()
     except FileNotFoundError:
-        template = "<html>\n<head>\n<title>{title}</title>\n</head>\n<body>\n<h1>{baslik}</h1>\n<p>{icerik}</p>\n</body>\n</html>"
+        raise SystemExit("sablon.html bulunamadı; mevcut SEO sayfalarını korumak için üretim durduruldu")
 
     for intent in intents:
         isim = intent['isim']
         slug = intent['slug']
         filename = f"{slug}.html"
-        
+        if os.path.exists(filename):
+            print(f"Atlandı, mevcut sayfa korundu: {filename}")
+            continue
+
         title = f"{isim} İstanbul | 7/24 Net Fiyat — Barse"
         baslik = f"İstanbul {isim}"
         icerik = f"İstanbul'un 39 ilçesinde {isim} hizmeti sağlıyoruz. Evrak, ilaç ve kurumsal gönderiler için ücret kurye yola çıkmadan netleşir."
