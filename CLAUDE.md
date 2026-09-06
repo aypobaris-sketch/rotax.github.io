@@ -30,6 +30,12 @@
 - Geri alınamayan / dışarı çıkan işlerde (reklam silme, gönderi yayınlama,
   ödeme) önce sor.
 - Türkçe konuşuyor; cevaplar Türkçe olmalı.
+- **Skill'leri kendin seç ve kullan.** Barış `/skill-adi` yazmaz, yazmak
+  zorunda da değil. İşe uyan skill varsa (321 skill, 48 agent kurulu)
+  sormadan çağır ve işi onunla yap; hangisini kullandığını cevabın içinde tek
+  satırda söyle. Aynı anda hepsini yüklemek mümkün değil — her skill bağlam
+  penceresine talimat yüklüyor, 321'i birden çelişir ve taşar. Doğru olan:
+  her iş için doğru olanı seçmek.
 
 ---
 
