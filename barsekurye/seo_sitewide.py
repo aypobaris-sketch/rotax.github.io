@@ -184,11 +184,13 @@ def update_html(path):
     document = re.sub(r"(?i)mesafeden bağımsız önceden netleşen tarife", "mesafe ve saate göre yola çıkmadan netleşen tarife", document)
 
     document = document.replace(ADDRESS_OLD, ADDRESS_NEW)
+    document = document.replace('href="index.html"', 'href="/"')
+    document = document.replace("href='index.html'", "href='/'")
 
-    if path.name in {"gizlilik-politikasi.html", "kvkk.html"}:
+    if path.name in {"404.html", "gizlilik-politikasi.html", "kvkk.html"}:
         document = set_robots(document, "noindex, follow")
 
-    if path.name not in {"gizlilik-politikasi.html", "kvkk.html"}:
+    if path.name not in {"404.html", "gizlilik-politikasi.html", "kvkk.html"}:
         required = ("<title>", 'name="description"', 'rel="canonical"', "<h1")
         missing = [token for token in required if token not in document]
         if missing:
@@ -200,7 +202,7 @@ def update_html(path):
     return document != original
 
 
-def update_sitemap():
+def update_sitemap(changed_html):
     path = ROOT / "sitemap.xml"
     original = path.read_text(encoding="utf-8")
     document = re.sub(
@@ -209,8 +211,94 @@ def update_sitemap():
         original,
         flags=re.S,
     )
+    today = date.today().isoformat()
+    for filename in changed_html:
+        location = "https://barsekurye.com/" if filename == "index.html" else f"https://barsekurye.com/{filename}"
+        pattern = rf"(<loc>{re.escape(location)}</loc>\s*<lastmod>)[^<]+(</lastmod>)"
+        document = re.sub(pattern, rf"\g<1>{today}\g<2>", document, count=1)
     (STAGE / path.name).write_text(document, encoding="utf-8")
     return document != original
+
+
+def validate_stage():
+    index_exclusions = {"404.html", "gizlilik-politikasi.html", "kvkk.html"}
+    expected_indexable = {
+        path.name for path in ROOT.glob("*.html")
+        if path.name not in {"404.html", "index-eski.html", "gizlilik-politikasi.html", "kvkk.html"}
+    }
+    titles = {}
+    descriptions = {}
+    canonicals = {}
+    warnings = []
+
+    for path in sorted(STAGE.glob("*.html")):
+        document = path.read_text(encoding="utf-8")
+        head = document.split("</head>", 1)[0]
+        if ">>" in head:
+            raise ValueError(f"{path.name}: malformed head tag")
+        if 'href="index.html"' in document or "href='index.html'" in document:
+            raise ValueError(f"{path.name}: legacy index.html internal link remains")
+
+        if path.name in index_exclusions:
+            if "noindex" not in head.lower():
+                raise ValueError(f"{path.name}: noindex missing")
+            continue
+
+        title_match = re.search(r"<title>(.*?)</title>", head, flags=re.I | re.S)
+        desc_match = re.search(r'<meta\s+name="description"\s+content="([^"]+)"', head, flags=re.I)
+        canonical_match = re.search(r'<link\s+rel="canonical"\s+href="([^"]+)"', head, flags=re.I)
+        h1_count = len(re.findall(r"<h1(?:\s|>)", document, flags=re.I))
+        if not title_match or not desc_match or not canonical_match or h1_count != 1:
+            raise ValueError(f"{path.name}: title, description, canonical or single H1 check failed")
+
+        title = clean_text(title_match.group(1))
+        description = clean_text(desc_match.group(1))
+        canonical = canonical_match.group(1)
+        expected_canonical = "https://barsekurye.com/" if path.name == "index.html" else f"https://barsekurye.com/{path.name}"
+        if canonical != expected_canonical:
+            raise ValueError(f"{path.name}: canonical mismatch ({canonical})")
+        if title in titles:
+            raise ValueError(f"Duplicate title: {path.name} and {titles[title]}")
+        if description in descriptions:
+            raise ValueError(f"Duplicate description: {path.name} and {descriptions[description]}")
+        if canonical in canonicals:
+            raise ValueError(f"Duplicate canonical: {path.name} and {canonicals[canonical]}")
+        titles[title] = path.name
+        descriptions[description] = path.name
+        canonicals[canonical] = path.name
+
+        if len(title) > 65:
+            warnings.append(f"{path.name}: title {len(title)} chars")
+        if len(description) < 80 or len(description) > 165:
+            warnings.append(f"{path.name}: description {len(description)} chars")
+
+        for payload in re.findall(r'<script[^>]+type="application/ld\+json"[^>]*>(.*?)</script>', document, flags=re.I | re.S):
+            json.loads(payload)
+
+        stale_claims = (
+            "sabit tarife", "gece farkı yok", "gece farkı uygulanmıyor",
+            "hafta sonu farkı uygulanmıyor", "flat rate"
+        )
+        lowered = clean_text(document).lower()
+        for claim in stale_claims:
+            if claim in lowered:
+                raise ValueError(f"{path.name}: stale pricing claim remains: {claim}")
+
+    sitemap_path = STAGE / "sitemap.xml"
+    root = ElementTree.parse(sitemap_path).getroot()
+    namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    sitemap_files = set()
+    for loc in root.findall("sm:url/sm:loc", namespace):
+        url = (loc.text or "").strip()
+        sitemap_files.add("index.html" if url == "https://barsekurye.com/" else url.rsplit("/", 1)[-1])
+    if sitemap_files != expected_indexable:
+        missing = sorted(expected_indexable - sitemap_files)
+        extra = sorted(sitemap_files - expected_indexable)
+        raise ValueError(f"Sitemap mismatch. Missing={missing}; Extra={extra}")
+
+    print(f"SEO validation passed: {len(expected_indexable)} indexable pages; {len(warnings)} non-blocking length warnings")
+    for warning in warnings:
+        print(f"WARNING: {warning}")
 
 
 changed = []
@@ -220,7 +308,8 @@ for html_file in sorted(ROOT.glob("*.html")):
     if update_html(html_file):
         changed.append(html_file.name)
 
-if update_sitemap():
+if update_sitemap(changed):
     changed.append("sitemap.xml")
 
+validate_stage()
 print(f"SEO cleanup complete: {len(changed)} files updated")
