@@ -21,13 +21,15 @@ def generate_ilce_pages():
         with open('sablon.html', 'r', encoding='utf-8') as f:
             template = f.read()
     except FileNotFoundError:
-        # Şablon bulunamazsa basit bir taslak kullan
-        template = "<html>\n<head>\n<title>{title}</title>\n</head>\n<body>\n<h1>{baslik}</h1>\n<p>{icerik}</p>\n</body>\n</html>"
+        raise SystemExit("sablon.html bulunamadı; mevcut SEO sayfalarını korumak için üretim durduruldu")
 
     for ilce in ilceler:
         slug = slugify(ilce)
         filename = f"{slug}-kurye.html"
-        
+        if os.path.exists(filename):
+            print(f"Atlandı, mevcut sayfa korundu: {filename}")
+            continue
+
         title = f"{ilce} Moto Kurye | 7/24 Net Fiyat — Barse"
         baslik = f"{ilce} Moto Kurye"
         icerik = f"{ilce} bölgesinde evrak, ilaç ve kurumsal gönderiler için 7/24 moto kurye sağlıyoruz. Ücret mesafe ve saate göre kurye yola çıkmadan netleşir."
