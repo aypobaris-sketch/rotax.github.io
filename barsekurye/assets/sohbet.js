@@ -21,6 +21,7 @@
     'moto-kurye'             : 'Merhaba, moto kurye lazım. Fiyat öğrenebilir miyim?',
     'evrak-kurye'            : 'Merhaba, evrak göndermek istiyorum. Fiyat öğrenebilir miyim?',
     'kurumsal-kurye'         : 'Merhaba, kurumsal kurye anlaşması için bilgi almak istiyorum.',
+    'eczaneler-icin-kurye'   : 'Merhaba, eczaneyim. Kurye anlaşması için bilgi almak istiyorum.',
     'gumruk-kurye'           : 'Merhaba, gümrük evrakı için kurye lazım. Fiyat öğrenebilir miyim?',
     '7-24-kurye'             : 'Merhaba, kurye lazım. Şu an müsait misiniz?',
     'istanbul-ici-kurye'     : 'Merhaba, İstanbul içi kurye lazım. Fiyat öğrenebilir miyim?',

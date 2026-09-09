@@ -71,6 +71,10 @@ META = {
         "Kurye Fiyat Hesaplama | İstanbul Moto Kurye Ücreti",
         "İki ilçe seçin, aradaki yolu ve teslimat süresini anında görün. Kurye ücretini mesafe, hız ve saat belirler; kesin tutarı yola çıkmadan söylüyoruz."
     ),
+    "eczaneler-icin-kurye.html": (
+        "Eczaneler İçin Kurye | Depo Transferi ve Takas",
+        "Eczaneler için kurye: ecza deposundan ürün alımı, meslektaş eczaneyle ödünç ilaç takası ve hastaya reçete teslimi. İstanbul'da 7/24, aylık faturalı."
+    ),
     "kurumsal-kurye.html": (
         "Kurumsal Kurye İstanbul | Anlaşmalı, Aylık Faturalı",
         "Her gün sabit saatte gelen anlaşmalı kurye, ay sonunda tek fatura ve gönderi dökümü. Eczane, hukuk, muhasebe ve e-ticaret ofislerine özel."
