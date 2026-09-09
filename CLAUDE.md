@@ -30,6 +30,12 @@
 - Geri alınamayan / dışarı çıkan işlerde (reklam silme, gönderi yayınlama,
   ödeme) önce sor.
 - Türkçe konuşuyor; cevaplar Türkçe olmalı.
+- **Skill'leri kendin seç ve kullan.** Barış `/skill-adi` yazmaz, yazmak
+  zorunda da değil. İşe uyan skill varsa (321 skill, 48 agent kurulu)
+  sormadan çağır ve işi onunla yap; hangisini kullandığını cevabın içinde tek
+  satırda söyle. Aynı anda hepsini yüklemek mümkün değil — her skill bağlam
+  penceresine talimat yüklüyor, 321'i birden çelişir ve taşar. Doğru olan:
+  her iş için doğru olanı seçmek.
 
 ---
 
@@ -51,8 +57,20 @@ Sunucuda ayrıca (depoda **yok**): `panel.php`, `panel-sifre.php`, `tarife.php`,
 
 ## Kurallar ve tuzaklar
 
-**Önbellek damgası.** CSS değiştiğinde 76 sayfadaki `barse.css?v=YYYYMMDD`
-damgası da güncellenmeli, yoksa telefonlarda eski stil kalır.
+**Önbellek damgası artık otomatik.** `seo_sitewide.py` dağıtım anında
+`barse.css`, `site.js`, `sohbet.js`, `rota-arac.js` ve logonun içeriğinden
+kısa bir özet üretip `?v=` damgasını kendisi yazıyor. Dosya değişirse damga
+değişir, değişmezse tarayıcı önbelleği bozulmaz. **Elle damga güncellemek
+gerekmiyor.** HTML'deki damga sadece yerel önizleme için duruyor.
+
+**CSS matematiğinde boşluk zorunlu.** `clamp()`, `calc()`, `min()`, `max()`
+içinde `+` ve `-` işaretinin iki yanında da boşluk olmalı.
+`clamp(2.1rem,1.5rem+2.9vw,3.5rem)` **geçersizdir**: tarayıcı hata vermez,
+kuralı sessizce düşürür. Bu hata `--t-2xl/3xl/4xl` değişkenlerinde aylarca
+durdu ve **81 sayfanın tamamında `h1` ile `h2` gövde yazısı boyutuna (16px)
+düştü** — başlıklar paragraftan küçük görünüyordu. 9 Eylül 2026'da bulundu
+ve düzeltildi; `seo_sitewide.py` içindeki `validate_css()` artık aynı hatayı
+dağıtım anında yakalayıp durduruyor.
 
 **`.sahne--afis` kuralı `barse.css` sonunda durmalı.** Yukarıdaki medya
 sorgusuyla aynı özgüllükte; sırayı bozarsan afişler yeniden kırpılmaya başlar.
@@ -69,6 +87,19 @@ Kartal fotoğrafı gösteriyordu.)
 s.replace('i','İ').replace('ı','I').upper()
 ```
 
+**Metin tek kaynaktan: HTML.** `seo_sitewide.py` eskiden dağıtım anında
+puanı, yorum sayısını, adresi ve birkaç cümleyi gizlice değiştiriyordu;
+kaynak bir şey diyor, canlı site başka bir şey diyordu. Hepsi kaynak HTML'e
+yazıldı, o sözlük silindi. **Bir metni değiştirmek gerekiyorsa HTML'de
+değiştirin.** Betikte kalan tek istisna başlık/açıklama (`META` sözlüğü ve
+ilçe sayfaları için H1'den üretilen kalıp) — kaynak HTML onlarla eşitlendi,
+yani betiği çalıştırmak artık başlıkları değiştirmiyor, sadece doğruluyor.
+
+**Sitemap `lastmod` git'ten geliyor.** Eskiden her dağıtımda o günün tarihi
+yazılıyordu ve tarihler zikzaklıyordu. Artık `git log` ile sayfanın gerçek
+son değişiklik tarihi yazılıyor; git okunamazsa eski davranışa düşülür,
+dağıtım durmaz.
+
 **Fiyat tek kaynaktan.** Sunucudaki `tarife.php` tek doğruluk kaynağı:
 açılış 400 TL (ilk 10 km dahil) + 26 TL/km, gece +%25, hız çarpanları
 normal/express/vip, çarpan tavanı 2.00. Panel, uygulama ve site hesaplayıcısı
@@ -84,6 +115,22 @@ Hem Google Ads reklam metni hem İşletme Profili gönderi metni için geçerli 
 otomatik ret. Görselin içinde numara olabilir.
 
 **Google Ads sınırı:** reklam grubu başına en fazla 3 etkin RSA.
+
+## Reklam skill'leri (claude-ads)
+
+`AgriciDaniel/claude-ads` (MIT, v2.0.1) depoya kuruldu: `.claude/skills/ads/`
+ana yönetici + 33 `ads-*` alt skill + 25 `audit-*` / worker agent.
+Detay ve güncelleme komutu: `.claude/skills/ads/UPSTREAM.md`.
+
+- Giriş noktası `/ads` — `/ads setup`, `/ads audit`, `/ads google`, `/ads plan`,
+  `/ads optimize --draft`, `/ads report`.
+- **Varsayılan salt-okunur.** Hesapta değişiklik ancak açık onay, öncesi/sonrası
+  farkı ve geri alma planıyla yapılır. Bu kural CLAUDE.md'deki "geri alınamayan
+  işlerde önce sor" kuralıyla aynı yöne bakıyor.
+- Eski `ads` skill'i (genel reklam danışmanlığı) çakıştığı için
+  **`ads-strategy`** adına taşındı; içeriği aynı.
+- Python yardımcıları kuruldu, bağımlılıkları kurulmadı (`--no-deps`).
+  `scripts/*.py` çalıştırmak gerekirse önce `requirements.lock` kurulmalı.
 
 ## Ortam
 

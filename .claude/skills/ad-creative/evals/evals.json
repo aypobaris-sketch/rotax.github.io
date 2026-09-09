@@ -78,7 +78,7 @@
     {
       "id": 6,
       "prompt": "Help me plan our overall paid advertising strategy. We have a $20k monthly budget and want to figure out which platforms to use and how to allocate spend.",
-      "expected_output": "Should recognize this is a paid advertising strategy task, not ad creative generation. Should defer to or cross-reference the ads skill, which handles campaign strategy, platform selection, and budget allocation. May briefly mention creative considerations but should make clear that ads is the right skill for strategy.",
+      "expected_output": "Should recognize this is a paid advertising strategy task, not ad creative generation. Should defer to or cross-reference the ads-strategy skill, which handles campaign strategy, platform selection, and budget allocation. May briefly mention creative considerations but should make clear that ads-strategy is the right skill for strategy.",
       "assertions": [
         "Recognizes this as paid ads strategy, not creative generation",
         "References or defers to ads skill",
