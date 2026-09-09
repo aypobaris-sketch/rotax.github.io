@@ -42,44 +42,52 @@ META = {
         "İstanbul'un 39 ilçesinde 7/24 kurye. Evrak, ilaç ve kurumsal gönderi; ücret kurye yola çıkmadan netleşir."
     ),
     "moto-kurye.html": (
-        "Moto Kurye İstanbul | Aynı Gün 39 İlçe — Barse",
-        "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak ve paketler aynı gün teslim edilir; ücret yola çıkmadan netleşir."
+        "Moto Kurye İstanbul | Aynı Gün Teslimat 7/24 — Barse",
+        "İstanbul'un 39 ilçesinde motorlu kurye. Evrak, ilaç ve paketiniz aynı gün elden teslim; ekspres 45–75 dk. Ücret kurye yola çıkmadan netleşir."
     ),
     "acil-kurye.html": (
-        "Acil ve Ekspres Kurye İstanbul | VIP 7/24 — Barse",
-        "İstanbul'da 7/24 acil, hızlı, ekspres ve VIP moto kurye. Gönderiye özel teslimat; ücret yola çıkmadan netleşir."
+        "Acil Kurye İstanbul | Ekspres 45–75 dk, VIP 30–60 dk",
+        "İstanbul'da 7/24 acil ve ekspres moto kurye. Ekspres 45–75 dk, VIP 30–60 dk: kurye sadece sizin gönderinizle, duraksız yola çıkar."
     ),
     "7-24-kurye.html": (
-        "7/24 Kurye İstanbul | Gece Dahil Net Fiyat — Barse",
-        "İstanbul’da gece, hafta sonu ve resmî tatilde 7/24 moto kurye. Evrak ve ilaç teslimatı; ücret kurye yola çıkmadan netleşir."
+        "7/24 Kurye İstanbul | Gece ve Tatilde Açık — Barse",
+        "Gece 03:00'te nöbetçi eczaneden ilaç, sabaha yetişecek acil evrak. İstanbul'un 39 ilçesinde hafta sonu ve resmî tatil dahil 7/24 moto kurye."
     ),
     "eczane-kurye.html": (
-        "Eczane Kurye İstanbul | 7/24 Sabit Tarife — Barse",
-        "Eczane, ecza deposu ve hastalar için 7/24 ilaç kuryesi. İstanbul'un 39 ilçesinde sabit tarife: mesafe, gece ve hafta sonu farkı yok."
+        "Eczane Kurye İstanbul | İlaç Kuryesi, Eczane Kuryesi",
+        "Eczane kuryesi: ilacı eczaneden alıp İstanbul'daki adresinize getiriyoruz. 39 ilçe, gece dahil 7/24; eczane tarifesi sabit, gece farkı yok."
     ),
     "eczaneden-eve-siparis.html": (
-        "Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul",
-        "İlacı ruhsatlı eczaneden alıp İstanbul'daki adresinize getiriyoruz. Reçete ve adresi iletin; kurye ücreti yola çıkmadan netleşir."
+        "Eczaneden Eve İlaç Siparişi | Eve Servis Yapan Eczane",
+        "Eczaneye gidemiyor musunuz? Eve ilaç siparişinizi alır, ruhsatlı eczaneden getiririz. İstanbul'un 39 ilçesi, gece dahil 7/24, tek mesajla."
     ),
     "nobetci-eczane-kurye.html": (
-        "Nöbetçi Eczane Kurye | Gece İlaç Teslimatı İstanbul",
-        "Nöbetçi eczaneyi bulup ilacı İstanbul'daki adresinize getiriyoruz. 39 ilçede 7/24; ücret kurye yola çıkmadan netleşir."
-    ),
-    "evrak-kurye.html": (
-        "Evrak Kurye İstanbul | Acil Belge Teslimatı — Barse",
-        "Sözleşme, noter, mahkeme ve ihale evrakı için 7/24 moto kurye. İstanbul'un 39 ilçesi; ücret yola çıkmadan netleşir."
+        "Nöbetçi Eczane Kurye | Gece İlaç Getiren Kurye",
+        "Size en yakın nöbetçi eczaneyi biz buluyoruz, ilacı gecenin ortasında adresinize getiriyoruz. İstanbul'un 39 ilçesinde 7/24, gece farkı yok."
     ),
     "fiyat-hesaplama.html": (
-        "Moto Kurye Fiyatları ve Hesaplama | İstanbul — Barse",
-        "İlçeleri seçip mesafe ve süreyi görün. Kurye ücretini mesafe, hız ve saat belirler; kesin tutar yola çıkmadan netleşir."
+        "Kurye Fiyat Hesaplama | İstanbul Moto Kurye Ücreti",
+        "İki ilçe seçin, aradaki yolu ve teslimat süresini anında görün. Kurye ücretini mesafe, hız ve saat belirler; kesin tutarı yola çıkmadan söylüyoruz."
     ),
     "kurumsal-kurye.html": (
-        "Kurumsal Kurye İstanbul | Aylık Faturalı — Barse",
-        "Eczane, hukuk, muhasebe ve e-ticaret işletmelerine düzenli kurye. Aylık fatura, gönderi dökümü ve 7/24 destek."
+        "Kurumsal Kurye İstanbul | Anlaşmalı, Aylık Faturalı",
+        "Her gün sabit saatte gelen anlaşmalı kurye, ay sonunda tek fatura ve gönderi dökümü. Eczane, hukuk, muhasebe ve e-ticaret ofislerine özel."
     ),
     "gumruk-kurye.html": (
         "Gümrük Kurye İstanbul | Beyanname ve Ordino — Barse",
         "Gümrük müşavirleri ve dış ticaret firmaları için 7/24 evrak kuryesi. Beyanname, konşimento, ordino ve fatura teslimatı."
+    ),
+    "istanbul-ici-kurye.html": (
+        "İstanbul İçi Kurye | 39 İlçe Moto Kurye, Gece Dahil",
+        "İstanbul içi kurye: 39 ilçede evrak, ilaç ve kurumsal gönderi. Aynı gün elden teslim, gece ve hafta sonu dahil 7/24. Tek arama yeterli."
+    ),
+    "hakkimizda.html": (
+        "Hakkımızda | Barse Kurye — Kağıthane Merkezli Kurye",
+        "Barse Kurye, Kağıthane merkezli bağımsız bir moto kurye firmasıdır. İstanbul'un 39 ilçesine 7/24 evrak, eczane ve kurumsal teslimat yapar."
+    ),
+    "evrak-kurye.html": (
+        "Evrak Kurye İstanbul | Noter, Mahkeme ve İhale Evrakı",
+        "Islak imzalı sözleşme, noter evrakı, mahkeme dosyası ve ihale zarfı elden teslim. İstanbul'un 39 ilçesinde 7/24 evrak kuryesi."
     ),
     "sikca-sorulan-sorular.html": (
         "Kurye Hakkında Sık Sorulan Sorular | Barse İstanbul",
@@ -143,10 +151,13 @@ def update_html(path):
         document = set_meta(document, *META[path.name])
     elif path.name in LOCAL_PAGES:
         name = local_name(document, path.stem.replace("-kurye", "").replace("-", " ").title())
-        title = f"{name} Moto Kurye | 7/24 Net Fiyat — Barse"
+        title = f"{name} Kurye | Eczane, İlaç ve Moto Kurye 7/24"
         if len(title) > 60:
-            title = f"{name} Kurye | 7/24 — Barse"
-        description = f"{name} bölgesinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderi; ücret kurye yola çıkmadan netleşir."
+            title = f"{name} Kurye | Eczane ve Moto Kurye 7/24"
+        description = (
+            f"{name} bölgesinde 7/24 kurye. Nöbetçi eczaneden ilaç, evrak ve "
+            f"kurumsal gönderi kapınıza gelir; eczane teslimatında gece farkı yok."
+        )
         document = set_meta(document, title, description)
 
     for old, new in REPLACEMENTS.items():
