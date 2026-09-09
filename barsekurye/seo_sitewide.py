@@ -38,8 +38,8 @@ LOCAL_PAGES = {
 
 META = {
     "index.html": (
-        "İstanbul Kurye | 7/24 Evrak, İlaç ve Moto Kurye — Barse",
-        "İstanbul'un 39 ilçesinde 7/24 kurye. Evrak, ilaç ve kurumsal gönderi; ücret kurye yola çıkmadan netleşir."
+        "İstanbul Kurye | Moto, Eczane ve Evrak Kurye 7/24",
+        "İstanbul'un 39 ilçesinde 7/24 moto kurye. Gece nöbetçi eczaneden ilaç, acil evrak ve kurumsal gönderi. Tek arama; ücret yola çıkmadan netleşir."
     ),
     "moto-kurye.html": (
         "Moto Kurye İstanbul | Aynı Gün Teslimat 7/24 — Barse",
