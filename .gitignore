@@ -41,6 +41,10 @@ node_modules/
 
 # Ozel hafiza: reklam hesabi kimlikleri, ciro, strateji. Depo public - girmez.
 BARSE-HAFIZA-OZEL.md
+BARSE-HAFIZA-OZEL.*.md
+# Devir notu da is verisi tasiyor (ciro, marj, kampanya kimlikleri) - girmez.
+BARSE-DEVIR.md
+BARSE-DURUM-*.txt
 
 # claude-ads Python ortami (yerel, depoya girmez)
 .claude/skills/ads/.venv/

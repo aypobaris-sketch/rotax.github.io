@@ -55,7 +55,7 @@ META = {
     ),
     "eczane-kurye.html": (
         "Eczane ve İlaç Kurye İstanbul | 7/24 — Barse",
-        "Eczane, ecza deposu ve hastalar için 7/24 ilaç kuryesi. İstanbul'un 39 ilçesi; ücret mesafe ve saate göre yola çıkmadan netleşir."
+        "Eczane, ecza deposu ve hastalar için 7/24 ilaç kuryesi. İstanbul'un 39 ilçesinde sabit tarife: mesafe, gece ve hafta sonu farkı yok."
     ),
     "eczaneden-eve-siparis.html": (
         "Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul",
@@ -88,36 +88,11 @@ META = {
 }
 
 REPLACEMENTS = {
-    "Sabit tarife — mesafe, gece ve hafta sonu farkı yok.": "Ücret mesafe ve saate göre kurye yola çıkmadan netleşir.",
-    "Sabit tarife; mesafe, saat ve hafta sonu farkı uygulanmaz.": "Ücret mesafe ve saate göre kurye yola çıkmadan netleşir.",
-    "Sabit tarife uygulanır. Mesafe, saat ve hafta sonu farkı uygulanmaz.": "Ücret mesafe ve saate göre kurye yola çıkmadan netleşir.",
-    "Eczane gönderilerinde gece ve hafta sonu farkı uygulanmıyor.": "Eczane gönderilerinde ücret mesafe ve saate göre kurye yola çıkmadan netleşir.",
-    "Eczane teslimatlarında mesafeden bağımsız sabit tarife uyguluyoruz.": "Eczane teslimatlarında ücret mesafe ve saate göre kurye yola çıkmadan netleşir.",
-    "Eczane gönderileri bunun dışındadır: eczane tarifesine gece farkı eklenmez.": "Eczane gönderilerinde de ücret mesafe ve saate göre kurye yola çıkmadan netleşir.",
-    "Eczane gönderilerinde hafta sonu farkı da uygulanmaz.": "Eczane gönderilerinde de ücret kurye yola çıkmadan netleşir.",
-    "Eczane kurye sabit tarife'dir; gece ve hafta sonu farkı uygulanmaz.": "Eczane kurye ücreti mesafe ve saate göre yola çıkmadan netleşir.",
-    "Eczane gönderilerinde bu fark uygulanmıyor.": "Eczane gönderilerinde de ücret mesafe ve saate göre yola çıkmadan netleşir.",
-    "Hafta sonu ve resmî tatillerde de aynı — eczane gönderilerinde ek ücret yok.": "Hafta sonu ve resmî tatillerde de ücret kurye yola çıkmadan netleşir.",
-    "Gece 3'te de, öğlen 3'te de aynı fiyat.": "Gece ve gündüz ücreti mesafe ve saate göre değişebilir.",
-    "gece farkı almadan.": "ücreti yola çıkmadan netleştirerek.",
-    "Kuyruk yok, arama yok, gece farkı yok.": "Kurye ücreti yola çıkmadan netleşir.",
-    "Eczane siparişlerinde <b>sabit tarife</b> uyguluyoruz: gece, hafta sonu ya da nöbetçi eczane farkı yok. Gece iki buçukta arayan biriyle öğlen arayan biri aynı ücreti ödüyor.": "Eczane siparişlerinde ücret mesafe ve saate göre belirlenir. Kesin tutarı kurye yola çıkmadan söylüyoruz; kapıda sürpriz çıkmıyor.",
-    "ve eczane teslimatlarında gece farkı uygulamıyoruz.": "ve ücreti kurye yola çıkmadan netleştiriyoruz.",
-    "ücret yine sabit kalıyor.": "ücret yola çıkmadan netleşiyor.",
-    "eczane teslimatlarında sabit tarife uyguluyoruz — gece ve hafta sonu farkı yok.": "eczane teslimatlarında ücreti mesafe ve saate göre kurye yola çıkmadan netleştiriyoruz.",
-    "Acil ilaç, reçete ve depo arası transfer. Nöbet gecelerinde de ulaşılabilir kurye, sabit tarife.": "Acil ilaç, reçete ve depo arası transfer. Nöbet gecelerinde de ulaşılabilir kurye; ücret yola çıkmadan netleşir.",
-    "eczane kurye taleplerini sabit tarifeyle, öncelikli sipariş": "eczane kurye taleplerini ücreti yola çıkmadan netleştirerek, öncelikli sipariş",
-    "aynı sabit tarife geçerli.": "ücret yola çıkmadan netleşir.",
-    "İstanbul içi, 7/24, sabit tarife.": "İstanbul içi, 7/24; ücret yola çıkmadan netleşir.",
-    "İstanbul'un 39 ilçesinde 7/24, sabit tarifeyle.": "İstanbul'un 39 ilçesinde 7/24; ücret yola çıkmadan netleşir.",
-    "<h2>Neden sabit tarife?</h2>": "<h2>Eczane kurye ücreti nasıl belirlenir?</h2>",
-    "öncelikli teslimat, sabit tarife.": "öncelikli teslimat; ücret yola çıkmadan netleşir.",
     "4,4 ortalama": "4,5 ortalama",
     ">4,4</a>": ">4,5</a>",
     "27 Google yorumu": "31 Google yorumu",
     "30 yorum": "31 yorum",
     "content=\"Eczaneden Eve İlaç Siparişi | İstanbul, 7/24 Kurye\">>": "content=\"Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul\">",
-    "English-speaking, all 39 districts, flat pharmacy rate.": "English-speaking service across all 39 districts; the courier price is confirmed before departure.",
     "Pharmacy deliveries use a flat rate with no night or weekend surcharge.": "The courier price depends on distance and time and is confirmed before departure.",
     "Pharmacy deliveries use a <b>flat rate</b> — no distance, night or weekend surcharge. We tell you the amount before the courier leaves.": "The courier fee depends on distance and time. We confirm the exact amount before departure, so there is no surprise at the door.",
     "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderiler; Türkiye geneline havayolu ve şehirlerarası taşıma.": "Moto kurye İstanbul'un 39 ilçesinde 7/24; havayolu ve şehirlerarası gönderiler ayrı planlanır.",
@@ -177,11 +152,12 @@ def update_html(path):
     for old, new in REPLACEMENTS.items():
         document = document.replace(old, new)
 
-    document = re.sub(r"(?i)sabit tarife", "önceden netleşen tarife", document)
-    document = re.sub(r"(?i)gece farkı yok", "ücret yola çıkmadan netleşir", document)
-    document = re.sub(r"(?i)gece farkı uygulanmıyor", "ücret yola çıkmadan netleşiyor", document)
-    document = re.sub(r"(?i)hafta sonu farkı uygulanmıyor", "ücret yola çıkmadan netleşiyor", document)
-    document = re.sub(r"(?i)mesafeden bağımsız önceden netleşen tarife", "mesafe ve saate göre yola çıkmadan netleşen tarife", document)
+    # 9 Eylul 2026 - FIYAT VAADINI SILEN DONUSUMLER KALDIRILDI.
+    # Buradaki regex'ler "sabit tarife" / "gece farki yok" ifadelerini
+    # dagitim aninda siliyordu. Eczane tarifesi tarife.php'de GERCEKTEN
+    # sabit (T_ECZANE, mesafe/hiz/boyut/zam uygulanmaz) ve bu, rakibe
+    # karsi tek gercek ayrisma noktasi. Reklam metni de "Sabit Tarife,
+    # Mesafe Yok" diyor; sayfa tersini soyleyince ikisi celisiyordu.
 
     document = document.replace(ADDRESS_OLD, ADDRESS_NEW)
     document = document.replace('href="index.html"', 'href="/"')
@@ -275,14 +251,22 @@ def validate_stage():
         for payload in re.findall(r'<script[^>]+type="application/ld\+json"[^>]*>(.*?)</script>', document, flags=re.I | re.S):
             json.loads(payload)
 
-        stale_claims = (
-            "sabit tarife", "gece farkı yok", "gece farkı uygulanmıyor",
-            "hafta sonu farkı uygulanmıyor", "flat rate"
-        )
+        # 9 Eylul 2026 - BEKCI TERS CEVRILDI.
+        # Eskiden "sabit tarife" bir "eskimis iddia" sayilip dagitim
+        # patlatiliyordu. Yanlis olan o degil, tersi: eczane sayfalarinda
+        # "mesafe ve saate gore" demek tarife.php ile CELISIYOR
+        # (eczanede mesafe/saat carpani hic uygulanmaz).
+        eczane_sayfalari = {
+            "eczane-kurye.html", "eczaneden-eve-siparis.html",
+            "nobetci-eczane-kurye.html",
+        }
         lowered = clean_text(document).lower()
-        for claim in stale_claims:
-            if claim in lowered:
-                raise ValueError(f"{path.name}: stale pricing claim remains: {claim}")
+        if path.name in eczane_sayfalari:
+            for claim in ("mesafe ve saate", "mesafeye göre değişir"):
+                if claim in lowered:
+                    raise ValueError(
+                        f"{path.name}: eczane sayfasinda yanlis fiyat iddiasi: {claim}"
+                    )
 
     sitemap_path = STAGE / "sitemap.xml"
     root = ElementTree.parse(sitemap_path).getroot()
