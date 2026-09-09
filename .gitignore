@@ -50,3 +50,9 @@ BARSE-DURUM-*.txt
 # claude-ads Python ortami (yerel, depoya girmez)
 .claude/skills/ads/.venv/
 .claude/skills/ads/managed-runtime-receipt.json
+
+# Devir notlari — is verisi, ciro ve kampanya kimlikleri tasir.
+# Depo public; bu dosyalar asla girmez.
+BARSE-DEVIR*.html
+BARSEDEVIR*.html
+BARSE-HAFIZA-OZEL.md
