@@ -54,7 +54,7 @@ META = {
         "İstanbul’da gece, hafta sonu ve resmî tatilde 7/24 moto kurye. Evrak ve ilaç teslimatı; ücret kurye yola çıkmadan netleşir."
     ),
     "eczane-kurye.html": (
-        "Eczane ve İlaç Kurye İstanbul | 7/24 — Barse",
+        "Eczane Kurye İstanbul | 7/24 Sabit Tarife — Barse",
         "Eczane, ecza deposu ve hastalar için 7/24 ilaç kuryesi. İstanbul'un 39 ilçesinde sabit tarife: mesafe, gece ve hafta sonu farkı yok."
     ),
     "eczaneden-eve-siparis.html": (
