@@ -1,10 +1,12 @@
 from pathlib import Path
+import hashlib
 from datetime import date
 from xml.etree import ElementTree
 import html
 import json
 import re
 import shutil
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parent
@@ -95,23 +97,36 @@ META = {
     )
 }
 
-REPLACEMENTS = {
-    "4,4 ortalama": "4,5 ortalama",
-    ">4,4</a>": ">4,5</a>",
-    "27 Google yorumu": "31 Google yorumu",
-    "30 yorum": "31 yorum",
-    "content=\"Eczaneden Eve İlaç Siparişi | İstanbul, 7/24 Kurye\">>": "content=\"Eczaneden Eve İlaç Teslimatı | 7/24 İstanbul\">",
-    "Pharmacy deliveries use a flat rate with no night or weekend surcharge.": "The courier price depends on distance and time and is confirmed before departure.",
-    "Pharmacy deliveries use a <b>flat rate</b> — no distance, night or weekend surcharge. We tell you the amount before the courier leaves.": "The courier fee depends on distance and time. We confirm the exact amount before departure, so there is no surprise at the door.",
-    "İstanbul'un 39 ilçesinde 7/24 moto kurye. Evrak, ilaç ve kurumsal gönderiler; Türkiye geneline havayolu ve şehirlerarası taşıma.": "Moto kurye İstanbul'un 39 ilçesinde 7/24; havayolu ve şehirlerarası gönderiler ayrı planlanır.",
-    "Türkiye geneline uçak kargo ile gönderi ve gümrük evrak taşıma.": "İstanbul dışı havayolu ve şehirlerarası gönderiler ayrı planlanır; gümrük evrak taşıması yapılır.",
-    "Evet. Türkiye geneline havayolu kargo ve şehirlerarası taşıma yapıyoruz; ayrıca gümrük evrak taşıma hizmetimiz var. Bu gönderiler için telefonla fiyat veriyoruz.": "Moto kurye hizmetimiz İstanbul içidir. İstanbul dışı havayolu ve şehirlerarası gönderiler ayrı planlanır; gümrük evrak taşıması için ücreti önceden bildiriyoruz.",
-    "لتوصيل الأدوية نطبّق <b>تعرفة ثابتة</b> — دون فرق للمسافة أو الليل أو عطلة نهاية الأسبوع. نُعلمك بالمبلغ قبل انطلاق الكوريير.": "يعتمد سعر الكوريير على المسافة والوقت، ونُعلمك بالمبلغ قبل انطلاقه.",
-    "لتوصيل الأدوية نطبّق تعرفة ثابتة دون فرق ليلي أو فرق لعطلة نهاية الأسبوع.": "يعتمد سعر الكوريير على المسافة والوقت، ونُعلمك بالمبلغ قبل انطلاقه."
+# ── Dağıtım anında metin değiştirme YOK ──────────────────────────────────
+# 9 Eylül 2026'ya kadar burada bir REPLACEMENTS sözlüğü vardı: puan, yorum
+# sayısı, adres ve birkaç cümle yalnızca dağıtım anında düzeltiliyordu.
+# Sonuç: HTML bir şey diyor, canlı site başka bir şey diyordu; kaynağı
+# düzenleyen kişi neyin yayına gittiğini göremiyordu. Hepsi kaynak HTML'e
+# yazıldı. Bir metni değiştirmek gerekiyorsa HTML'de değiştirin.
+#
+# Başlık ve açıklamalar bilerek burada kalıyor (META / LOCAL_PAGES): tek
+# yerden yönetilmeleri isteniyor. Kaynak HTML onlarla eşitlenmiş durumda,
+# yani betiği çalıştırmak artık başlıkları değiştirmiyor - sadece doğruluyor.
+
+# ── Önbellek damgası: içerikten üretilir ─────────────────────────────────
+# Eskiden CSS her değiştiğinde 76 sayfadaki "?v=YYYYMMDD" elle güncellenmek
+# zorundaydı; unutulunca telefonlarda eski stil kalıyordu. Artık damga
+# dosyanın kendi özetinden yazılıyor: dosya değişirse damga değişir,
+# değişmezse tarayıcı önbelleği bozulmadan kalır. Elle iş kalmadı.
+STAMPED_ASSETS = (
+    "assets/barse.css", "assets/site.js", "assets/sohbet.js",
+    "assets/rota-arac.js", "assets/barse-logo.png",
+)
+ASSET_STAMPS = {
+    yol: hashlib.sha1((ROOT / yol).read_bytes()).hexdigest()[:10]
+    for yol in STAMPED_ASSETS if (ROOT / yol).exists()
 }
 
-ADDRESS_OLD = '"address": {"@type": "PostalAddress", "addressLocality": "Kağıthane", "addressRegion": "İstanbul", "addressCountry": "TR"}'
-ADDRESS_NEW = '"address": {"@type": "PostalAddress", "streetAddress": "Talatpaşa Mahallesi, Aydoğan Caddesi No:28 D:3", "addressLocality": "Kağıthane", "addressRegion": "İstanbul", "postalCode": "34333", "addressCountry": "TR"}'
+
+def stamp_assets(document):
+    for yol, imza in ASSET_STAMPS.items():
+        document = re.sub(rf"({re.escape(yol)})\?v=[^\"'\s>]*", rf"\1?v={imza}", document)
+    return document
 
 
 def clean_text(value):
@@ -143,6 +158,32 @@ def set_robots(document, value):
     return document.replace("</title>", f"</title>\n{tag}", 1)
 
 
+# ── CSS matematik denetimi ───────────────────────────────────────────────
+# clamp() / calc() / min() / max() icinde "+" ve "-" isaretinin IKI YANINDA
+# da bosluk olmak zorunda. "clamp(2.1rem,1.5rem+2.9vw,3.5rem)" gecersizdir:
+# tarayici hata vermez, kurali sessizce duserir. Bu yuzden barse.css'te
+# --t-2xl/3xl/4xl aylarca gecersiz kaldi ve 81 sayfanin TAMAMINDA h1 ile h2
+# govde yazisi boyutuna (16 piksel) dustu. Gozle fark edilmesi zor, bedeli
+# buyuk. Ayni hata bir daha yayina cikmasin diye dagitim burada duruyor.
+CSS_MATH = re.compile(r"(?:clamp|calc|min|max)\([^)]*[0-9a-zA-Z%)][+\-][0-9.]")
+
+
+def validate_css():
+    errors = []
+    sheets = sorted((ROOT / "assets").glob("*.css"))
+    for sheet in sheets:
+        for line_no, line in enumerate(sheet.read_text(encoding="utf-8").splitlines(), 1):
+            if CSS_MATH.search(line):
+                errors.append(
+                    f"{sheet.name}:{line_no}: clamp/calc icinde bosluksuz +/- "
+                    f"- tarayici bu kurali sessizce duserir"
+                )
+    if errors:
+        raise ValueError("CSS matematik hatasi:\n  " + "\n  ".join(errors))
+    print(f"CSS validation passed: {len(sheets)} stylesheet(s)")
+
+
+
 def update_html(path):
     original = path.read_text(encoding="utf-8")
     document = original
@@ -160,9 +201,6 @@ def update_html(path):
         )
         document = set_meta(document, title, description)
 
-    for old, new in REPLACEMENTS.items():
-        document = document.replace(old, new)
-
     # 9 Eylul 2026 - FIYAT VAADINI SILEN DONUSUMLER KALDIRILDI.
     # Buradaki regex'ler "sabit tarife" / "gece farki yok" ifadelerini
     # dagitim aninda siliyordu. Eczane tarifesi tarife.php'de GERCEKTEN
@@ -170,9 +208,18 @@ def update_html(path):
     # karsi tek gercek ayrisma noktasi. Reklam metni de "Sabit Tarife,
     # Mesafe Yok" diyor; sayfa tersini soyleyince ikisi celisiyordu.
 
-    document = document.replace(ADDRESS_OLD, ADDRESS_NEW)
+    # Icerik degisikligi burada bitiyor. Asagidaki iki islem bicimsel:
+    # kok baglanti duzeltmesi her sayfada, onbellek damgasi CSS/JS her
+    # degistiginde tetiklenir. Ikisi de "sayfa degisti" sayilirsa sitemap'teki
+    # lastmod tarihleri her dagitimda topluca bugune ceker; Google surekli
+    # degisen lastmod'a guvenmeyi birakir.
+    content_changed = document != original
+
+    # Kok baglanti: kaynakta "index.html" duruyor ki dosyalar yerelde de
+    # gezilebilsin; yayinda tek kanonik adres "/" olmali.
     document = document.replace('href="index.html"', 'href="/"')
     document = document.replace("href='index.html'", "href='/'")
+    document = stamp_assets(document)
 
     if path.name in {"404.html", "gizlilik-politikasi.html", "kvkk.html"}:
         document = set_robots(document, "noindex, follow")
@@ -186,7 +233,38 @@ def update_html(path):
         raise ValueError(f"{path.name}: malformed head tag")
 
     (STAGE / path.name).write_text(document, encoding="utf-8")
-    return document != original
+    return content_changed
+
+
+def git_last_modified():
+    """Her sayfanin son gercek degisiklik tarihi (git gecmisinden).
+
+    Onceki hali her dagitimda o gunku tarihi yaziyordu: bir sayfa
+    degistiginde digerlerinin lastmod'u depodaki eski degere geri donuyor,
+    ertesi gun baska bir sayfa bugune ceviriliyordu. Boyle zikzaklayan bir
+    lastmod Google icin gurultudur ve dikkate alinmayi birakir. Git ne
+    zaman gercekten degistigini biliyor; kaynagi o olsun. Git okunamazsa
+    bos sozluk doner ve eski davranisa (yalnizca bu kosuda degisenler
+    bugune cekilir) duselir - dagitim asla bu yuzden durmaz."""
+    try:
+        proc = subprocess.run(
+            ["git", "log", "--name-only", "--format=%x00%cs", "--", "."],
+            cwd=str(ROOT), capture_output=True, text=True, timeout=90, check=True,
+        )
+    except Exception:
+        return {}
+    dates = {}
+    for chunk in proc.stdout.split("\x00"):
+        lines = [line.strip() for line in chunk.splitlines() if line.strip()]
+        if len(lines) < 2:
+            continue
+        day = lines[0]
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", day):
+            continue
+        for repo_path in lines[1:]:
+            # git log yeniden eskiye gider; ilk gorulen tarih en yenisidir.
+            dates.setdefault(repo_path.rsplit("/", 1)[-1], day)
+    return dates
 
 
 def update_sitemap(changed_html):
@@ -199,10 +277,17 @@ def update_sitemap(changed_html):
         flags=re.S,
     )
     today = date.today().isoformat()
-    for filename in changed_html:
+    git_dates = git_last_modified()
+    pages = {path.name for path in ROOT.glob("*.html")} | set(changed_html)
+    for filename in sorted(pages):
+        day = git_dates.get(filename)
+        if day is None:
+            day = today if filename in changed_html else None
+        if day is None:
+            continue
         location = "https://barsekurye.com/" if filename == "index.html" else f"https://barsekurye.com/{filename}"
         pattern = rf"(<loc>{re.escape(location)}</loc>\s*<lastmod>)[^<]+(</lastmod>)"
-        document = re.sub(pattern, rf"\g<1>{today}\g<2>", document, count=1)
+        document = re.sub(pattern, rf"\g<1>{day}\g<2>", document, count=1)
     (STAGE / path.name).write_text(document, encoding="utf-8")
     return document != original
 
@@ -259,8 +344,23 @@ def validate_stage():
         if len(description) < 80 or len(description) > 165:
             warnings.append(f"{path.name}: description {len(description)} chars")
 
+        breadcrumb = None
         for payload in re.findall(r'<script[^>]+type="application/ld\+json"[^>]*>(.*?)</script>', document, flags=re.I | re.S):
-            json.loads(payload)
+            data = json.loads(payload)
+            for node in (data.get("@graph") or [data]) if isinstance(data, dict) else []:
+                if isinstance(node, dict) and node.get("@type") == "BreadcrumbList":
+                    breadcrumb = [item["name"] for item in node["itemListElement"]]
+
+        # Google, isaretlenen yolun sayfada GORUNEN yolla ayni olmasini istiyor.
+        # Semt sayfalarinda gorunur yol dort basamakti, semada uc basamak vardi.
+        crumb = re.search(r'<nav class="crumb[^"]*"[^>]*>(.*?)</nav>', document, flags=re.S)
+        if crumb and breadcrumb is not None:
+            visible = [clean_text(item) for item in re.findall(r"<li>(.*?)</li>", crumb.group(1), flags=re.S)]
+            if visible != breadcrumb:
+                raise ValueError(
+                    f"{path.name}: BreadcrumbList gorunur yolla ayni degil "
+                    f"(gorunur={visible}, sema={breadcrumb})"
+                )
 
         # 9 Eylul 2026 - BEKCI TERS CEVRILDI.
         # Eskiden "sabit tarife" bir "eskimis iddia" sayilip dagitim
@@ -295,6 +395,8 @@ def validate_stage():
     for warning in warnings:
         print(f"WARNING: {warning}")
 
+
+validate_css()
 
 changed = []
 for html_file in sorted(ROOT.glob("*.html")):

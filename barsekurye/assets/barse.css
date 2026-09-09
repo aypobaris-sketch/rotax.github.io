@@ -37,9 +37,9 @@
   --f-body:'Source Sans 3',system-ui,-apple-system,'Segoe UI',sans-serif;
 
   --t-xs:.75rem; --t-sm:.875rem; --t-md:1rem; --t-lg:1.125rem; --t-xl:1.3rem;
-  --t-2xl:clamp(1.4rem,1.2rem+.9vw,1.75rem);
-  --t-3xl:clamp(1.7rem,1.35rem+1.7vw,2.4rem);
-  --t-4xl:clamp(2.1rem,1.5rem+2.9vw,3.5rem);
+  --t-2xl:clamp(1.4rem, 1.2rem + .9vw, 1.75rem);
+  --t-3xl:clamp(1.7rem, 1.35rem + 1.7vw, 2.4rem);
+  --t-4xl:clamp(2.1rem, 1.5rem + 2.9vw, 3.5rem);
 
   /* Ölçü */
   --s1:4px;  --s2:8px;  --s3:12px; --s4:16px; --s5:24px;
@@ -262,7 +262,7 @@ strong,b{color:var(--fg);font-weight:600}
 .strip>div{flex:1 1 45%}
 @media(min-width:900px){.strip>div{flex:1 1 0}}
 .strip div{background:var(--white);padding:var(--s5) var(--s4);text-align:center}
-.strip b{display:block;font-family:var(--f-head);font-size:clamp(1.7rem,1.3rem+1.4vw,2.3rem);font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.strip b{display:block;font-family:var(--f-head);font-size:clamp(1.7rem, 1.3rem + 1.4vw, 2.3rem);font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
 .strip span{font-size:var(--t-sm);color:var(--muted)}
 
 /* ── 8. KARTLAR ──────────────────────────────────────────────────────────── */
@@ -334,7 +334,7 @@ strong,b{color:var(--fg);font-weight:600}
 .zam-bilgi{margin-top:var(--s4);padding:13px 15px;background:var(--amber-tint);border:1px solid #FFD9B8;border-radius:var(--r-sm);font-size:var(--t-sm);color:var(--amber-text);line-height:1.6}
 .hesap-sonuc{margin-top:var(--s5);padding-top:var(--s5);border-top:2px solid var(--line)}
 .sonuc-mesafe{font-family:var(--f-head);font-size:var(--t-sm);font-weight:700;color:var(--blue);margin-bottom:6px}
-.sonuc-fiyat{font-family:var(--f-head);font-size:clamp(2.6rem,2rem+2.4vw,3.6rem);font-weight:800;line-height:1;color:var(--fg);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.sonuc-fiyat{font-family:var(--f-head);font-size:clamp(2.6rem, 2rem + 2.4vw, 3.6rem);font-weight:800;line-height:1;color:var(--fg);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .sonuc-kiyas{margin-top:var(--s3);font-size:var(--t-sm);color:var(--muted);line-height:1.6}
 .sonuc-not{color:var(--muted);font-size:var(--t-xs);margin-top:var(--s3);max-width:46ch}
 .hesap-sifirla{margin-top:var(--s4);background:none;border:0;color:var(--muted);font-family:inherit;font-size:var(--t-sm);cursor:pointer;text-decoration:underline;padding:8px 0;min-height:44px}
@@ -422,28 +422,7 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 @media(min-width:768px){.callbar{display:none}}
 @media(max-width:767px){body{padding-bottom:78px}}
 
-.wafloat{
-  position:fixed;right:16px;bottom:92px;z-index:89;
-  width:56px;height:56px;border-radius:50%;
-  display:grid;place-items:center;background:#25D366;color:#fff;
-  box-shadow:0 8px 26px rgba(37,211,102,.45);transition:transform var(--d2) var(--ease);
-}
-.wafloat svg{width:29px;height:29px}
-.wafloat:hover{transform:scale(1.07);color:#fff}
-@media(min-width:768px){.wafloat{bottom:24px}}
-
-/* ── 16. ÇEREZ ───────────────────────────────────────────────────────────── */
-.cookie{
-  position:fixed;left:12px;right:12px;bottom:88px;z-index:120;
-  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
-  box-shadow:var(--sh-3);padding:var(--s4) var(--s5);
-  display:none;gap:var(--s4);align-items:center;flex-wrap:wrap;font-size:var(--t-sm);
-}
-.cookie.show{display:flex}
-.cookie p{flex:1 1 260px;color:var(--body)}
-.cookie .btns{gap:var(--s2)}
-.cookie .btn{min-height:42px;padding-inline:var(--s4);font-size:var(--t-sm);box-shadow:none}
-@media(min-width:768px){.cookie{left:auto;right:20px;bottom:20px;max-width:520px}}
+/* ── 16. ÇEREZ: kurallar dosyanın sonunda, .cerez-kutu altında. ─────────── */
 
 
 /* ── 18. GÖRSELLER ───────────────────────────────────────────────────────── */
@@ -474,7 +453,7 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 
 @media print{
   .js .rv{opacity:1 !important;transform:none !important}
-  .hdr,.callbar,.wafloat,.cookie,.mnav,.cta,.hero canvas{display:none !important}
+  .hdr,.callbar,.cerez-kutu,.bw,.mnav,.cta,.hero canvas{display:none !important}
   body{padding-bottom:0;color:#000;background:#fff}
   .hero,.dark,.ftr{background:#fff !important;color:#000 !important}
   .hero h1,.dark h2{color:#000 !important}
@@ -523,7 +502,6 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 /* Cerez seridi ekrandayken WhatsApp balonu ve yuvarlagi cakismasin.
    :has() desteklemeyen eski tarayicida eski davranis sürer, bozulmaz. */
 body:has(.cerez-kutu:not([hidden])) .bw-balon{display:none !important;}
-body:has(.cerez-kutu:not([hidden])) .wafloat,
 body:has(.cerez-kutu:not([hidden])) .bw-btn{bottom:150px;}
 
 
@@ -558,17 +536,22 @@ body:has(.cerez-kutu:not([hidden])) .bw-btn{bottom:150px;}
 .guven-canli i{width:7px;height:7px;border-radius:50%;background:#12A150;
   box-shadow:0 0 0 3px rgba(18,161,80,.18);animation:guvenNabiz 2.4s ease-in-out infinite}
 .guven-not{color:var(--muted);font-weight:500}
+/* Google puani ve yorum sayisi: dar ekranda da kalir, tek gercek sosyal kanit. */
+.guven-yorum{color:var(--muted);font-weight:500}
+.guven-dil{display:flex;align-items:center;gap:6px;letter-spacing:.04em;font-weight:600;color:var(--muted)}
+.guven-dil b{color:var(--ink)}
+.guven-dil a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
+.guven-dil a:hover{color:var(--blue);border-bottom-color:var(--blue)}
 @keyframes guvenNabiz{0%,100%{opacity:1}50%{opacity:.45}}
 @media (prefers-reduced-motion:reduce){.guven-canli i{animation:none}}
-@media (max-width:400px){.guven-not{display:none}}
+/* 400px altinda yalnizca ikincil bilgi ("39 ilce") duser. */
+@media (max-width:400px){.guven-genis{display:none}}
 
 
-/* ── YÜZEN WHATSAPP: TEK OLSUN ───────────────────────────────────────────
-   Sayfada iki ayrı yüzen WhatsApp düğmesi vardı ve üst üste biniyorlardı:
-   .wafloat (eski, sabit) ve .bw-btn (sohbet.js'in yanıp sönen düğmesi,
-   "Merhaba nasıl yardımcı olabiliriz" balonu ona bağlı).
-   Balonlu olanı tutuyoruz, eskisini kaldırıyoruz. */
-.wafloat{display:none !important;}
+/* ── YÜZEN WHATSAPP ──────────────────────────────────────────────────────
+   Tek yüzen düğme var: sohbet.js'in ürettiği .bw-btn (karşılama balonu ona
+   bağlı). Eskiden HTML'de ikinci bir .wafloat düğmesi daha vardı ve CSS ile
+   gizleniyordu; 9 Eylül 2026'da hem işaretlemesi hem kuralı silindi. */
 
 /* Yüzen düğmeyi ve karşılama balonunu taşıyan kap .bw; konum onun
    üzerinde. Mobilde alt çağrı çubuğunun (65px) üstünde durmalı, yoksa
