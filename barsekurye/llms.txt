@@ -48,6 +48,7 @@
 - Eczaneler için kurye (B2B: ecza deposu transferi, meslektaş takası,
   nöbet geceleri, aylık faturalı): https://barsekurye.com/eczaneler-icin-kurye.html
 - Evrak kurye: https://barsekurye.com/evrak-kurye.html
+- Havalimanı ve otogar kurye: https://barsekurye.com/havalimani-otogar-kurye.html
 - Kurumsal kurye: https://barsekurye.com/kurumsal-kurye.html
 - Gümrük kurye: https://barsekurye.com/gumruk-kurye.html
 - 7/24 kurye: https://barsekurye.com/7-24-kurye.html

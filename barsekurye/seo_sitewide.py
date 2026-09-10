@@ -95,6 +95,10 @@ META = {
         "Evrak Kurye İstanbul | Noter, Mahkeme ve İhale Evrakı",
         "Islak imzalı sözleşme, noter evrakı, mahkeme dosyası ve ihale zarfı elden teslim. İstanbul'un 39 ilçesinde 7/24 evrak kuryesi."
     ),
+    "havalimani-otogar-kurye.html": (
+        "Havalimanı ve Otogar Kurye | Aynı Gün Yetiştirme",
+        "Havalimanına, otogara veya terminale yetişmesi gereken evrak ve paket. İstanbul'un 39 ilçesinden alım, 7/24 moto kurye."
+    ),
     "sikca-sorulan-sorular.html": (
         "Kurye Hakkında Sık Sorulan Sorular | Barse İstanbul",
         "Moto kurye süresi, ücret, gece teslimatı, eczane ve kurumsal çalışma hakkında kısa cevaplar. İstanbul'un 39 ilçesinde 7/24."
